@@ -1,0 +1,26 @@
+# Node.js
+frontend/node_modules/
+npm-debug.log
+yarn-error.log
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Compiled source
+frontend/dist/
+
+# Yarn Integrity file
+.yarn-integrity
+
+# Vite
+.vite/
+
+#tmp executable
+tmp
+
+#air file
+.air.toml
