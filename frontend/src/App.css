@@ -40,3 +40,42 @@
 .read-the-docs {
   color: #888;
 }
+
+.left-side-menu{
+  height: 100%;
+  background-color: #111;
+  position: fixed;
+  width: 15%;
+  z-index: 3;
+  padding-top: 5%;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  transition: 0.5s;
+}
+
+.top-menu{
+  width: 100%;
+  background-color: #111;
+  position: fixed;
+  height: 5%;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  transition: 0.5s;
+}
+
+.dropdown-label{
+  cursor: pointer;
+}
+
+.pathfinding-logo-square{
+  width: 100px; /* Width of the square */
+  height: 100px; /* Height of the square */
+  background-color: #007bff; /* Background color */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for a 3D effect */
+  color: white; /* Text color */
+  transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth animation */
+}

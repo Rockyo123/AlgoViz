@@ -1,5 +1,16 @@
 import { useState, useEffect } from "react";
 import "./App.css"; 
+import LeftSideNav from "./react/components/menus/LeftSideNav";
+import TopMenu from "./react/components/menus/TopMenu";
+import SortingAlgorithmsPage from './react/pages/sorting/SortingAlgorithmsPage'
+import HomePage from "./react/pages/Home";
+import {
+  Routes,
+  Route,
+  Outlet,
+  BrowserRouter,
+} from "react-router-dom";
+
 
 function App() {
   const [data, setData] = useState("");
@@ -17,11 +28,28 @@ function App() {
 
 
   return (
+    <BrowserRouter>
     <div className="App">
-      <h1>{data}</h1>
-      <p>Working</p>
-    </div>
+
+     <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<SortingAlgorithmsPage />} />
+        <Route path="sorting" element={<SortingAlgorithmsPage />} />
+      </Route>
+    </Routes>
+   </div>
+   </BrowserRouter>
   );
+
+  function Layout() {
+    return (
+      <div>
+        <TopMenu />
+        <LeftSideNav />
+        <Outlet />
+      </div>
+    )
+  }
 
 }
 
