@@ -1,0 +1,31 @@
+.sidebar{
+  position: absolute;
+  top: 60px;
+  left: 0;
+  height: calc(100vh - 60px);
+  width: 80px;
+  background-color: #131314;
+  padding: 0.4rem 0.8rem; 
+  transition: all 0.5s ease;
+  z-index: 1;
+
+  &.active{
+    width: 250px;
+  }
+  &.active ~ content{
+    left: 250px;
+    width: calc(100% - 250px);
+  }
+}
+
+.top-menu{
+  width: 100vw;
+  background-color: #131314;
+  position: absolute;
+  height: 60px;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  transition: 0.5s;
+}

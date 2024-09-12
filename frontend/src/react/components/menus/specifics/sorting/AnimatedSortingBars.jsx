@@ -8,7 +8,12 @@ const AnimatedSortingBars = (props) => {
         overflow: 'hidden'
     }); */
 
-    return (<>
-    </>);
+    return (
+        <div className="bars-container">
+            <div className="bar" style={{backgroundColor: 'red', height: '80%'}}/>
+            <div className="bar" style={{backgroundColor: 'blue', height: '100%'}}/>
+            <div className="bar" style={{backgroundColor: 'green', height: '60%'}}/>
+        </div>
+    );
 }
 export default AnimatedSortingBars;

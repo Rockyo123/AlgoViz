@@ -4,14 +4,25 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite build --watch",
-    "build": "vite build",
+    "dev": "concurrently --kill-others \"vite build --watch\" \"yarn sass:watch\"",
+    "build": "vite build && yarn sass:build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "sass:watch": "sass --watch  --update --style=expanded ./src/sass/main.scss:./src/main.css",
+    "sass:build": "sass --style=compressed ./src/sass/main.scss:./src/main.css --no-source-map"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.6.0",
+    "@fortawesome/free-regular-svg-icons": "^6.6.0",
+    "@fortawesome/free-solid-svg-icons": "^6.6.0",
+    "@fortawesome/react-fontawesome": "^0.2.2",
+    "bootstrap": "^5.3.3",
+    "concurrently": "^8.2.2",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-bootstrap": "^2.10.4",
+    "react-bootstrap-range-slider": "^3.0.8",
+    "react-dom": "^18.3.1",
+    "react-use-websocket": "^4.8.1"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",
@@ -21,6 +32,7 @@
     "eslint-plugin-react": "^7.34.2",
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.7",
+    "sass": "^1.77.8",
     "vite": "^5.3.1"
   }
 }

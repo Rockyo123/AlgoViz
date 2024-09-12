@@ -3,7 +3,6 @@ import { useSpring, animated } from "@react-spring/web";
 
 const AnimatedLabel= (props) => {
     const [isHovered, setIsHovered] = useState(false);
-    const [isOpen, setIsOpen] = useState(false);
 
     const originalFontSize = props.fontSize || '16px';
     const hoveredFontSize = parseFloat(originalFontSize) * 1.2 + 'px';
@@ -20,13 +19,11 @@ const AnimatedLabel= (props) => {
     }
 
     const endAnimation = () => {
-        if (!isOpen){
             setIsHovered(false);
-        }
     }
 
     return (
-        <div className='dropdown-label' onClick={() => setIsOpen(!isOpen)} onMouseEnter={startAnimation} onMouseLeave={endAnimation}>
+        <div className='dropdown-label' onClick={props.onClick} onMouseEnter={startAnimation} onMouseLeave={endAnimation}>
             <span>
                 {<props.animatedElement
                     isAnimated={isHovered}

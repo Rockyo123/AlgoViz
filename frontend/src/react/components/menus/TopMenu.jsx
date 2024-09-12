@@ -4,9 +4,9 @@ import React, {useState} from "react";
 const TopMenu = (props) => {
     return (
         <div className="top-menu">
-            <a>
-                working
-            </a>
+            <h1 className="text-white">
+                ALGOViz
+            </h1>
         </div>
     );
 }

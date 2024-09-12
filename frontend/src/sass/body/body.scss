@@ -1,0 +1,85 @@
+#root {
+  min-width: 100vw;
+  min-height: 100vh;
+  margin: 0 auto;
+  background-color: #353536;
+  font-family: 'Jura';
+  overflow: hidden;
+}
+
+.content{
+  position: relative;
+  top: 60px;
+  left: 80px;
+  height: calc(100vh - 60px);
+  transition: all 0.5s ease;
+  width: calc(100vw - 80px);
+  .sidebar.active ~ & {
+    left: 250px;
+    width: calc(100vw - 250px);
+  }
+} 
+
+.centered-row{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.centered-col{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+}
+
+.col-flex{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+  
+.row-flex{
+width: 100%;
+display: flex;
+justify-content: space-between;
+}
+
+.header-selectors-row{
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+
+.full-width{
+  width: 100%;
+}
+
+.btn{
+  border-radius: 8px;
+  background-color: #4C4E53;
+  box-shadow: rgb(0 0 0 / 25%) 1px 1px 4px;
+  color: white;
+  user-select: none
+}
+
+.primary-btn{
+  @extend .btn;
+  min-width: 150px;
+  min-height: 30px;
+}
+
+.secondary-btn{
+  @extend .btn;
+}
+
+.array-editor{
+  width: 100%;
+}
+
+.error-message{
+  color: red;
+}

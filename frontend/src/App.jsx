@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import "./App.css"; 
+import "./main.css"; 
 import LeftSideNav from "./react/components/menus/LeftSideNav";
 import TopMenu from "./react/components/menus/TopMenu";
-import SortingAlgorithmsPage from './react/pages/sorting/SortingAlgorithmsPage'
+import SortingAlgorithmsPage from './react/pages/sorting/SortingAlgorithmsPage';
 import HomePage from "./react/pages/Home";
 import {
   Routes,
@@ -11,10 +11,8 @@ import {
   BrowserRouter,
 } from "react-router-dom";
 
-
 function App() {
   const [data, setData] = useState("");
-
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch("http://localhost:8080/api");
@@ -46,7 +44,9 @@ function App() {
       <div>
         <TopMenu />
         <LeftSideNav />
-        <Outlet />
+        <div className="content">
+          <Outlet />
+        </div>
       </div>
     )
   }

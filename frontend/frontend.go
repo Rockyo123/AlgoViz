@@ -16,6 +16,7 @@ var (
 )
 
 func RegisterHandlers(e *echo.Echo) {
+	print("handling index.html")
 	e.FileFS("/", "index.html", distIndexHtml)
 	e.StaticFS("/", distDirFS)
 }

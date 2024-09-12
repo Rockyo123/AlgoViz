@@ -1,0 +1,45 @@
+.ag-dropdown {
+    width: 200px;
+    width: 75%;
+    position: relative;
+    padding-top: .400rem;
+    color: white;
+}
+
+.ag-dropdown-header-wrapper{
+    display: flex;
+}
+
+.ag-dropdown-header {
+    @extend .btn;
+    width: 90%;
+    box-shadow: rgb(0 0 0 / 25%) 1px 1px 4px;
+    cursor: pointer;
+}
+
+.ag-dropdown-icon {
+    transition: transform 0.3s;
+    padding-left: 3%;
+}
+
+.ag-dropdown-icon.open {
+    transform: rotate(180deg);
+}
+
+.ag-dropdown-menu {
+    @extend .btn;
+    position: absolute;
+    z-index: 100;
+    overflow: hidden;
+    list-style: none;
+
+}
+
+.ag-dropdown-item {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.ag-dropdown-item:hover {
+    background-color: #e0e0e0;
+}
