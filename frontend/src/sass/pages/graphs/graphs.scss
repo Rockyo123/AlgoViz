@@ -1,0 +1,25 @@
+.graph-grid{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 5px;
+}
+
+.graph-grid-row{
+    height: 100%;
+    width: 100%;
+    display: grid;
+    //grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+    gap: 5px;
+}
+
+.graph-grid-square{
+    background-color: white;
+    border-color: black;
+}
+
+.graph-grid-responsive-container{
+    height: 50%;
+    width: 100%;
+}

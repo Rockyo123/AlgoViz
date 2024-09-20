@@ -1,18 +1,18 @@
 import React, {useEffect, useState, useRef} from "react";
 import Graph from './components/Graph';
 import Slider from '../../components/selectors/Slider';
-import DropdownSelector from "../../components/selectors/DropdownSelector";
+import DropdownSelector from "../../components/selectors/dropdown/DropdownSelector";
 import InputValsModal from "./components/InputValsModal";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBackwardStep, faPenToSquare, faShuffle} from '@fortawesome/free-solid-svg-icons';
 const MAXNUM = 500;
 const MAXENTRIES = 1_000;
-const ALGS = ["selection", "merge"];
+const ALGS = ["Selection Sort", "Merge Sort", "Bubble Sort", "Insertion Sort", "Quick Sort"];
 const SortingAlgorithmsPage = (props) => {    
 
     const [graphState, setGraphState] = useState('NotStarted');
     const [graphVals, setGraphVals] = useState([]);
-    const [algorithm, setAlgorithm] = useState('selection');
+    const [algorithm, setAlgorithm] = useState('Selection Sort');
     const [speed, setSpeed] = useState(50);
     const [numVals, setNumVals] = useState(10);
     
@@ -147,16 +147,16 @@ const SortingAlgorithmsPage = (props) => {
             </div>
 
 
-            <div className="centered-row" style={{paddingTop: '50px'}}>
-                <div className="centered-col" style={{width: '150px'}}>
+            <div className="centered-row" style={{paddingTop: '10%'}}>
+                <div className="centered-col" style={{width: '30%'}}>
                     <div style={{display: 'flex', justifyContent: 'space-between', paddingBottom: '10px', width: '100%^'}}>
-                        <button className="secondary-btn" onClick={() => randomizeArr()} style={{width: '25%'}}>
+                        <button className="secondary-btn" onClick={() => randomizeArr()} style={{width: '29%'}}>
                             <FontAwesomeIcon icon={faShuffle} style={{color: "#ffffff",}} />   
                         </button>
-                        <button className="secondary-btn" onClick={() => setInputValsModalOpen(true)} style={{width: '25%'}}>
+                        <button className="secondary-btn" onClick={() => setInputValsModalOpen(true)} style={{width: '29%'}}>
                             <FontAwesomeIcon icon={faPenToSquare} style={{color: "#ffffff",}} />   
                         </button>
-                        <button className="secondary-btn" onClick={() => resetSteps()} style={{width: '25%'}}>
+                        <button className="secondary-btn" onClick={() => resetSteps()} style={{width: '29%'}}>
                             <FontAwesomeIcon icon={faBackwardStep} style={{color: "#ffffff",}} />   
                         </button>
                     </div>
