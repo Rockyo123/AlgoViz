@@ -1,0 +1,35 @@
+.centered-row{
+  display: flex;
+  justify-content: center;
+}
+  
+.centered-col{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.space-between-row{
+  display: flex;
+  justify-content: space-between;
+}
+
+.col-flex{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+  
+.row-flex{
+width: 100%;
+display: flex;
+justify-content: space-between;
+}
+
+
+
+.full-width{
+  width: 100%;
+}

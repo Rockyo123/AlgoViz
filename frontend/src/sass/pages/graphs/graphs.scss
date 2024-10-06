@@ -3,7 +3,6 @@
     width: 100%;
     display: flex;
     flex-wrap: nowrap;
-    gap: 5px;
 }
 
 .graph-grid-row{
@@ -11,12 +10,12 @@
     width: 100%;
     display: grid;
     //grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
-    gap: 5px;
 }
 
 .graph-grid-square{
     background-color: white;
     border-color: black;
+    margin: 1%;
 }
 
 .graph-grid-responsive-container{

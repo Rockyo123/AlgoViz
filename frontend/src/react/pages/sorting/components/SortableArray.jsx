@@ -2,8 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import Bar from "./Bar";
 import { SelectionSort } from "../_algorithms";
 
-const Graph = ({graphVals, algorithm, graphState, setGraphState, speed, maxNum}) => {
-
+const SortableArray = ({graphVals, algorithm, graphState, setGraphState, speed, maxArrVal}) => {
     const [barVals, setBarVals] = useState([]);
     const barValsRef = useRef(barVals);    
     const queueRef = useRef([]);
@@ -82,7 +81,7 @@ const Graph = ({graphVals, algorithm, graphState, setGraphState, speed, maxNum})
         <Bar
             key={val.key}
             value={val.value}
-            maxValue={maxNum}
+            maxValue={maxArrVal}
             width={val.width}
             colorCode={val.color}
             started={graphState === "Running"}
@@ -95,4 +94,4 @@ const Graph = ({graphVals, algorithm, graphState, setGraphState, speed, maxNum})
     )
 }
 
-export default Graph;
+export default SortableArray;

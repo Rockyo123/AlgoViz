@@ -27,7 +27,7 @@ const InputValsModal = (props) => {
             .filter(value => value.trim() !== '')
             .map(value => {
                 const num = Number(value.trim());
-                return num > props.maxNum ? props.maxNum : num;
+                return num > props.MaxGraphVal ? props.MaxGraphVal : num;
             });
 
         if (newGraphVals.length < 10){

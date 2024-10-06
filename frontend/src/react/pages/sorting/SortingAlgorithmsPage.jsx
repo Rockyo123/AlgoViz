@@ -1,41 +1,35 @@
 import React, {useEffect, useState, useRef} from "react";
-import Graph from './components/Graph';
+import SortableArray from './components/SortableArray';
 import Slider from '../../components/selectors/Slider';
 import DropdownSelector from "../../components/selectors/dropdown/DropdownSelector";
 import InputValsModal from "./components/InputValsModal";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBackwardStep, faPenToSquare, faShuffle} from '@fortawesome/free-solid-svg-icons';
-const MAXNUM = 500;
-const MAXENTRIES = 1_000;
-const ALGS = ["Selection Sort", "Merge Sort", "Bubble Sort", "Insertion Sort", "Quick Sort"];
-const SortingAlgorithmsPage = (props) => {    
+import HeaderSelectorsContainer from "../../components/layout/headerSelectorRow/HeaderSelectorsContainer";
+import HeaderSelector from "../../components/layout/headerSelectorRow/HeaderSelector";
+import FontAwesomeBtn from "../../components/basics/FontAwesomeBtn";
+import AlgorithmResponsiveDisplayWrapper from "../../components/layout/AlgorithmResponsiveDisplayWrapper";
+import { useResponsiveGrid } from "../../hooks/useResponsiveGrid";
+import { useResponsiveArray } from "./hooks/useResponsiveArray";
+import {MAX_ARRAY_VAL, MAX_ARRAY_ENTRIES, SORTING_ALGS} from '../../constants'; 
 
+
+const SortingAlgorithmsPage = (props) => {    
+    const containerRef = useRef(null);
+    const {containerDimensions: dispContainerDimensions, xUnits: maxArrEntries, yUnits: maxArrVal} = useResponsiveGrid(containerRef, 1, 1, MAX_ARRAY_ENTRIES, MAX_ARRAY_VAL);
+    const [array, updateArrayVals, randomizeArrayVals, updateArrayLength] = useResponsiveArray(maxArrVal, maxArrEntries);
     const [graphState, setGraphState] = useState('NotStarted');
-    const [graphVals, setGraphVals] = useState([]);
     const [algorithm, setAlgorithm] = useState('Selection Sort');
     const [speed, setSpeed] = useState(50);
-    const [numVals, setNumVals] = useState(10);
-    
+
     const [graphStateBtnText, setGraphStateBtnText] = useState("Start");
     const [inputValsModalOpen, setInputValsModalOpen] = useState(false);
 
-    //handle changing graphVals if numVals changed
-    useEffect(() => {
-        let curVals = [...graphVals];
-        if (numVals < curVals.length){
-            curVals = curVals.slice(0, numVals-1);
-        }
-        else if (numVals > curVals.length){
-            for (let i = 0; i < numVals; i++){
-                curVals.push(Math.floor(Math.random() * MAXNUM) + 1)
-            }
-        }
-        setGraphVals(curVals);
-    }, [numVals]); 
+
 
     useEffect(() => {
         setGraphState('NotStarted')
-    }, [graphVals])
+    }, [array])
+
     useEffect(() => {
         let newText = "Start";
         switch (graphState) {
@@ -56,6 +50,9 @@ const SortingAlgorithmsPage = (props) => {
         setGraphStateBtnText(newText)
     }, [graphState])
 
+ 
+
+
     const toggleGraphState = () => {
         let newState = graphState;
         switch (graphState) {
@@ -67,7 +64,7 @@ const SortingAlgorithmsPage = (props) => {
                 newState = "Paused"
                 break;
             case "Finished":
-                randomizeArr();
+                randomizeArrayVals();
                 newState = "NotStarted"
                 break;
             default:
@@ -76,89 +73,78 @@ const SortingAlgorithmsPage = (props) => {
         setGraphState(newState);
     }
 
-
-    const randomizeArr = () => {
-        let newVals = [];
-        for (let i = 0; i < numVals; i++){
-            newVals.push(Math.floor(Math.random() * MAXNUM) + 1)
-        }
-        setGraphVals(newVals)
-    }
-
-    const updateGraphValsWithInput = (newVals) => {
-        setGraphVals(newVals);
-        setNumVals(newVals.length);
-    }
-
     const resetSteps = () => {
-        setGraphVals([...graphVals]);
+        updateArrayVals([...array]);
     }
     return (
         <div className="algorithms-page"> 
-            <div className="centered-row">
+            <div className="full-width centered-row">
                 <h1 className="text-white">
                     Sorting
                 </h1>
             </div>
-            <div className="centered-row" style={{paddingTop: '30px'}}>
-                <div className="header-selectors-row">
-                    <div className="centered-row">
-                        <div className="centered-col">
-                            <h4 className="text-white">
-                                Algorithm
-                            </h4>
+            <div className="full-width centered-row">
+                <HeaderSelectorsContainer>
+                <>
+                    <HeaderSelector
+                        label={"Algorithm"}
+                        selector={
                             <div style={{width: '100%', display: 'flex', justifyContent: 'center'}}>
                                 <DropdownSelector 
                                     val={algorithm}
                                     setVal={setAlgorithm}
-                                    options={ALGS}
+                                    options={SORTING_ALGS}
                                 />                            
                             </div>
-                        </div>
-                    </div>
-                    <div className="centered-row">
-                        <div className="centered-col">
-                            <h4 className="text-white">
-                                Num Entries   
-                            </h4>
+                        }
+                    />
+                    <HeaderSelector
+                        label={"Num Entries"}
+                        selector={
                             <Slider 
-                                val={numVals}
-                                setVal={setNumVals}
+                                val={array.length}
+                                setVal={updateArrayLength}
                                 min={10}
-                                max={MAXENTRIES}
+                                max={maxArrEntries}
                                 tooltip={"auto"}
                             />
-                        </div>
-                    </div>
-                    <div className="centered-row">
-                        <div className="centered-col">
-                            <h4 className="text-white">
-                                Speed
-                            </h4>
+                        }
+                    />
+                    <HeaderSelector
+                        label={"Speed"}
+                        selector={
                             <Slider 
                                 val={speed}
                                 setVal={setSpeed}
                                 min={1}
                                 max={1000}
                             />
-                        </div>
-                    </div>
-                </div>
+                        }
+                    />
+                </>
+                </HeaderSelectorsContainer>
             </div>
 
 
-            <div className="centered-row" style={{paddingTop: '10%'}}>
-                <div className="centered-col" style={{width: '30%'}}>
-                    <div style={{display: 'flex', justifyContent: 'space-between', paddingBottom: '10px', width: '100%^'}}>
-                        <button className="secondary-btn" onClick={() => randomizeArr()} style={{width: '29%'}}>
-                            <FontAwesomeIcon icon={faShuffle} style={{color: "#ffffff",}} />   
-                        </button>
-                        <button className="secondary-btn" onClick={() => setInputValsModalOpen(true)} style={{width: '29%'}}>
-                            <FontAwesomeIcon icon={faPenToSquare} style={{color: "#ffffff",}} />   
-                        </button>
-                        <button className="secondary-btn" onClick={() => resetSteps()} style={{width: '29%'}}>
-                            <FontAwesomeIcon icon={faBackwardStep} style={{color: "#ffffff",}} />   
-                        </button>
+            <div className="start-btn-row full-width centered-row">
+                <div className="start-btn-col full-width centered-col">
+                    <div className="full-width space-between-row" style={{paddingBottom: '10px'}}>
+                        <FontAwesomeBtn
+                            icon={faShuffle}
+                            onClick={() => randomizeArrayVals()}
+                            customStyle={{flexGrow: 1, marginRight: '3%'}}
+                                
+                        />
+                        <FontAwesomeBtn
+                            icon={faPenToSquare}
+                            onClick={() => setInputValsModalOpen()}
+                            customStyle={{flexGrow: 1, marginLeft: '3%', marginRight: '3%'}}
+                        />
+                        <FontAwesomeBtn
+                            icon={faBackwardStep}
+                            onClick={() => resetSteps()}
+                            customStyle={{flexGrow: 1, marginLeft: '3%'}}
+                        />
                     </div>
                     <button className="primary-btn" onClick={() => toggleGraphState()}>
                         {graphStateBtnText}
@@ -166,24 +152,27 @@ const SortingAlgorithmsPage = (props) => {
                 </div>
                 
             </div>
-            <div className="algorithm-viz-wrapper">
-                <Graph 
-                    graphVals={graphVals}
+            
+            <AlgorithmResponsiveDisplayWrapper                
+                containerRef={containerRef}
+            >
+                <SortableArray 
+                    graphVals={array}
                     algorithm={algorithm}
                     graphState={graphState}
                     setGraphState={setGraphState}
                     speed={speed / 100}
-                    maxNum={MAXNUM}
+                    maxArrVal={maxArrVal}
                 />
-            </div>
+            </AlgorithmResponsiveDisplayWrapper>
 
-            <InputValsModal 
+            {/*<InputValsModal 
                 isOpen={inputValsModalOpen}
                 setIsOpen={setInputValsModalOpen}
-                graphVals={graphVals}
-                updateGraphVals={updateGraphValsWithInput}
-                maxNum = {MAXNUM}
-            />
+                graphVals={array}
+                updateGraphVals={updateArrayVals}
+                maxArrVal = {maxArrVal}
+            /> */}
         </div>
     )
 }

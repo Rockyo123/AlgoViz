@@ -2,9 +2,11 @@
 @import './pages/graphs/graphs.scss';
 @import './body/nav.scss';
 @import './body/body.scss';
-@import './body/elements/modals/modal.scss';
+@import './body/layout.scss';
+@import './body/elements/modal.scss';
+@import './body/elements/buttons.scss';
+@import './body/elements/dropdown.scss';
 @import'./body/animations/animations.scss';
-@import './body/elements/dropdown/dropdown.scss';
 
 .bar{
   width: 33%;

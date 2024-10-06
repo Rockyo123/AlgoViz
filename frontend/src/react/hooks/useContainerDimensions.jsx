@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 
 export const useContainerDimensions = containerRef => {
     const [dimensions, setDimensions] = useState({ top: 0, left: 0, width: 0, height: 0 })
   
-    useEffect(() => {
+    useLayoutEffect(() => {
       const getDimensions = () => {
-        const boundingBox = containerRef.current.getBoundingClientRect()
+        const boundingBox = containerRef.current.getBoundingClientRect();
+        console.log('rocky debug getting disp dimensions: ', boundingBox);
         return ({
           top: boundingBox.top,
           left: boundingBox.left,
