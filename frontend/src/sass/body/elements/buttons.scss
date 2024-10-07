@@ -1,18 +1,36 @@
+.neumorphic-btn{
+    outline: none;
+    border: 4px #090909 solid;
+    border-radius: 25px;
+    background: linear-gradient(145deg, #171717, #444245);
+    box-shadow: inset 2px 2px 0px #7d7c7e, 
+    inset -2px -2px 0px #1c1c1c;
+    color: wheat;
+    user-select: none;
 
-.btn{
-    border-radius: 8px;
-    background-color: #4C4E53;
-    box-shadow: rgb(0 0 0 / 25%) 1px 1px 4px;
-    color: white;
+    &:hover{ 
+        color: skyblue;
+    }
+}
+
+.neumorphic-btn{
+    outline: none;
+    border: 4px #090909 solid;
+    border-radius: 25px;
+    background: linear-gradient(145deg, #171717, #444245);
+    box-shadow: inset 2px 2px 0px #7d7c7e, 
+    inset -2px -2px 0px #1c1c1c;
+    color: wheat;
     user-select: none
 }
-  
+
+
 .primary-btn{
-    @extend .btn;
+    @extend .neumorphic-btn;
     min-width: 150px;
     min-height: 30px;
 }
 
 .secondary-btn{
-    @extend .btn;
+    @extend .neumorphic-btn;
 }
