@@ -1,6 +1,6 @@
 import React, {useEffect, useState, useRef} from "react";
 import SortableArray from './components/SortableArray';
-import Slider from '../../components/selectors/Slider';
+import Slider from '../../components/selectors/CustomSlider';
 import DropdownSelector from "../../components/selectors/dropdown/DropdownSelector";
 import InputValsModal from "./components/InputValsModal";
 import { faBackwardStep, faPenToSquare, faShuffle} from '@fortawesome/free-solid-svg-icons';
@@ -113,7 +113,7 @@ const SortingAlgorithmsPage = (props) => {
                     <HeaderSelector
                         label={"Speed"}
                         selector={
-                            <Slider 
+                            <Slider
                                 val={speed}
                                 setVal={setSpeed}
                                 min={1}
@@ -148,7 +148,7 @@ const SortingAlgorithmsPage = (props) => {
                     </div>
                     <button className="primary-btn" onClick={() => toggleGraphState()}>
                         {graphStateBtnText}
-                    </button>
+                    </button> 
                 </div>
                 
             </div>

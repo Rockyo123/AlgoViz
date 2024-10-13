@@ -1,58 +1,54 @@
 import React, { useRef, useState, useEffect } from "react";
 import Bar from "./Bar";
 import { SelectionSort } from "../_algorithms";
+import { Sleep } from "../../../utils/_utils";
+import { useLatestRef } from "../../../hooks/useLatestRef";
+import { getDelay } from "../../../utils/_utils";
 
 const SortableArray = ({graphVals, algorithm, graphState, setGraphState, speed, maxArrVal}) => {
     const [barVals, setBarVals] = useState([]);
-    const barValsRef = useRef(barVals);    
-    const queueRef = useRef([]);
-    
+    const barValsRef =  useLatestRef(barVals);
+    const speedRef = useLatestRef(speed);
+
+
+    const abortRef = useRef(false);
     const numBars = graphVals.length;
     const barWidth = 100 / numBars;
 
     //instantiate bars
     useEffect(() => {
-        queueRef.current = [];
         updateBarVals(graphVals, new Array(graphVals.length).fill(0));
     }, [graphVals])
 
     useEffect(() => {
-        barValsRef.current = barVals
-    }, [barVals])
-
-    //on start, get steps
-    useEffect(() => {
-        let interval;
-        if (graphState === "Running" && queueRef.current.length === 0){
-            const newSteps = SelectionSort(graphVals)
-            queueRef.current = newSteps;
-        }
         if (graphState === "Running"){
-            interval = setInterval(() => {
-                executeNextStep();
-              }, (10 / speed));
-        }
-        return () => clearInterval(interval);
-    }, [graphState, speed])
-
-    //---executes steps in queue---//
-    const executeNextStep = () => {
-        //--if steps, execute--//
-        if (queueRef.current.length > 0){
-            const nextStep = queueRef.current.shift();
-            //--decode instr
-            let [newBars, newColors] = decodeInstr([...barValsRef.current], nextStep)
-            updateBarVals(newBars, newColors);
+            abortRef.current = false;
+            SelectionSort(graphVals, executeNextStep, abortRef);
         }
         else{
-            setGraphState("Finished");
+            abortRef.current = true;
         }
-    }
+    }, [graphState]);
 
+    //---executes steps ---//
+    const executeNextStep = async (nextStep) => {
+        let [newBars, newColors, finished] = decodeInstr([...barValsRef.current], nextStep)
+        if (finished[0]){
+            setGraphState('Finished');
+            return;
+        }
+        updateBarVals(newBars, newColors);
+        const speedDelay = getDelay(500, speedRef.current, barValsRef.current.length);
+        await Sleep(speedDelay);
+    }
+    
 
     const decodeInstr = (curVals, instr) => {
         let newBars =  curVals.map(bars => bars.value);
         let newColors = new Array(graphVals.length).fill(0);
+        if (instr[0] === 'finished'){
+            return [[-1], [-1], [1]];
+        }
         if(instr[0] === 'swap'){
             let [index1, index2] = instr[1]
             let tmp = newBars[index2];
@@ -62,9 +58,8 @@ const SortableArray = ({graphVals, algorithm, graphState, setGraphState, speed, 
         if(instr[0] === 'color'){
             newColors = instr[1];
         }
-        return [newBars, newColors];
+        return [newBars, newColors, [0]];
     }        
-
     //helper function to update bar vals
     const updateBarVals = (vals, colorArr) => {
         let barsToUse = vals.map((val, i) => ({
@@ -75,7 +70,6 @@ const SortableArray = ({graphVals, algorithm, graphState, setGraphState, speed, 
         }));
         setBarVals(barsToUse);
     }
-
 
     const bars = barVals.map((val) => (
         <Bar

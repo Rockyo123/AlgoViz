@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react"
 import { useContainerDimensions } from "../../../../hooks/useContainerDimensions";
 import EditModeGraph from "./EditModeGraph.jsx";
 import SolveGraph from "./SolveGraph.jsx";
+
 /**
  * 
  * 
@@ -14,7 +15,7 @@ const Graph = (props) => {
     
     return (
         <div ref={containerRef} className="graph-grid-responsive-container">
-            {props.editMode && 
+            {!props.start && 
                 <EditModeGraph 
                     graphVals = {graphVals}
                     setGraphVals = {setGraphVals}
@@ -23,9 +24,12 @@ const Graph = (props) => {
                     squareDimensions = {squareDimensions}
                 />
             }
-            {(!props.editMode && 
+            {(props.start && 
                 <SolveGraph 
                     arr = {graphVals}
+                    algorithm={props.algorithm}
+                    start={props.start}
+                    speed={props.speed}
                     graphDimensions = {graphDimensions}
                     squareDimensions = {squareDimensions}
                 />

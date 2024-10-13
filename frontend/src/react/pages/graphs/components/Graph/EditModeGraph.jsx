@@ -18,64 +18,80 @@ const EditModeGraph = (props) => {
     
     const updateSquareVals = (val, points)=> {
         const newGraphVals = deepCopyGraphVals(graphValsBeforeEdit.current);
-
         for (let point of points){
             let x = point[0];
             let y = point[1];
             const oldVal = graphValsBeforeEdit.current[x][y] 
             if (
-                (val === 2 && oldVal === 0) || 
-                (val === -2 && oldVal === 1)
+                (val === 4  && oldVal === -1) || 
+                (val === -4 && oldVal === 0)  ||
+                (val === 1  && oldVal !== 2)  ||
+                (val === 2  && oldVal !== 1)      
             ){
                 newGraphVals[x][y] = val;
             }     
-        }   
+        }  
         props.setGraphVals(newGraphVals);
     }
 
     const startEditMode = (type, clickX, clickY) => {
         let editType = null;
+        
         const trueX = clickX - left;
         const trueY = clickY - top;
-        if(type === 0){
-            editType = 2
-        }
-        if (type === 2){
-            editType = -2
-        }
-        setEditMode(editType);
         const squareCoord = fetchSquareCoordAtPoint(trueX, trueY, props.squareDimensions[0], props.squareDimensions[1], width, height)
         graphValsBeforeEdit.current = deepCopyGraphVals(props.graphVals);
         initEditCoords.current = squareCoord;
-        editSquare(editType, clickX, clickY);
+
+        const squareValue = props.graphVals[squareCoord[0]][squareCoord[1]];
+        const isStartOrGoal = squareValue === 1 || squareValue === 2;
+
+        if (isStartOrGoal){
+            setEditMode(squareValue);
+            graphValsBeforeEdit.current[squareCoord[0]][squareCoord[1]] = 0
+        }
+        else {
+            if(type === 0){
+                editType = -4
+            }
+            if (type === 2){
+                editType = 4
+            }
+            setEditMode(editType);
+            editSquare(editType, clickX, clickY);
+        }
     }
 
 
     const editSquare = (editType, clickX, clickY) => {
-        if (editType){
-            const trueX = clickX - left;
-            const trueY = clickY - top;
-            const squareCoord = fetchSquareCoordAtPoint(trueX, trueY, props.squareDimensions[0], props.squareDimensions[1], width, height)
-            
-            const selectedSquares = getSelectedSquares(curEditingSquares.current, props.editTool, initEditCoords.current[0], initEditCoords.current[1], squareCoord[0], squareCoord[1])
+        if (!editType) return;
+        const trueX = clickX - left;
+        const trueY = clickY - top;
+        const squareCoord = fetchSquareCoordAtPoint(trueX, trueY, props.squareDimensions[0], props.squareDimensions[1], width, height)
+        let selectedSquares = [];
+        if (editType === 1 || editType === 2){
+            selectedSquares = [squareCoord]//getSelectedSquares(curEditingSquares.current, props.editTool, initEditCoords.current[0], initEditCoords.current[1], squareCoord[0], squareCoord[1])
             curEditingSquares.current = selectedSquares;
-            //set edit mode true
-            updateSquareVals(editType, selectedSquares);
         }
+        else{
+            selectedSquares = getSelectedSquares(curEditingSquares.current, props.editTool, initEditCoords.current[0], initEditCoords.current[1], squareCoord[0], squareCoord[1])
+            curEditingSquares.current = selectedSquares;
+        }
+        updateSquareVals(editType, selectedSquares);
     }
 
 
     const endEditMode = () => {
-        // from currently edited squares, set new graphVals to 1
+        // from currently edited squares, set new graphVals to -1
         setEditMode(null);
         const newGraphVals = deepCopyGraphVals(props.graphVals);
         for (let i = 0; i < newGraphVals.length; i++){
             for (let j = 0; j < newGraphVals[0].length; j++){
-                if (newGraphVals[i][j] === -2){
+                if (newGraphVals[i][j] === 4){
                     newGraphVals[i][j]  = 0;
                 }
-                if (newGraphVals[i][j]  === 2){
-                    newGraphVals[i][j]  = 1;
+                if (newGraphVals[i][j]  === -4){
+                    newGraphVals[i][j]  = -1;
                 }
             }
         }
