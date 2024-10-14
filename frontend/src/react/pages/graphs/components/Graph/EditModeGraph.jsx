@@ -18,19 +18,24 @@ const EditModeGraph = (props) => {
     
     const updateSquareVals = (val, points)=> {
         const newGraphVals = deepCopyGraphVals(graphValsBeforeEdit.current);
-        for (let point of points){
-            let x = point[0];
-            let y = point[1];
+        for (let [x, y] of points){
             const oldVal = graphValsBeforeEdit.current[x][y] 
             if (
                 (val === 4  && oldVal === -1) || 
-                (val === -4 && oldVal === 0)  ||
-                (val === 1  && oldVal !== 2)  ||
-                (val === 2  && oldVal !== 1)      
+                (val === -4 && oldVal === 0)
             ){
                 newGraphVals[x][y] = val;
             }     
-        }  
+            else if (val === 1 || val === 2) {
+                // Don't allow placing start over goal or vice versa
+                if ((val === 1 && oldVal === 2) || (val === 2 && oldVal === 1)) {
+                    newGraphVals = props.graphVals
+                }
+                else{
+                    newGraphVals[x][y] = val;
+                }
+            }
+        }
         props.setGraphVals(newGraphVals);
     }
 
@@ -70,7 +75,7 @@ const EditModeGraph = (props) => {
         const squareCoord = fetchSquareCoordAtPoint(trueX, trueY, props.squareDimensions[0], props.squareDimensions[1], width, height)
         let selectedSquares = [];
         if (editType === 1 || editType === 2){
-            selectedSquares = [squareCoord]//getSelectedSquares(curEditingSquares.current, props.editTool, initEditCoords.current[0], initEditCoords.current[1], squareCoord[0], squareCoord[1])
+            selectedSquares = [squareCoord]
             curEditingSquares.current = selectedSquares;
         }
         else{
