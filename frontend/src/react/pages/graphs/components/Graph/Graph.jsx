@@ -8,7 +8,7 @@ import SolveGraph from "./SolveGraph.jsx";
  * 
  */
 const Graph = (props) => {
-    const [graphVals, setGraphVals] = useState(props.arr);
+    //const [graphVals, setGraphVals] = useState(props.arr);
     const containerRef = useRef(null);
     const squareDimensions = props.arr ? [props.arr.length, props.arr[0].length] : [0, 0];
     const graphDimensions = useContainerDimensions(containerRef);
@@ -17,8 +17,8 @@ const Graph = (props) => {
         <div ref={containerRef} className="graph-grid-responsive-container">
             {!props.start && 
                 <EditModeGraph 
-                    graphVals = {graphVals}
-                    setGraphVals = {setGraphVals}
+                    graphVals = {props.arr}
+                    setGraphVals = {props.setGraphVals}
                     editTool = {props.editTool}
                     graphDimensions = {graphDimensions}
                     squareDimensions = {squareDimensions}
@@ -26,7 +26,7 @@ const Graph = (props) => {
             }
             {(props.start && 
                 <SolveGraph 
-                    arr = {graphVals}
+                    arr = {props.arr}
                     algorithm={props.algorithm}
                     start={props.start}
                     speed={props.speed}

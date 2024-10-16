@@ -41,7 +41,6 @@ const GraphSquare = (props) => {
         return {backgroundColor: color} 
     }
 
-
     return (
         <div className="graph-grid-square"
             style={getSquareStyling()}

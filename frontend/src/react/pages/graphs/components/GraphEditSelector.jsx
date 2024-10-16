@@ -1,9 +1,9 @@
 import React from "react"
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFill, faPen, faPencilRuler, faPenToSquare, faClose } from '@fortawesome/free-solid-svg-icons';
+import { faFill, faPen, faPencilRuler, faPenToSquare, faClose, faTrash } from '@fortawesome/free-solid-svg-icons';
 
-const GraphEditSelector = ({editMode, setEditMode, editTool, setEditTool}) => {
+const GraphEditSelector = ({editMode, setEditMode, editTool, setEditTool, clearGraph}) => {
         
     return (
         <>
@@ -23,6 +23,9 @@ const GraphEditSelector = ({editMode, setEditMode, editTool, setEditTool}) => {
                 </button>
                 <button className="secondary-btn" onClick={() => setEditTool('bucket')} style={{width: '29%'}}>
                     <FontAwesomeIcon icon={faFill} style={{color: editTool === 'bucket' ? "#ffffff": "black"}} />   
+                </button>
+                <button className="secondary-btn" onClick={() => clearGraph()} style={{width: '29%'}}>
+                    <FontAwesomeIcon icon={faTrash} style={{color: "black"}} />   
                 </button>
             </div>
             {/** IMPORT CUSTOM GRAPH */}

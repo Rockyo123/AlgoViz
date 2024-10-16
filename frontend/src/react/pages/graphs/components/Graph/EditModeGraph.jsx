@@ -108,7 +108,7 @@ const EditModeGraph = (props) => {
         <div key={rowIndex} className="graph-grid-row">
             {row.map((val, colIndex) => (
             <GraphSquare 
-                key={colIndex} 
+                key={`${colIndex}-${val}`} 
                 val={val}
                 editState={editMode}
             />

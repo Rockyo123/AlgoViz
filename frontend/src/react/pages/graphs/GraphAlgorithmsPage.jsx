@@ -7,7 +7,7 @@ import HeaderSelectorsContainer from "../../components/layout/headerSelectorRow/
 import HeaderSelector from "../../components/layout/headerSelectorRow/HeaderSelector";
 import AlgorithmResponsiveDisplayWrapper from "../../components/layout/AlgorithmResponsiveDisplayWrapper";
 import { useResponsiveGrid } from "../../hooks/useResponsiveGrid";
-
+import { deepCopyGraphVals } from "./utils/GraphUtils";
 /**
  * graph value meanings:
  *  -5: pathfinding finished, not found
@@ -28,17 +28,36 @@ const GraphAlgorithmsPage = (props) => {
     const ALGS = ['Depth First Search', 'Breadth First Search'];
     const MAXENTRIES = 100;
 
-    const ARR = Array(30).fill().map(() => Array(30).fill(0));
-    ARR[0][0] = 1;
-    ARR[29][29] = 2;
+    const initializeGraphVals = (rowSize, colSize) => {
+        const ARR = Array(colSize).fill().map(() => Array(rowSize).fill(0));
+        ARR[0][0] = 1;
+        ARR[colSize-1][rowSize-1] = 2;
+        return ARR
+    }
 
+    const [graphVals, setGraphVals] = useState(initializeGraphVals(30, 30));
     const [algorithm, setAlgorithm] = useState('Depth First Search');
     const [editMode, setEditMode] = useState(false);
     const [editTool, setEditTool] = useState('free');
-    const [numVals, setNumVals] = useState(0);
     const [speed, setSpeed] = useState(50);
     const [start, setStart] = useState(false);
     
+    const clearGraph = () => {
+        const newGraph = [];
+        for (let i = 0; i < graphVals.length; i++){
+            const newGraphRow = [];
+            for (let j = 0; j < graphVals[i].length; j++){
+                let valToAppend = graphVals[i][j];
+                if (valToAppend !== 1 && valToAppend !== 2){
+                    valToAppend = 0;
+                }
+                newGraphRow.push(valToAppend);
+            }
+            newGraph.push(newGraphRow);
+        }
+        setGraphVals(newGraph);
+    }
+
 
     return (
     <div className="algorithms-page"> 
@@ -68,6 +87,7 @@ const GraphAlgorithmsPage = (props) => {
                         setEditMode={setEditMode}
                         editTool={editTool}
                         setEditTool={setEditTool}
+                        clearGraph={clearGraph}
                     />}
                 />
                 <HeaderSelector
@@ -92,7 +112,8 @@ const GraphAlgorithmsPage = (props) => {
                 containerRef={containerRef}
         >
             <Graph 
-                arr={ARR}
+                arr={graphVals}
+                setGraphVals={setGraphVals}
                 algorithm={algorithm}
                 start={start}
                 speed={speed}
