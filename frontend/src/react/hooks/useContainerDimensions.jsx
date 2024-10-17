@@ -6,7 +6,6 @@ export const useContainerDimensions = containerRef => {
     useLayoutEffect(() => {
       const getDimensions = () => {
         const boundingBox = containerRef.current.getBoundingClientRect();
-        console.log('rocky debug getting disp dimensions: ', boundingBox);
         return ({
           top: boundingBox.top,
           left: boundingBox.left,

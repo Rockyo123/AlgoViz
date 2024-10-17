@@ -10,6 +10,7 @@ import FontAwesomeBtn from "../../components/basics/FontAwesomeBtn";
 import AlgorithmResponsiveDisplayWrapper from "../../components/layout/AlgorithmResponsiveDisplayWrapper";
 import { useResponsiveGrid } from "../../hooks/useResponsiveGrid";
 import { useResponsiveArray } from "./hooks/useResponsiveArray";
+import { useGraphStateManager } from "../../hooks/useGraphStateManager";
 import {MAX_ARRAY_VAL, MAX_ARRAY_ENTRIES, SORTING_ALGS} from '../../constants'; 
 
 
@@ -17,61 +18,12 @@ const SortingAlgorithmsPage = (props) => {
     const containerRef = useRef(null);
     const {containerDimensions: dispContainerDimensions, xUnits: maxArrEntries, yUnits: maxArrVal} = useResponsiveGrid(containerRef, 1, 1, MAX_ARRAY_ENTRIES, MAX_ARRAY_VAL);
     const [array, updateArrayVals, randomizeArrayVals, updateArrayLength] = useResponsiveArray(maxArrVal, maxArrEntries);
-    const [graphState, setGraphState] = useState('NotStarted');
+    const { graphState, graphStateBtnText, toggleGraphState, setGraphStateWithVal } = useGraphStateManager(randomizeArrayVals);
+    
     const [algorithm, setAlgorithm] = useState('Selection Sort');
     const [speed, setSpeed] = useState(50);
 
-    const [graphStateBtnText, setGraphStateBtnText] = useState("Start");
     const [inputValsModalOpen, setInputValsModalOpen] = useState(false);
-
-
-
-    useEffect(() => {
-        setGraphState('NotStarted')
-    }, [array])
-
-    useEffect(() => {
-        let newText = "Start";
-        switch (graphState) {
-            case "NotStarted":
-                newText = "Start";
-                break;
-            case "Running":
-                newText = "Pause";
-                break;
-            case "Paused":
-                newText = "Resume";
-                break;
-            case "Finished":
-                newText = "Finished";
-            default:
-                break;
-        }
-        setGraphStateBtnText(newText)
-    }, [graphState])
-
- 
-
-
-    const toggleGraphState = () => {
-        let newState = graphState;
-        switch (graphState) {
-            case "NotStarted":
-            case "Paused":
-                newState = "Running";
-                break;
-            case "Running":
-                newState = "Paused"
-                break;
-            case "Finished":
-                randomizeArrayVals();
-                newState = "NotStarted"
-                break;
-            default:
-                break;
-        }
-        setGraphState(newState);
-    }
 
     const resetSteps = () => {
         updateArrayVals([...array]);
@@ -160,7 +112,7 @@ const SortingAlgorithmsPage = (props) => {
                     graphVals={array}
                     algorithm={algorithm}
                     graphState={graphState}
-                    setGraphState={setGraphState}
+                    setGraphState={setGraphStateWithVal}
                     speed={speed / 100}
                     maxArrVal={maxArrVal}
                 />

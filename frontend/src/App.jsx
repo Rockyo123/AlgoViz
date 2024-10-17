@@ -32,7 +32,7 @@ function App() {
 
      <Routes>
       <Route path="/" element={<Layout />}>
-        <Route index element={<GraphAlgorithmsPage />} />
+        <Route index element={<SortingAlgorithmsPage />} />
         <Route path="sorting" element={<SortingAlgorithmsPage />} />
         <Route path="graphs" element={<GraphAlgorithmsPage />} />
       </Route>

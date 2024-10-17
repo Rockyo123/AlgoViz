@@ -1,3 +1,6 @@
+import { checkOpStateRef } from "../../hooks/useAsyncOperationController";
+
+
 // Helper function to check if a position is within the grid bounds and traversable
 const isValid = (row, col, grid, rowLen, colLen) => {
     return row >= 0 && row < rowLen && col >= 0 && col < colLen && grid[row][col] !== -1;
@@ -36,7 +39,6 @@ export const pathFind = async (grid, algorithm, sendNextStep, abortRef) => {
     if (startRow === -1 || startCol === -1) {
         return false;
     }
-
     let pathFindingAlgo = DepthFirstSearch
     switch(algorithm.toLowerCase()){
         case 'depth first search':
@@ -69,8 +71,9 @@ const DepthFirstSearch = async (grid, startPos, sendNextStep, abortRef) => {
 
     
         while (stack.length > 0) {
-            console.log('rocky debug: abortRef: ', abortRef)
-            if(abortRef.current) return;
+
+            const abort = await checkOpStateRef(abortRef)
+            if (abort) return;
             const [currentRow, currentCol] = stack.pop();
             curPath.push([currentRow, currentCol]);
 
@@ -81,7 +84,6 @@ const DepthFirstSearch = async (grid, startPos, sendNextStep, abortRef) => {
                 return true;
             }
     
-
             await sendNextStep(['visited', [[currentRow, currentCol]]])
 
             // Explore the neighbors
@@ -90,14 +92,12 @@ const DepthFirstSearch = async (grid, startPos, sendNextStep, abortRef) => {
                 const newCol = currentCol + dCol;
                 
                 if (isValid(newRow, newCol, grid, rows, cols) && !visited[newRow][newCol]) {
-                    console.log('rocky debug: isValid')
                     visited[newRow][newCol] = true;
                     stack.push([newRow, newCol]);
                 }
             }
         } 
     
-        console.log("Goal not reachable");
         await sendNextStep(['notFound', curPath]);
         return false;
 }
@@ -118,7 +118,9 @@ const BreadthFirstSearch = async (grid, startPos, sendNextStep, abortRef) => {
     predecessors[startRow][startCol] = [startRow, startCol];
 
     while (queue.length > 0) {
-        if(abortRef.current) return;
+        const abort = await checkOpStateRef(abortRef)
+        if (abort) return;
+
         const [currentRow, currentCol] = queue.shift();
 
         if (grid[currentRow][currentCol] === 2) {

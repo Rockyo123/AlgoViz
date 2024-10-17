@@ -1,34 +1,42 @@
 import React, { useRef, useState, useEffect } from "react";
 import Bar from "./Bar";
-import { SelectionSort } from "../_algorithms";
+import { asyncSort } from "../_algorithms";
 import { Sleep } from "../../../utils/_utils";
 import { useLatestRef } from "../../../hooks/useLatestRef";
 import { getDelay } from "../../../utils/_utils";
+import { useAsyncOperationController } from "../../../hooks/useAsyncOperationController";
 
 const SortableArray = ({graphVals, algorithm, graphState, setGraphState, speed, maxArrVal}) => {
+    
+
+    const startOperation = async (opStateRef) => {
+        await asyncSort(graphVals, algorithm, executeNextStep, opStateRef);
+    }
+    
+    const { opStateRef, runOp, pauseOp, abortOp } = useAsyncOperationController(startOperation);
+
+    
     const [barVals, setBarVals] = useState([]);
     const barValsRef =  useLatestRef(barVals);
     const speedRef = useLatestRef(speed);
 
-
-    const abortRef = useRef(false);
     const numBars = graphVals.length;
     const barWidth = 100 / numBars;
 
     //instantiate bars
     useEffect(() => {
+        abortOp();
         updateBarVals(graphVals, new Array(graphVals.length).fill(0));
-    }, [graphVals])
+    }, [graphVals, algorithm]);
 
     useEffect(() => {
-        if (graphState === "Running"){
-            abortRef.current = false;
-            SelectionSort(graphVals, executeNextStep, abortRef);
-        }
+        if (graphState === 'Running'){ 
+            runOp();
+        }    
         else{
-            abortRef.current = true;
+            pauseOp();
         }
-    }, [graphState]);
+    }, [graphState])
 
     //---executes steps ---//
     const executeNextStep = async (nextStep) => {

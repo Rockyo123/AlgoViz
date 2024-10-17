@@ -1,8 +1,26 @@
-export const SelectionSort = async (values, sendNextStep, abortRef) => {
+import { checkOpStateRef } from "../../hooks/useAsyncOperationController";
+
+//TODO: add other sorts
+export const asyncSort = async(values, algorithm, sendNextStep, opStateRef) => {
+    let sortingAlgo = SelectionSort
+    switch(algorithm.toLowerCase()){
+        case 'selection sort':
+            sortingAlgo = SelectionSort;
+            break;
+        default:
+            sortingAlgo = SelectionSort;
+            break;
+    }
+
+    await sortingAlgo(values, sendNextStep, opStateRef);
+}
+
+const SelectionSort = async (values, sendNextStep, opStateRef) => {
     let toSort = [...values];
     const colorArray = Array(toSort.length).fill(0);
     const runStep = async (i) => {
-        if (abortRef.current) return;
+        const abort = await checkOpStateRef(opStateRef);
+        if (abort) return;
 
         // HIGHLIGHT currently selected pos
         colorArray[i] = 1;
@@ -13,8 +31,8 @@ export const SelectionSort = async (values, sendNextStep, abortRef) => {
 
         // Loop through array to find the min
         for (let j = i + 1; j < toSort.length; j++) {
-            if (abortRef.current) return;
-
+            const abort = await checkOpStateRef(opStateRef);
+            if (abort) return;
             // HIGHLIGHT position being checked
             colorArray[j] = 1;
             await sendNextStep(['color', [...colorArray]]);

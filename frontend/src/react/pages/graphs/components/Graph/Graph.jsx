@@ -1,40 +1,37 @@
-import React, { useState, useRef } from "react"
-import { useContainerDimensions } from "../../../../hooks/useContainerDimensions";
+import React from "react"
 import EditModeGraph from "./EditModeGraph.jsx";
-import SolveGraph from "./SolveGraph.jsx";
+import SolvableGraph from "./SolvableGraph.jsx";
 
 /**
  * 
  * 
  */
 const Graph = (props) => {
-    //const [graphVals, setGraphVals] = useState(props.arr);
-    const containerRef = useRef(null);
     const squareDimensions = props.arr ? [props.arr.length, props.arr[0].length] : [0, 0];
-    const graphDimensions = useContainerDimensions(containerRef);
     
     return (
-        <div ref={containerRef} className="graph-grid-responsive-container">
-            {!props.start && 
+        <div className="graph-grid-responsive-container">
+            {props.isEditing && 
                 <EditModeGraph 
                     graphVals = {props.arr}
                     setGraphVals = {props.setGraphVals}
+                    isEditing = {props.isEditing}
                     editTool = {props.editTool}
-                    graphDimensions = {graphDimensions}
+                    graphDimensions = {props.graphDimensions}
                     squareDimensions = {squareDimensions}
                 />
             }
-            {(props.start && 
-                <SolveGraph 
+            {(!props.isEditing) && 
+                <SolvableGraph 
                     arr = {props.arr}
                     algorithm={props.algorithm}
-                    start={props.start}
+                    graphState={props.graphState}
                     speed={props.speed}
-                    graphDimensions = {graphDimensions}
+                    graphDimensions = {props.graphDimensions}
                     squareDimensions = {squareDimensions}
                 />
 
-            )}
+            }
         </div>
     )
 }

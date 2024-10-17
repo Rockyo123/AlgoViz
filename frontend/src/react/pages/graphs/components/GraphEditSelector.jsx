@@ -3,16 +3,16 @@ import React from "react"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFill, faPen, faPencilRuler, faPenToSquare, faClose, faTrash } from '@fortawesome/free-solid-svg-icons';
 
-const GraphEditSelector = ({editMode, setEditMode, editTool, setEditTool, clearGraph}) => {
+const GraphEditSelector = ({isEditing, setIsEditing, editTool, setEditTool, clearGraph}) => {
         
     return (
         <>
-        {(!editMode) &&
-            <button className="primary-btn" onClick={() => setEditMode(true)}>
+        {(!isEditing) &&
+            <button className="primary-btn" onClick={() => setIsEditing(true)}>
             Edit Graph
             </button>
         }
-        {(editMode) &&
+        {(isEditing) &&
         <div style={{display: 'flex', justifyContent: 'space-between'}}>
             <div style={{display: 'flex', justifyContent: 'space-between', paddingBottom: '10px', width: '33%'}}>
                 <button className="secondary-btn" onClick={() => setEditTool('free')} style={{width: '29%'}}>
@@ -36,7 +36,7 @@ const GraphEditSelector = ({editMode, setEditMode, editTool, setEditTool, clearG
             </div>
             
             <div style={{display: 'flex', justifyContent: 'space-between', paddingBottom: '10px', width: '33%'}}>
-                <button className="secondary-btn" onClick={() => setEditMode(false)}>
+                <button className="secondary-btn" onClick={() => setIsEditing(false)}>
                     <FontAwesomeIcon icon={faClose} style={{color: "#ffffff"}} />   
                 </button>
             </div>

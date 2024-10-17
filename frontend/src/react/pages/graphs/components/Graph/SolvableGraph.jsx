@@ -5,27 +5,42 @@ import { pathFind } from "../../_algorithms"
 import { useLatestRef } from "../../../../hooks/useLatestRef"
 import { getDelay } from "../../../../utils/_utils"
 import { getNextStepFromInstrType, updateSquaresWithVal } from "./_utils"
-const SolveGraph = (props) => {
-    const [graphVals, setGraphVals] = useState(props.arr)
+import { deepCopyGraphVals } from "../../utils/GraphUtils"
+import { useAsyncOperationController } from "../../../../hooks/useAsyncOperationController"
+
+const SolvableGraph = (props) => {
+    const [graphVals, setGraphVals] = useState(props.arr);
     const graphValsRef =  useLatestRef(graphVals);
-    const speedRef = useRef(props.speed);
-    const abortRef = useRef(false);
+    const speedRef = useLatestRef(props.speed);
+
+    const startOperation = async (opStateRef) => {
+        const newGraphVals = deepCopyGraphVals(props.arr);
+        setGraphVals(props.arr)
+        await pathFind(newGraphVals, props.algorithm, executeNextStep, opStateRef);
+    }
+
+    const { opStateRef, runOp, pauseOp, abortOp } = useAsyncOperationController(startOperation);
     
     useEffect(() => {
-        if (props.start){
-            abortRef.current = false;
-            pathFind(graphVals, props.algorithm, executeNextStep, abortRef);
+        if (props.graphState === 'Running') { 
+            runOp();
         }    
-        else{
-            abortRef.current = true;
+        else {
+            pauseOp();
         }
-    }, [props.start]);
+    }, [props.graphState])
+
+    useEffect(() => {
+        abortOp();
+        setGraphVals(props.arr);
+    }, [props.algorithm]);
+
 
     //---executes steps ---//
     const executeNextStep = async (nextStep) => {
-        let [newGraph, finished] = decodeInstr([...graphValsRef.current], nextStep)
+        let [newGraph, finished] = decodeInstr(deepCopyGraphVals(graphValsRef.current), nextStep)
         if (finished[0]){
-            setGraphState('Finished');
+            props.setGraphState('Finished');
             return;
         }
         updateGraph(newGraph);
@@ -65,4 +80,4 @@ const SolveGraph = (props) => {
     )
     }
 
-export default SolveGraph;
+export default SolvableGraph;

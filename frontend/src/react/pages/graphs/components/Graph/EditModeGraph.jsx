@@ -1,4 +1,4 @@
-import React, {useState, useRef } from "react"
+import React, {useState, useRef, useMemo } from "react"
 import GraphSquare from "./GraphSquare";
 import { fetchSquareCoordAtPoint } from '../../utils/CoordUtils.js'
 import { getSelectedSquares } from "../../utils/PaintUtils.js";
@@ -15,6 +15,19 @@ const EditModeGraph = (props) => {
 
     const {top, left, width, height} = props.graphDimensions;
 
+    const graphSquares = useMemo(() => {
+        return props.graphVals.map((row, rowIndex) => (
+            <div key={rowIndex} className="graph-grid-row">
+                {row.map((val, colIndex) => (
+                <GraphSquare 
+                    key={`${colIndex}-${val}`} 
+                    val={val}
+                    editState={editMode}
+                />
+                ))}
+          </div>
+        ))
+    }, [props.graphVals]);
     
     const updateSquareVals = (val, points)=> {
         const newGraphVals = deepCopyGraphVals(graphValsBeforeEdit.current);
@@ -40,6 +53,7 @@ const EditModeGraph = (props) => {
     }
 
     const startEditMode = (type, clickX, clickY) => {
+        if (!props.isEditing) return;
         let editType = null;
         
         const trueX = clickX - left;
@@ -104,17 +118,7 @@ const EditModeGraph = (props) => {
         curEditingSquares.current = [];
     }
 
-    const graphSquares = props.graphVals.map((row, rowIndex) => (
-        <div key={rowIndex} className="graph-grid-row">
-            {row.map((val, colIndex) => (
-            <GraphSquare 
-                key={`${colIndex}-${val}`} 
-                val={val}
-                editState={editMode}
-            />
-            ))}
-      </div>
-    ))
+
 
     return (
         <div className="graph-grid" 

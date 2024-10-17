@@ -7,7 +7,9 @@ import HeaderSelectorsContainer from "../../components/layout/headerSelectorRow/
 import HeaderSelector from "../../components/layout/headerSelectorRow/HeaderSelector";
 import AlgorithmResponsiveDisplayWrapper from "../../components/layout/AlgorithmResponsiveDisplayWrapper";
 import { useResponsiveGrid } from "../../hooks/useResponsiveGrid";
-import { deepCopyGraphVals } from "./utils/GraphUtils";
+import { useGraphStateManager } from "../../hooks/useGraphStateManager";
+import { MAX_ARR_SIZE, PATHFINDING_ALGS } from "../../constants";
+
 /**
  * graph value meanings:
  *  -5: pathfinding finished, not found
@@ -20,13 +22,10 @@ import { deepCopyGraphVals } from "./utils/GraphUtils";
  *   4: being edited, to blank
  *   5: pathfinding finished, found
  */
-
 const GraphAlgorithmsPage = (props) => {
     const containerRef = useRef(null);
-    const {containerDimensions: dispContainerDimensions, xUnits: maxArrEntries, yUnits: maxArrVal} = useResponsiveGrid(containerRef, 1, 1, 100, 100);
-
-    const ALGS = ['Depth First Search', 'Breadth First Search'];
-    const MAXENTRIES = 100;
+    const {containerDimensions: dispContainerDimensions, xUnits: maxArrEntries, yUnits: maxArrVal} = useResponsiveGrid(containerRef, 10, 10, MAX_ARR_SIZE, MAX_ARR_SIZE);
+    const { graphState, graphStateBtnText, toggleGraphState, setGraphStateWithVal } = useGraphStateManager(() => {});
 
     const initializeGraphVals = (rowSize, colSize) => {
         const ARR = Array(colSize).fill().map(() => Array(rowSize).fill(0));
@@ -37,10 +36,9 @@ const GraphAlgorithmsPage = (props) => {
 
     const [graphVals, setGraphVals] = useState(initializeGraphVals(30, 30));
     const [algorithm, setAlgorithm] = useState('Depth First Search');
-    const [editMode, setEditMode] = useState(false);
+    const [isEditing, setIsEditing] = useState(false);
     const [editTool, setEditTool] = useState('free');
     const [speed, setSpeed] = useState(50);
-    const [start, setStart] = useState(false);
     
     const clearGraph = () => {
         const newGraph = [];
@@ -58,6 +56,10 @@ const GraphAlgorithmsPage = (props) => {
         setGraphVals(newGraph);
     }
 
+    const updateAlgorithm = (newAlg) => {
+        setGraphStateWithVal('NotStarted')
+        setAlgorithm(newAlg);
+    }
 
     return (
     <div className="algorithms-page"> 
@@ -75,16 +77,17 @@ const GraphAlgorithmsPage = (props) => {
                     <div style={{width: '100%', display: 'flex', justifyContent: 'center'}}>
                         <DropdownSelector 
                             val={algorithm}
-                            setVal={setAlgorithm}
-                            options={ALGS}
+                            setVal={updateAlgorithm}
+                            options={PATHFINDING_ALGS}
                         />                            
                     </div>
                     }
                 />
                 <HeaderSelector
+                    label=']]]]'
                     selector={<GraphEditSelector 
-                        editMode={editMode}
-                        setEditMode={setEditMode}
+                        isEditing={isEditing}
+                        setIsEditing={setIsEditing}
                         editTool={editTool}
                         setEditTool={setEditTool}
                         clearGraph={clearGraph}
@@ -103,21 +106,28 @@ const GraphAlgorithmsPage = (props) => {
                 />
             </>
             </HeaderSelectorsContainer>
-            <button className="btn-primary" onClick={() => setStart(!start)}>
-                Start
-            </button>
-
         </div>
+
+        <div className="start-btn-row full-width centered-row">
+            <div className="start-btn-col full-width centered-col">
+                <button className="primary-btn" onClick={() => toggleGraphState()}>
+                    {graphStateBtnText}
+                </button>
+            </div>
+        </div>
+
         <AlgorithmResponsiveDisplayWrapper                
                 containerRef={containerRef}
         >
             <Graph 
+                graphDimensions={dispContainerDimensions}
                 arr={graphVals}
                 setGraphVals={setGraphVals}
                 algorithm={algorithm}
-                start={start}
+                graphState={graphState}
+                setGraphState={setGraphStateWithVal}
                 speed={speed}
-                editMode={editMode}
+                isEditing={isEditing}
                 editTool={editTool}
             />
         </AlgorithmResponsiveDisplayWrapper>
