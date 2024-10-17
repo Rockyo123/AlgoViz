@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import Bar from "./Bar";
-import { asyncSort } from "../_algorithms";
+import { asyncSort } from "../algorithmRouter/algorithmRouter";
 import { Sleep } from "../../../utils/_utils";
 import { useLatestRef } from "../../../hooks/useLatestRef";
 import { getDelay } from "../../../utils/_utils";
@@ -17,6 +17,7 @@ const SortableArray = ({graphVals, algorithm, graphState, setGraphState, speed, 
 
     
     const [barVals, setBarVals] = useState([]);
+    const barColorsRef = useRef([]);
     const barValsRef =  useLatestRef(barVals);
     const speedRef = useLatestRef(speed);
 
@@ -46,26 +47,27 @@ const SortableArray = ({graphVals, algorithm, graphState, setGraphState, speed, 
             return;
         }
         updateBarVals(newBars, newColors);
-        const speedDelay = getDelay(500, speedRef.current, barValsRef.current.length);
+        const speedDelay = getDelay(500, speedRef.current, barValsRef.current.length); 
         await Sleep(speedDelay);
     }
     
 
     const decodeInstr = (curVals, instr) => {
         let newBars =  curVals.map(bars => bars.value);
-        let newColors = new Array(graphVals.length).fill(0);
+        let newColors = [...barColorsRef.current];
         if (instr[0] === 'finished'){
             return [[-1], [-1], [1]];
         }
-        if(instr[0] === 'swap'){
-            let [index1, index2] = instr[1]
-            let tmp = newBars[index2];
-            newBars[index2] = newBars[index1]
-            newBars[index1] = tmp;
+        if(instr[0] === 'set'){
+            for (let idx in instr[1]){
+                newBars[idx] = instr[1][idx];
+            }
         }
         if(instr[0] === 'color'){
-            newColors = instr[1];
-        }
+            for (let idx in instr[1]){
+                newColors[idx] = instr[1][idx]
+            }
+        } 
         return [newBars, newColors, [0]];
     }        
     //helper function to update bar vals
@@ -77,6 +79,7 @@ const SortableArray = ({graphVals, algorithm, graphState, setGraphState, speed, 
             color: colorArr[i],
         }));
         setBarVals(barsToUse);
+        barColorsRef.current = colorArr;
     }
 
     const bars = barVals.map((val) => (

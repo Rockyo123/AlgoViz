@@ -11,6 +11,8 @@ const Bar = forwardRef((props) => {
                 return 'red';
             case 2:
                 return 'green';
+            case 3:
+                return 'blue';
             default:
                 return 'white';
         }
