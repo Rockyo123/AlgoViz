@@ -80,7 +80,7 @@ const SortingAlgorithmsPage = (props) => {
 
             <div className="start-btn-row full-width centered-row">
                 <div className="start-btn-col full-width centered-col">
-                    <div className="full-width space-between-row" style={{paddingBottom: '10px'}}>
+                    <div className="full-width space-between-row space-below">
                         <FontAwesomeBtn
                             icon={faShuffle}
                             onClick={() => randomizeArrayVals()}

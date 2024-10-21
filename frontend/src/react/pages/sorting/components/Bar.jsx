@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 
 const Bar = forwardRef((props) => {
     const barHeightPercentage = parseInt((props.value / props.maxValue) * 100);
+    
     const getColor = (colorCode) => {
         switch(colorCode) {
             case 0:
@@ -32,7 +33,7 @@ const Bar = forwardRef((props) => {
                     display: 'inline-block'
                 }}
                 >
-            <div className="graph-bar" style={{height: `100%`, width:'99%', backgroundColor: color}} />
+            <div className="graph-bar" style={{height: `100%`, /*width:'99%',*/ backgroundColor: color}} />
         </motion.div>
         }        
         {(!props.started) && 
@@ -43,7 +44,7 @@ const Bar = forwardRef((props) => {
                     display: 'inline-block'
                 }}
             >
-                <div className="graph-bar" style={{height: `100%`, width:'99%', backgroundColor: color}} />
+                <div className="graph-bar" style={{height: `100%`, /*width:'99%',*/ backgroundColor: color}} />
             </div>
         }
         </>

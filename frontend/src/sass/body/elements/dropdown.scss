@@ -13,8 +13,10 @@
 .ag-dropdown-header {
     @extend .neumorphic-btn;
     width: 90%;
-    box-shadow: rgb(0 0 0 / 25%) 1px 1px 4px;
     cursor: pointer;
+    &:active{
+        box-shadow: 5px 5px 15px #000000, -5px -5px 15px #3B4451,
+    }
 }
 
 .ag-dropdown-icon {
@@ -34,6 +36,9 @@
     z-index: 100;
     overflow: hidden;
     list-style: none;
+    &:active{
+        box-shadow: 5px 5px 15px #000000, -5px -5px 15px #3B4451,
+    }
 }
 
 .ag-dropdown-item {

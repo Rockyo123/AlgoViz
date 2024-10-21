@@ -57,9 +57,10 @@ const DropdownSelector = ({val, setVal, options}) => {
                                 />
                             </motion.div>
                         ))}  
-                    </AnimatePresence>               
+                    </AnimatePresence>  
                 </motion.div>
-                <span className={`ag-dropdown-icon ${isOpen ? 'open' : ''}`}>V</span>
+                <span className={`ag-dropdown-icon ${isOpen ? 'open' : ''}`}>V</span>             
+
             </div>
         </div>
     );
