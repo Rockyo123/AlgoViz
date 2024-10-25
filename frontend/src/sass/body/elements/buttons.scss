@@ -2,7 +2,7 @@
     border-radius: 25px;
     border: none;
     background: #2C2F33;
-    box-shadow: 5px 5px 15px #000000, -5px -5px 15px #3B4451;
+    box-shadow: 5px 5px 8px #000, -5px -3px 11px #353d48, -1px -1px 9px #424242;
     color: white;
     user-select: none;
     &:hover{ 
@@ -14,7 +14,12 @@
         inset 5px 5px 15px #000000, inset -5px -5px 15px #3B4451;
     }
 }
-
+.neumorphic-btn.active{
+    color: skyblue;
+    box-shadow: 
+    5px 5px 15px #000000, -5px -5px 15px #3B4451,
+    inset 5px 5px 15px #000000, inset -5px -5px 15px #3B4451;
+}
 
 .primary-btn{
     @extend .neumorphic-btn;
@@ -24,7 +29,4 @@
 
 .secondary-btn{
     @extend .neumorphic-btn;    
-    .active {
-        color: black;
-    }
 }

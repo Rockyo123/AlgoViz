@@ -12,7 +12,7 @@ export const QuickSort = async (values, sendNextStep, opStateRef, checkOpStateRe
             while (i < j) {
 
                 const abort = await checkOpStateRef(opStateRef);
-                if (abort) return;
+                if (abort) return true;
                 
                 while (arr[pivot] >= arr[i] && i < j) {
                     await colorBars({[i]: 0, [i+1]: 3}, sendNextStep);
@@ -35,4 +35,5 @@ export const QuickSort = async (values, sendNextStep, opStateRef, checkOpStateRe
         }
     }
     await QuickSortHelper([...values], 0, values.length-1);
+    return false;
 }

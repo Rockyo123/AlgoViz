@@ -24,7 +24,6 @@ type Message struct {
 }
 
 func WebsocketHandler(c echo.Context) error {
-	log.Println("ROCKY DEBUG IN WEBSOCKET")
 	ws, err := upgrader.Upgrade(c.Response(), c.Request(), nil)
 	if err != nil {
 		log.Println("error upgrading to websocket: ", err)
@@ -52,7 +51,6 @@ func WebsocketHandler(c echo.Context) error {
 		if err != nil {
 			log.Println("Error marshaling return value to JSON:", err)
 		}
-		print("ROCKY DEBUG: returnVal:", returnVal)
 		// Write
 		err = ws.WriteMessage(websocket.TextMessage, jsonResponse)
 		if err != nil {
@@ -65,7 +63,6 @@ func WebsocketHandler(c echo.Context) error {
 }
 
 func WebsocketRouter(message Message) string {
-	print("ROCKY DEBUG: IN ROUTER\n\n")
 	var ret = ""
 	switch message.Type {
 	case "sorting":

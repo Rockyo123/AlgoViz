@@ -33,7 +33,7 @@ export const SelectionSort = async (values, sendNextStep, opStateRef, checkOpSta
         for (let j = i+1; j < toSort.length; j++){
             let prevMinIdx = minIdx;
             const abort = await checkOpStateRef(opStateRef);
-            if (abort) return;
+            if (abort) return true;
 
 
             if (toSort[j] < min){
@@ -51,4 +51,5 @@ export const SelectionSort = async (values, sendNextStep, opStateRef, checkOpSta
             await swapIdx(toSort, i, minIdx, sendNextStep)
         }        
     }
+    return false;
 };

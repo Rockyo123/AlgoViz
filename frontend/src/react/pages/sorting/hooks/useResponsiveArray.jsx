@@ -15,7 +15,7 @@ import React, { useEffect, useState } from "react"
  *          Function to randomize array values,
  *          Function to update the array length.
  */
-export const useResponsiveArray = (maxArrVal, maxArrEntries) => {
+export const useResponsiveArray = (maxArrVal, maxArrEntries, defaultLength=30) => {
     const [array, setArray] = useState([]);
 
 
@@ -38,7 +38,7 @@ export const useResponsiveArray = (maxArrVal, maxArrEntries) => {
     useEffect(() => {
         if (!maxArrVal) return;
         if (array.length) return;
-        setArray(Array.from({ length: 10 }, () => Math.floor(Math.random() * maxArrVal) + 1));
+        setArray(Array.from({ length: Math.min(defaultLength, maxArrEntries) }, () => Math.floor(Math.random() * maxArrVal) + 1));
     }, [maxArrVal])
     
     //  Updates the values of the array, ensuring each value does not exceed `maxArrVal`.

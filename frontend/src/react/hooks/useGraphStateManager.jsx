@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-export const useGraphStateManager = (handleAlgoFinished, initialState = 'NotStarted') => {
+export const useGraphStateManager = (handleAlgoFinished, dependencyArray=[], initialState = 'NotStarted', ) => {
     const [graphState, setGraphState] = useState(initialState);
     const [graphStateBtnText, setGraphStateBtnText] = useState('Start');
 
@@ -24,6 +24,10 @@ export const useGraphStateManager = (handleAlgoFinished, initialState = 'NotStar
         }
         setGraphStateBtnText(newText);
     }, [graphState]);
+
+    useEffect(() => {
+        setGraphState('NotStarted');
+    }, dependencyArray)
 
     const toggleGraphState = () => {
         let newState = graphState;

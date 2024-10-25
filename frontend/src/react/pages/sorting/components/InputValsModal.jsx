@@ -21,7 +21,6 @@ const InputValsModal = (props) => {
     
     //-------------------------------//
     const confirmChanges = () => {
-        console.log('rocky debug: curVal: ', curValue);
         const newGraphVals = curValue
             .split(',', 1000)
             .filter(value => value.trim() !== '')

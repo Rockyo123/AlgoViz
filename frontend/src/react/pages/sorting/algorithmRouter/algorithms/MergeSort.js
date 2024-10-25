@@ -22,7 +22,7 @@ export const MergeSort = async (values, sendNextStep, opStateRef, checkOpStateRe
         // Merge the temp arrays back into arr[left..right]
         while (i < n1 && j < n2) {
             const abort = await checkOpStateRef(opStateRef);
-            if (abort) return;
+            if (abort) return true;
 
             await colorBars({ [k+l] : 1 }, sendNextStep, true, arr.length)
 
@@ -61,7 +61,7 @@ export const MergeSort = async (values, sendNextStep, opStateRef, checkOpStateRe
 
     const mergeSortHelper = async (arr, l, r) => {
         const abort = await checkOpStateRef(opStateRef);
-        if (abort) return;
+        if (abort) return true;
 
         if (l < r){
             const m = Math.floor((l + r) / 2);
@@ -73,4 +73,5 @@ export const MergeSort = async (values, sendNextStep, opStateRef, checkOpStateRe
     }
 
     await mergeSortHelper([...values], 0, values.length-1);
+    return false;
 }

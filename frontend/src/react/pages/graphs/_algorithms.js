@@ -53,7 +53,6 @@ export const pathFind = async (grid, algorithm, sendNextStep, abortRef) => {
     }
 
     await pathFindingAlgo(grid, [startRow, startCol], sendNextStep, abortRef);
-
 }
 
 const DepthFirstSearch = async (grid, startPos, sendNextStep, abortRef) => {

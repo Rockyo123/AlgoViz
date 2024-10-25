@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef} from "react";
+import React, {useState, useRef} from "react";
 import SortableArray from './components/SortableArray';
 import Slider from '../../components/selectors/CustomSlider';
 import DropdownSelector from "../../components/selectors/dropdown/DropdownSelector";
@@ -18,16 +18,18 @@ const SortingAlgorithmsPage = (props) => {
     const containerRef = useRef(null);
     const {containerDimensions: dispContainerDimensions, xUnits: maxArrEntries, yUnits: maxArrVal} = useResponsiveGrid(containerRef, 1, 1, MAX_ARRAY_ENTRIES, MAX_ARRAY_VAL);
     const [array, updateArrayVals, randomizeArrayVals, updateArrayLength] = useResponsiveArray(maxArrVal, maxArrEntries);
-    const { graphState, graphStateBtnText, toggleGraphState, setGraphStateWithVal } = useGraphStateManager(randomizeArrayVals);
-    
+
     const [algorithm, setAlgorithm] = useState('Selection Sort');
     const [speed, setSpeed] = useState(50);
 
+    const { graphState, graphStateBtnText, toggleGraphState, setGraphStateWithVal } = useGraphStateManager(randomizeArrayVals, [array, algorithm]);
+    
     const [inputValsModalOpen, setInputValsModalOpen] = useState(false);
 
     const resetSteps = () => {
         updateArrayVals([...array]);
     }
+
     return (
         <div className="algorithms-page"> 
             <div className="full-width centered-row">
@@ -77,7 +79,6 @@ const SortingAlgorithmsPage = (props) => {
                 </HeaderSelectorsContainer>
             </div>
 
-
             <div className="start-btn-row full-width centered-row">
                 <div className="start-btn-col full-width centered-col">
                     <div className="full-width space-between-row space-below">
@@ -89,7 +90,7 @@ const SortingAlgorithmsPage = (props) => {
                         />
                         <FontAwesomeBtn
                             icon={faPenToSquare}
-                            onClick={() => setInputValsModalOpen()}
+                            onClick={() => setInputValsModalOpen(!inputValsModalOpen)}
                             customStyle={{flexGrow: 1, marginLeft: '3%', marginRight: '3%'}}
                         />
                         <FontAwesomeBtn
@@ -118,13 +119,13 @@ const SortingAlgorithmsPage = (props) => {
                 />
             </AlgorithmResponsiveDisplayWrapper>
 
-            {/*<InputValsModal 
+            <InputValsModal 
                 isOpen={inputValsModalOpen}
                 setIsOpen={setInputValsModalOpen}
                 graphVals={array}
                 updateGraphVals={updateArrayVals}
                 maxArrVal = {maxArrVal}
-            /> */}
+            /> 
         </div>
     )
 }

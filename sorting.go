@@ -21,7 +21,6 @@ func (sh *sortingHandler) nextSortingStep() string {
 var currentArr *sortingHandler
 
 func SortingRouter(message Message) string {
-	print("rocky debug; in sortging handler: ")
 	switch message.Event {
 	case "_init":
 		return currentArr.InitializeSortingHandler(message.Data.Vals)

@@ -1,14 +1,18 @@
 import React from "react";
-import { isPresent, motion, useIsPresent } from "framer-motion";
 
-const DropdownOption = ({ val, onClick }) => {
-    const isPresent = useIsPresent();
+const DropdownOption = ({ val, handleClick }) => {
     
       return (
         <li 
             key={val}
-            className="ag-dropdown-item" 
-            onClick={() => onClick(val)}
+            className="av-dropdown-item" 
+            onClick={() => handleClick(val)}
+            tabIndex={0}
+            onKeyDown={(e) => {
+                if (e.key == "Enter"){
+                    handleClick(val);
+                }
+            }}
         >
             {val}
         </li>

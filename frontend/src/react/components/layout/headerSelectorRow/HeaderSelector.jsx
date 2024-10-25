@@ -7,7 +7,9 @@ const HeaderSelector = ({label, selector}) => {
                 <div className="text-white">
                     {label}
                 </div>
-                {selector}
+                <div className="header-selector-wrapper">
+                    {selector}
+                </div>        
             </div>
         </div>
     )

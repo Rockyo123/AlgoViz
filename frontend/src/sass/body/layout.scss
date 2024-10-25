@@ -15,6 +15,16 @@
   justify-content: space-between;
 }
 
+.space-around-row{
+  display: flex;
+  justify-content: space-around;
+}
+
+.justify-end-row{
+  display: flex;
+  justify-content: end;
+}
+
 .space-below{
   padding-bottom: 30px;
   @media (max-height: 900px) {
@@ -35,7 +45,19 @@ display: flex;
 justify-content: space-between;
 }
 
+.show-on-mobile{
+  display: none;
+  @media (max-width: 500px) {
+    display: block;
+  }
+}
 
+.flex-hide-on-mobile{  
+  display: flex;
+  @media (max-width: 500px) {
+    display: none;
+  }
+}
 
 .full-width{
   width: 100%;

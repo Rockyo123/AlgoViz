@@ -7,13 +7,6 @@
   overflow: hidden;
 }
 
-.top-menu{
-  width: 100vw;
-  background-color: #131314;
-  height: 60px;
-  z-index: 3;
-}
-
 .content{
   flex-grow: 1; 
   height: calc(100vh - 60px); 
@@ -42,6 +35,13 @@
   @media (max-width: 600px) {
     flex-direction: column;
   }
+  @media (max-height: 900px) {
+    padding-top: 5px;
+  }
+}
+
+.header-selector-wrapper{
+  padding-top: 20px;
   @media (max-height: 900px) {
     padding-top: 5px;
   }

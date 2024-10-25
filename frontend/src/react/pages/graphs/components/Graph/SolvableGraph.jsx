@@ -33,17 +33,17 @@ const SolvableGraph = (props) => {
     useEffect(() => {
         abortOp();
         setGraphVals(props.arr);
-    }, [props.algorithm]);
+    }, [props.arr, props.algorithm]);
 
 
     //---executes steps ---//
     const executeNextStep = async (nextStep) => {
         let [newGraph, finished] = decodeInstr(deepCopyGraphVals(graphValsRef.current), nextStep)
-        if (finished[0]){
+        updateGraph(newGraph);
+        if (finished){
             props.setGraphState('Finished');
             return;
         }
-        updateGraph(newGraph);
         const speedDelay = getDelay(500, speedRef.current, graphValsRef.current[0].length);
         await Sleep(speedDelay);
     }
