@@ -1,17 +1,14 @@
 import React from "react"
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFill, faPen, faPencilRuler, faPenToSquare, faClose, faTrash } from '@fortawesome/free-solid-svg-icons';
 import SizeSelector2D from "../../../components/selectors/SizeSelector2D";
 import { MAX_GRAPH_SIZE } from "../../../constants";
 import EditToolSelector from "./EditToolSelector";
 
-const GraphEditToolSelector = ({disabled, editTool, setEditTool, graphSize, setGraphSize, clearGraph}) => {
+const GraphEditingToolbar  = ({disabled, editTool, setEditTool, graphSize, setGraphSize, clearGraph}) => {
         
     return (
         <div className="centered-row">
             <div className="space-between-row" style={{paddingBottom: '10px', width: '90%'}}>
-                <div className='flex-hide-on-mobile text-white' style={{width: '25%'}}> 
+                <div className='flex-hide-on-mobile text-white' style={{width: '50%'}}> 
                     <SizeSelector2D 
                         xSize={graphSize['x']}
                         ySize={graphSize['y']}
@@ -29,14 +26,9 @@ const GraphEditToolSelector = ({disabled, editTool, setEditTool, graphSize, setG
                         disabled={disabled}
                     />
                 </div>
-                <div className="justify-end-row" style={{width: '25%'}}>
-                    <button className="secondary-btn">
-                        <FontAwesomeIcon icon={faPenToSquare} />   
-                    </button>
-                </div>
             </div>
         </div>
     )
 }
 
-export default GraphEditToolSelector;
+export default GraphEditingToolbar;

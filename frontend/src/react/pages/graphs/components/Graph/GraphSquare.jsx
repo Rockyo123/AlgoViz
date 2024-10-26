@@ -1,11 +1,23 @@
 import React, {useState} from "react"
 
 /**
+ * GraphSquare component that represents a single square in the graph grid.
+ * 
  * graph value meanings:
+ *  -5: pathfinding finished, not found
+ *  -4: being edited, to blocked
  *  -1: blocked
  *   0: blank
  *   1: start
  *   2: goal
+ *   3: visited
+ *   4: being edited, to blank
+ *   5: pathfinding finished, found
+ * 
+ * @param {Object} props - The props object.
+ * @param {number} props.val - The value representing the state of the square.
+ *
+ * @returns {JSX.Element} The rendered square component.
  */
 const GraphSquare = (props) => {
     

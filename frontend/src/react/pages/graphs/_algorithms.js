@@ -150,8 +150,6 @@ const BreadthFirstSearch = async (grid, startPos, sendNextStep, abortRef) => {
             }
         }
     }  
-
-    console.log("Goal not reachable");
     await sendNextStep(['notFound', []]);
     return false;
 }

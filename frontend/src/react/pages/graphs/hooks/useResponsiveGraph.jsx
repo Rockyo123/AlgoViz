@@ -65,14 +65,6 @@ export const useResponsiveGraph = (maxXEntries, maxYEntries, defaultXEntries=30,
             'y': cols
         });
     }
-    //  Randomizes the current graph, keeping the length the same.
-    const randomizeGraph = () => {
-        /*let newArr = [];
-        for (let i = 0; i < array.length; i++){
-            newArr.push(Math.floor(Math.random() * maxArrVal) + 1);
-        }
-        setArray(newArr); */
-    }
 
     //  Updates the size of the graph, either truncating or extending it with 0's
     const updateGraphSize = (xIn, yIn) => {
@@ -103,5 +95,5 @@ export const useResponsiveGraph = (maxXEntries, maxYEntries, defaultXEntries=30,
         });
     }
 
-    return [graph, graphSize, updateGraphSize, updateGraphVals, randomizeGraph];
+    return [graph, graphSize, updateGraphSize, updateGraphVals];
 }

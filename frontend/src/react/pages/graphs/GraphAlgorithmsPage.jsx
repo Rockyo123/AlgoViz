@@ -2,7 +2,7 @@ import React, {useState, useRef} from "react"
 import DropdownSelector from "../../components/selectors/dropdown/DropdownSelector"
 import Slider from "../../components/selectors/CustomSlider"
 import Graph from "./components/Graph/Graph"
-import GraphEditToolSelector from "./components/GraphEditToolSelector";
+import GraphEditingToolbar from "./components/GraphEditingToolbar"
 import HeaderSelectorsContainer from "../../components/layout/headerSelectorRow/HeaderSelectorsContainer";
 import HeaderSelector from "../../components/layout/headerSelectorRow/HeaderSelector";
 import AlgorithmResponsiveDisplayWrapper from "../../components/layout/AlgorithmResponsiveDisplayWrapper";
@@ -13,26 +13,12 @@ import { MAX_GRAPH_SIZE, PATHFINDING_ALGS } from "../../constants";
 import FontAwesomeBtn from "../../components/basics/FontAwesomeBtn";
 import { faBackwardStep, faPenToSquare, faShuffle} from '@fortawesome/free-solid-svg-icons';
 
-/**
- * graph value meanings:
- *  -5: pathfinding finished, not found
- *  -4: being edited, to blocked
- *  -1: blocked
- *   0: blank
- *   1: start
- *   2: goal
- *   3: visited
- *   4: being edited, to blank
- *   5: pathfinding finished, found
- */
 const GraphAlgorithmsPage = (props) => {
     const containerRef = useRef(null);
     const {containerDimensions: dispContainerDimensions, xUnits: maxXUnits, yUnits: maxYUnits} = useResponsiveGrid(containerRef, 20, 20, MAX_GRAPH_SIZE, MAX_GRAPH_SIZE);
-    const [ graph, graphSize, updateGraphSize, updateGraphVals, randomizeGraph ] = useResponsiveGraph(maxXUnits, maxYUnits);
+    const [ graph, graphSize, updateGraphSize, updateGraphVals ] = useResponsiveGraph(maxXUnits, maxYUnits);
 
-    const [graphVals, setGraphVals] = useState([[]]);
     const [algorithm, setAlgorithm] = useState('Depth First Search');
-    const [isEditing, setIsEditing] = useState(false);
     const [editTool, setEditTool] = useState('free');
     const [speed, setSpeed] = useState(50);
     const [inputValsModalOpen, setInputValsModalOpen] = useState(false);
@@ -42,10 +28,10 @@ const GraphAlgorithmsPage = (props) => {
     
     const clearGraph = () => {
         const newGraph = [];
-        for (let i = 0; i < graphVals.length; i++){
+        for (let i = 0; i < graph.length; i++){
             const newGraphRow = [];
-            for (let j = 0; j < graphVals[i].length; j++){
-                let valToAppend = graphVals[i][j];
+            for (let j = 0; j < graph[i].length; j++){
+                let valToAppend = graph[i][j];
                 if (valToAppend !== 1 && valToAppend !== 2){
                     valToAppend = 0;
                 }
@@ -53,16 +39,28 @@ const GraphAlgorithmsPage = (props) => {
             }
             newGraph.push(newGraphRow);
         }
-        setGraphVals(newGraph);
+        updateGraphVals(newGraph);
     }
     
-    /*const randomizeGraph = () => {
-       
-    } */
+    const randomizeGraph = () => {
+       const newGraph = [];
+       for (let i = 0; i < graphSize['x']; i++){
+            const newRow = []
+            for (let j = 0; j < graphSize['y']; j++){
+                if (graph[i][j] === 1 || graph[i][j] === 2){
+                    newRow.push(graph[i][j]);
+                    continue;
+                }
+                newRow.push(Math.random() < 0.25 ? -1 : 0);
+            }
+            newGraph.push(newRow);
+       }
+       updateGraphVals(newGraph);
+    }
 
     
     const resetSteps = () => {
-        //updateArrayVals([...array]);
+        updateGraphVals([...graph]);
     }
 
     return (
@@ -89,7 +87,7 @@ const GraphAlgorithmsPage = (props) => {
                 <HeaderSelector
                     label='Edit Graph'
                     selector={
-                    <GraphEditToolSelector 
+                    <GraphEditingToolbar  
                         disabled={graphState !== 'NotStarted'}
                         editTool={editTool}
                         setEditTool={setEditTool}
@@ -145,12 +143,11 @@ const GraphAlgorithmsPage = (props) => {
                 graphDimensions={dispContainerDimensions}
                 graph={graph}
                 graphSize={graphSize}
-                setGraphVals={updateGraphVals}
+                setGraph={updateGraphVals}
                 algorithm={algorithm}
                 graphState={graphState}
                 setGraphState={setGraphStateWithVal}
                 speed={speed}
-                isEditing={isEditing}
                 editTool={editTool}
             />
         </AlgorithmResponsiveDisplayWrapper>
