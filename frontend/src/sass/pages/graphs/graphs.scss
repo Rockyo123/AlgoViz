@@ -2,6 +2,9 @@
     padding-top: 20px;
     height: 98%;
     width: 100%;
+    @media (max-height: 900px) {
+        padding-top: 5px;
+    }
 }
 
 .graph-grid{

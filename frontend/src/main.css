@@ -28,6 +28,11 @@
   height: 98%;
   width: 100%;
 }
+@media (max-height: 900px) {
+  .graph-grid-responsive-container {
+    padding-top: 5px;
+  }
+}
 
 .graph-grid {
   height: 100%;

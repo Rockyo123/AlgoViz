@@ -18,7 +18,7 @@ const GraphEditingToolbar  = ({disabled, editTool, setEditTool, graphSize, setGr
                         updateYSize={val => setGraphSize(graphSize['x'], val)}
                     />               
                 </div>
-                <div style={{width: '50%', paddingLeft: '20px', paddingRight: '20px'}}>
+                <div style={{flex: '1 1 100%', paddingLeft: '20px', paddingRight: '20px'}}>
                     <EditToolSelector 
                         editTool={editTool}
                         setEditTool={setEditTool}
