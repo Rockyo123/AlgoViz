@@ -1,23 +1,26 @@
 import React, {useState, useRef} from "react"
-import DropdownSelector from "../../components/selectors/dropdown/DropdownSelector"
-import Slider from "../../components/selectors/CustomSlider"
+import DropdownSelector from "../../components/elements/dropdown/DropdownSelector"
+import Slider from "../../components/elements/CustomSlider"
 import Graph from "./components/Graph/Graph"
 import GraphEditingToolbar from "./components/GraphEditingToolbar"
-import HeaderSelectorsContainer from "../../components/layout/headerSelectorRow/HeaderSelectorsContainer";
-import HeaderSelector from "../../components/layout/headerSelectorRow/HeaderSelector";
-import AlgorithmResponsiveDisplayWrapper from "../../components/layout/AlgorithmResponsiveDisplayWrapper";
+import HeaderSelectorsContainer from "../../components/elements/layout/headerSelectorRow/HeaderSelectorsContainer";
+import HeaderSelector from "../../components/elements/layout/headerSelectorRow/HeaderSelector";
+import AlgorithmResponsiveDisplayWrapper from "../../components/elements/layout/AlgorithmResponsiveDisplayWrapper";
 import { useResponsiveGrid } from "../../hooks/useResponsiveGrid";
 import { useResponsiveGraph } from "./hooks/useResponsiveGraph";
 import { useGraphStateManager } from "../../hooks/useGraphStateManager";
 import { MAX_GRAPH_SIZE, PATHFINDING_ALGS } from "../../constants";
-import FontAwesomeBtn from "../../components/basics/FontAwesomeBtn";
+import FontAwesomeBtn from "../../components/elements/FontAwesomeBtn";
 import { faBackwardStep, faPenToSquare, faShuffle} from '@fortawesome/free-solid-svg-icons';
 
 const GraphAlgorithmsPage = (props) => {
     const containerRef = useRef(null);
     const {containerDimensions: dispContainerDimensions, xUnits: maxXUnits, yUnits: maxYUnits} = useResponsiveGrid(containerRef, 20, 20, MAX_GRAPH_SIZE, MAX_GRAPH_SIZE);
+    console.log('rocky debug: units: ', maxXUnits, maxYUnits)
+    
     const [ graph, graphSize, updateGraphSize, updateGraphVals ] = useResponsiveGraph(maxXUnits, maxYUnits);
 
+    
     const [algorithm, setAlgorithm] = useState('Depth First Search');
     const [editTool, setEditTool] = useState('free');
     const [speed, setSpeed] = useState(50);
@@ -25,7 +28,6 @@ const GraphAlgorithmsPage = (props) => {
 
     const { graphState, graphStateBtnText, toggleGraphState, setGraphStateWithVal } = useGraphStateManager(() => updateGraphVals(graph), [graph, algorithm]);
 
-    
     const clearGraph = () => {
         const newGraph = [];
         for (let i = 0; i < graph.length; i++){
@@ -151,7 +153,6 @@ const GraphAlgorithmsPage = (props) => {
                 editTool={editTool}
             />
         </AlgorithmResponsiveDisplayWrapper>
-        
     </div>
     )
 }

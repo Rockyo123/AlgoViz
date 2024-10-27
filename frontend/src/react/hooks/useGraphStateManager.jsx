@@ -1,29 +1,28 @@
 import { useEffect, useState } from 'react';
 
-export const useGraphStateManager = (handleAlgoFinished, dependencyArray=[], initialState = 'NotStarted', ) => {
+export const useGraphStateManager = (handleAlgoFinished, dependencyArray=[], initialState = 'NotStarted') => {
     const [graphState, setGraphState] = useState(initialState);
-    const [graphStateBtnText, setGraphStateBtnText] = useState('Start');
 
-    useEffect(() => {
+    const graphStateBtnText = (() => {
         let newText = 'Start';
         switch (graphState) {
             case 'NotStarted':
-                newText = 'Start';
-                break;
-            case 'Running':
-                newText = 'Pause';
-                break;
-            case 'Paused':
-                newText = 'Resume';
-                break;
-            case 'Finished':
-                newText = 'Finished';
-                break;
-            default:
-                break;
+                    newText = 'Start';
+                    break;
+                case 'Running':
+                    newText = 'Pause';
+                    break;
+                case 'Paused':
+                    newText = 'Resume';
+                    break;
+                case 'Finished':
+                    newText = 'Finished';
+                    break;
+                default:
+                    break;
         }
-        setGraphStateBtnText(newText);
-    }, [graphState]);
+        return newText;
+    })();
 
     useEffect(() => {
         setGraphState('NotStarted');

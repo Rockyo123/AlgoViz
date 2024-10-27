@@ -31,7 +31,6 @@ const Graph = (props) => {
                 <GraphSquare 
                     key={`${colIndex}-${val}`} 
                     val={val}
-                    editState={editMode}
                 />
                 ))}
           </div>

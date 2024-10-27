@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import CustomModal from "../../../components/modals/CustomModal";
+import CustomModal from "../../../components/elements/modals/CustomModal";
 
 const InputValsModal = (props) => {
     const [curValue, setCurValue] = useState(props.graphVals.join(', '));

@@ -9,8 +9,9 @@ import React, { useEffect, useLayoutEffect, useState } from "react"
  * @param {number} maxArrVal - The maximum value allowed for the array entries.
  * @param {number} maxArrEntries - The maximum number of entries allowed in the array.
  *
- * @returns {[Array<number>, Function, Function, Function]} 
+ * @returns {[Array<number>, Object, Function, Function, Function]} 
  *          Returns an array of the current values, 
+ *          Size of current graph
  *          Function to update the array values, 
  *          Function to randomize array values,
  *          Function to update the array length.
@@ -18,20 +19,26 @@ import React, { useEffect, useLayoutEffect, useState } from "react"
 export const useResponsiveGraph = (maxXEntries, maxYEntries, defaultXEntries=30, defaultYEntries=30) => {
     
     const [graph, setGraph] = useState([[]]);
-    const [graphSize, setGraphSize] = useState({'x': 0, 'y': 0})
+
+    const graphSize = {
+        'x': graph.length,
+        'y': graph[0].length
+    }
+    
     // Adjust graph size based on change in max entries
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (!maxXEntries || !maxYEntries) return;
+        if (!graphSize['x'] || !graphSize['y']) {
+            initializeGraph();
+            return;
+        }
         if (maxXEntries < graph.length || maxYEntries < graph[0].length){
             updateGraphSize(Math.min(maxXEntries, graph.length), Math.min(maxYEntries, graph[0].length));
         }
     }, [maxXEntries, maxYEntries]);
-
-
-    // Initialize the array if empty, with random values
-    useLayoutEffect(() => {
-        if (!maxYEntries) return;
-        if (graph.length && graph[0].length) return;
+    
+    const initializeGraph = () => {
+        if (!maxXEntries || !maxYEntries) return [[]];
         const rows = Math.min(maxXEntries, defaultXEntries);
         const cols = Math.min(maxYEntries, defaultYEntries);
 
@@ -39,12 +46,8 @@ export const useResponsiveGraph = (maxXEntries, maxYEntries, defaultXEntries=30,
         newGraph[0][0] = 1;
         newGraph[rows-1][cols-1] = 2;
         setGraph(newGraph);    
-        setGraphSize({
-            'x': rows,
-            'y': cols
-        });
-    }, [maxXEntries, maxYEntries])
-    
+    }
+
     //  Updates the values of the graph, ensuring row len or col len does not exceed max entries
     const updateGraphVals = (graphIn) => {
         const rows = Math.min(graphIn.length, maxXEntries); 
@@ -60,10 +63,6 @@ export const useResponsiveGraph = (maxXEntries, maxYEntries, defaultXEntries=30,
         });
     
         setGraph(newGraph);
-        setGraphSize({
-            'x': rows,
-            'y': cols
-        });
     }
 
     //  Updates the size of the graph, either truncating or extending it with 0's
@@ -89,10 +88,6 @@ export const useResponsiveGraph = (maxXEntries, maxYEntries, defaultXEntries=30,
         if (!startInBounds) newGraph[0][0] = 1;
         if (!goalInBounds) newGraph[xIn-1][yIn-1] = 2;
         setGraph(newGraph);
-        setGraphSize({
-            'x': rows,
-            'y': cols
-        });
     }
 
     return [graph, graphSize, updateGraphSize, updateGraphVals];
