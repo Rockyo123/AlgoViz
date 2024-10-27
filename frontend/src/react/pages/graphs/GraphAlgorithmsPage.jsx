@@ -13,13 +13,10 @@ import { MAX_GRAPH_SIZE, PATHFINDING_ALGS } from "../../constants";
 import FontAwesomeBtn from "../../components/elements/FontAwesomeBtn";
 import { faBackwardStep, faPenToSquare, faShuffle} from '@fortawesome/free-solid-svg-icons';
 
-const GraphAlgorithmsPage = (props) => {
+const GraphAlgorithmsPage = () => {
     const containerRef = useRef(null);
     const {containerDimensions: dispContainerDimensions, xUnits: maxXUnits, yUnits: maxYUnits} = useResponsiveGrid(containerRef, 20, 20, MAX_GRAPH_SIZE, MAX_GRAPH_SIZE);
-    console.log('rocky debug: units: ', maxXUnits, maxYUnits)
-    
     const [ graph, graphSize, updateGraphSize, updateGraphVals ] = useResponsiveGraph(maxXUnits, maxYUnits);
-
     
     const [algorithm, setAlgorithm] = useState('Depth First Search');
     const [editTool, setEditTool] = useState('free');
@@ -137,9 +134,8 @@ const GraphAlgorithmsPage = (props) => {
                 </button> 
             </div>
         </div>
-
         <AlgorithmResponsiveDisplayWrapper                
-                containerRef={containerRef}
+            containerRef={containerRef}
         >
             <Graph 
                 graphDimensions={dispContainerDimensions}

@@ -24,6 +24,20 @@ export const useResponsiveGrid = (containerRef, minUnitWidth, minUnitHeight, max
         yUnits: 0 
     });
 
+    const areDimsEqual = (dim1, dim2) => {
+        if (Object.keys(dim1).length !== Object.keys(dim2).length) {
+            return false;
+        }
+    
+        for (let key in dim1) {
+            if (dim1[key] !== dim2[key]) {
+                return false;
+            }
+        }
+    
+        return true;
+    }
+
     //--------------------------------------------------
     useLayoutEffect(() => {
         const getDimensions = () => {
@@ -47,6 +61,7 @@ export const useResponsiveGrid = (containerRef, minUnitWidth, minUnitHeight, max
     
         const handleResize = () => {
             const containerDimensions = getDimensions();
+            if (areDimsEqual(containerDimensions, dimensionData.containerDimensions)) return;
             const units = getResponsiveUnits(containerDimensions);
             setDimensionData({
                 'containerDimensions': containerDimensions,
@@ -64,7 +79,7 @@ export const useResponsiveGrid = (containerRef, minUnitWidth, minUnitHeight, max
         return () => {
           window.removeEventListener("resize", handleResize)
         }
-    }, [containerRef, minUnitWidth, minUnitHeight, maxXUnits, maxYUnits]);
+    }, [ containerRef, minUnitWidth, minUnitHeight, maxXUnits, maxYUnits ]);
 
     //--------------------------------------------------
     return dimensionData;

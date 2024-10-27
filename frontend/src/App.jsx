@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import "./main.css"; 
 import TopMenu from "./react/components/menus/TopMenu";
 import SortingAlgorithmsPage from './react/pages/sorting/SortingAlgorithmsPage';
@@ -12,19 +11,6 @@ import {
 } from "react-router-dom";
 
 function App() {
-  const [data, setData] = useState("");
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch("http://localhost:8080/api");
-      const data = await response.text();
-      setData(data);
-    };
-
-    fetchData().catch((err) => console.log(err));
-  }, []);
-
-
-
   return (
     <BrowserRouter>
     <div className="App">
