@@ -2,7 +2,7 @@ import "./main.css";
 import TopMenu from "./react/components/menus/TopMenu";
 import SortingAlgorithmsPage from './react/pages/sorting/SortingAlgorithmsPage';
 import GraphAlgorithmsPage from "./react/pages/graphs/GraphAlgorithmsPage";
-import HomePage from "./react/pages/Home";
+import HomePage from "./react/pages/home/Home";
 import {
   Routes,
   Route,
@@ -17,7 +17,7 @@ function App() {
 
      <Routes>
       <Route path="/" element={<Layout />}>
-        <Route index element={<GraphAlgorithmsPage />} />
+        <Route index element={<HomePage />} />
         <Route path="sorting" element={<SortingAlgorithmsPage />} />
         <Route path="graphs" element={<GraphAlgorithmsPage />} />
       </Route>

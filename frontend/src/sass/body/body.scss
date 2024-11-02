@@ -25,6 +25,16 @@
   }
 }
 
+.home-page{
+  width: 100%;
+  padding: 20px;
+  padding-bottom: 0px;
+  display: flex;
+  flex-direction: column;
+  @media (max-height: 900px) {
+    padding-top: 5px;
+  }
+}
 .responsive-header-selectors-row{
   width: 90%;
   display: flex;
@@ -74,4 +84,8 @@
 
 .error-message{
   color: red;
+}
+
+.text-disabled{
+  color: #5c5c5c;
 }

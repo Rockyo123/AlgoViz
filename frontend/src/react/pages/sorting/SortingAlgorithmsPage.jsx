@@ -1,12 +1,12 @@
 import React, {useState, useRef} from "react";
 import SortableArray from './components/SortableArray';
-import Slider from '../../components/elements/CustomSlider';
+import Slider from '../../components/elements/layout/CustomSlider';
 import DropdownSelector from "../../components/elements/dropdown/DropdownSelector";
 import InputValsModal from "./components/InputValsModal";
 import { faBackwardStep, faPenToSquare, faShuffle} from '@fortawesome/free-solid-svg-icons';
 import HeaderSelectorsContainer from "../../components/elements/layout/headerSelectorRow/HeaderSelectorsContainer";
 import HeaderSelector from "../../components/elements/layout/headerSelectorRow/HeaderSelector";
-import FontAwesomeBtn from "../../components/elements/FontAwesomeBtn";
+import FontAwesomeBtn from "../../components/elements/layout/FontAwesomeBtn";
 import AlgorithmResponsiveDisplayWrapper from "../../components/elements/layout/AlgorithmResponsiveDisplayWrapper";
 import { useResponsiveGrid } from "../../hooks/useResponsiveGrid";
 import { useResponsiveArray } from "./hooks/useResponsiveArray";

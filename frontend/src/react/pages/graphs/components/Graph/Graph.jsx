@@ -21,7 +21,11 @@ import GraphSquare from "./GraphSquare.jsx";
  */
 const Graph = (props) => {
     const squareDimensions = props.graph ? [props.graphSize['x'], props.graphSize['y']] : [0, 0];    
+    
+    // edit graph should affect the actual graph, so it sets graph directly
     const { editMode, editSquare, startEditMode, endEditMode } = useEditGraph(props.graph, props.setGraph, props.editTool, squareDimensions, props.graphDimensions);
+    
+    // solve should create its own graph so that the solution and graph can be reset
     const graphVals = useSolveGraph(props.graph, props.graphState, props.setGraphState, props.speed, props.algorithm);
     
     const graphSquares = useMemo(() => {

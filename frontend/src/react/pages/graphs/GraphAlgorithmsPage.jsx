@@ -1,16 +1,11 @@
 import React, {useState, useRef} from "react"
-import DropdownSelector from "../../components/elements/dropdown/DropdownSelector"
-import Slider from "../../components/elements/CustomSlider"
 import Graph from "./components/Graph/Graph"
 import GraphEditingToolbar from "./components/GraphEditingToolbar"
-import HeaderSelectorsContainer from "../../components/elements/layout/headerSelectorRow/HeaderSelectorsContainer";
-import HeaderSelector from "../../components/elements/layout/headerSelectorRow/HeaderSelector";
-import AlgorithmResponsiveDisplayWrapper from "../../components/elements/layout/AlgorithmResponsiveDisplayWrapper";
-import { useResponsiveGrid } from "../../hooks/useResponsiveGrid";
+import { HeaderSelectorsContainer, HeaderSelector, AlgorithmResponsiveDisplayWrapper, Slider, FontAwesomeBtn } from "../../components/elements/layout";
+import { Dropdown } from "../../components/elements/dropdown";
+import { useResponsiveGrid, useGraphStateManager } from "../../hooks"
 import { useResponsiveGraph } from "./hooks/useResponsiveGraph";
-import { useGraphStateManager } from "../../hooks/useGraphStateManager";
 import { MAX_GRAPH_SIZE, PATHFINDING_ALGS } from "../../constants";
-import FontAwesomeBtn from "../../components/elements/FontAwesomeBtn";
 import { faBackwardStep, faPenToSquare, faShuffle} from '@fortawesome/free-solid-svg-icons';
 
 const GraphAlgorithmsPage = () => {
@@ -75,7 +70,7 @@ const GraphAlgorithmsPage = () => {
                     label="Algorithm"
                     selector={
                     <div style={{width: '100%', display: 'flex', justifyContent: 'center'}}>
-                        <DropdownSelector 
+                        <Dropdown 
                             val={algorithm}
                             setVal={setAlgorithm}
                             options={PATHFINDING_ALGS}

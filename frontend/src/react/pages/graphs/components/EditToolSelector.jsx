@@ -1,5 +1,5 @@
 import React from "react";
-import FontAwesomeBtn from "../../../components/elements/FontAwesomeBtn";
+import FontAwesomeBtn from "../../../components/elements/layout/FontAwesomeBtn";
 import { faFill, faPen, faPencilRuler, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 const EditToolSelector = (props) => {
