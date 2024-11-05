@@ -1,23 +1,82 @@
 package main
 
 import (
-	"algoviz/frontend"
+	"flag"
+	"fmt"
+	"io/fs"
+	"log"
 	"net/http"
-
-	"github.com/labstack/echo/v4/middleware"
-
-	"github.com/labstack/echo/v4"
+	"os"
+	"strings"
 )
 
 func main() {
-	e := echo.New()
-	frontend.RegisterHandlers(e)
-	e.Use(middleware.Logger())
-	e.Use(middleware.Recover())
+	var port int
+	flag.IntVar(&port, "port", 8080, "The port to listen on")
+	flag.Parse()
+	var frontend fs.FS = os.DirFS("./frontend/dist")
+	httpFS := http.FS(frontend)
+	fileServer := http.FileServer(httpFS)
+	serveIndex := serveFileContents("index.html", httpFS)
+	http.Handle("/", intercept404(fileServer, serveIndex))
 
-	e.GET("/api", func(c echo.Context) error {
-		return c.String(http.StatusOK, "Hello world!")
+	// Start the web server
+	addr := fmt.Sprintf("localhost:%d", port)
+	log.Fatalln(http.ListenAndServe(addr, nil))
+}
+
+func intercept404(handler, on404 http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		hookedWriter := &hookedResponseWriter{ResponseWriter: w}
+		handler.ServeHTTP(hookedWriter, r)
+
+		if hookedWriter.got404 {
+			on404.ServeHTTP(w, r)
+		}
 	})
-	e.GET("/ws/", WebsocketHandler)
-	e.Logger.Fatal(e.Start(":8080"))
+}
+
+type hookedResponseWriter struct {
+	http.ResponseWriter
+	got404 bool
+}
+
+func (hrw *hookedResponseWriter) WriteHeader(status int) {
+	if status == http.StatusNotFound {
+		hrw.got404 = true
+	} else {
+		hrw.ResponseWriter.WriteHeader(status)
+	}
+}
+
+func (hrw *hookedResponseWriter) Write(p []byte) (int, error) {
+	if hrw.got404 {
+		return len(p), nil
+	}
+
+	return hrw.ResponseWriter.Write(p)
+}
+
+func serveFileContents(file string, files http.FileSystem) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		if !strings.Contains(r.Header.Get("Accept"), "text/html") {
+			w.WriteHeader(http.StatusNotFound)
+			return
+		}
+
+		index, err := files.Open(file)
+		if err != nil {
+			w.WriteHeader(http.StatusNotFound)
+			return
+		}
+
+		fi, err := index.Stat()
+		if err != nil {
+			w.WriteHeader(http.StatusNotFound)
+			return
+		}
+
+		w.Header().Set("Content-Type", "text/html; charset=utf-8")
+		http.ServeContent(w, r, fi.Name(), fi.ModTime(), index)
+	}
 }

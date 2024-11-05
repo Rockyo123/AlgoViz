@@ -6,7 +6,7 @@ import { Dropdown } from "../../components/elements/dropdown";
 import { useResponsiveGrid, useGraphStateManager } from "../../hooks"
 import { useResponsiveGraph } from "./hooks/useResponsiveGraph";
 import { MAX_GRAPH_SIZE, PATHFINDING_ALGS } from "../../constants";
-import { faBackwardStep, faPenToSquare, faShuffle} from '@fortawesome/free-solid-svg-icons';
+import PlaybackBtnSection from "../../components/elements/playback/playbackBtnSection";
 
 const GraphAlgorithmsPage = () => {
     const containerRef = useRef(null);
@@ -104,31 +104,13 @@ const GraphAlgorithmsPage = () => {
             </HeaderSelectorsContainer>
         </div>
 
-        <div className="start-btn-row full-width centered-row">
-            <div className="start-btn-col full-width centered-col">
-                <div className="full-width space-between-row space-below">
-                    <FontAwesomeBtn
-                        icon={faShuffle}
-                        onClick={() => randomizeGraph()}
-                        customStyle={{flexGrow: 1, marginRight: '3%'}}
-                            
-                    />
-                    <FontAwesomeBtn
-                        icon={faPenToSquare}
-                        onClick={() => setInputValsModalOpen(!inputValsModalOpen)}
-                        customStyle={{flexGrow: 1, marginLeft: '3%', marginRight: '3%'}}
-                    />
-                    <FontAwesomeBtn
-                        icon={faBackwardStep}
-                        onClick={() => resetSteps()}
-                        customStyle={{flexGrow: 1, marginLeft: '3%'}}
-                    />
-                </div>
-                <button className="primary-btn" onClick={() => toggleGraphState()}>
-                    {graphStateBtnText}
-                </button> 
-            </div>
-        </div>
+        <PlaybackBtnSection 
+            randomizeGraph={randomizeGraph}
+            resetSteps={resetSteps}
+            toggleGraphState={toggleGraphState}
+            btnText={graphStateBtnText}
+        />
+
         <AlgorithmResponsiveDisplayWrapper                
             containerRef={containerRef}
         >

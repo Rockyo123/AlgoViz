@@ -2,11 +2,9 @@ import React, {useState, useRef} from "react";
 import SortableArray from './components/SortableArray';
 import Slider from '../../components/elements/layout/CustomSlider';
 import DropdownSelector from "../../components/elements/dropdown/DropdownSelector";
-import InputValsModal from "./components/InputValsModal";
-import { faBackwardStep, faPenToSquare, faShuffle} from '@fortawesome/free-solid-svg-icons';
+import PlaybackBtnSection from "../../components/elements/playback/playbackBtnSection";
 import HeaderSelectorsContainer from "../../components/elements/layout/headerSelectorRow/HeaderSelectorsContainer";
 import HeaderSelector from "../../components/elements/layout/headerSelectorRow/HeaderSelector";
-import FontAwesomeBtn from "../../components/elements/layout/FontAwesomeBtn";
 import AlgorithmResponsiveDisplayWrapper from "../../components/elements/layout/AlgorithmResponsiveDisplayWrapper";
 import { useResponsiveGrid } from "../../hooks/useResponsiveGrid";
 import { useResponsiveArray } from "./hooks/useResponsiveArray";
@@ -24,8 +22,6 @@ const SortingAlgorithmsPage = (props) => {
 
     const { graphState, graphStateBtnText, toggleGraphState, setGraphStateWithVal } = useGraphStateManager(randomizeArrayVals, [array, algorithm]);
     
-    const [inputValsModalOpen, setInputValsModalOpen] = useState(false);
-
     const resetSteps = () => {
         updateArrayVals([...array]);
     }
@@ -79,32 +75,12 @@ const SortingAlgorithmsPage = (props) => {
                 </HeaderSelectorsContainer>
             </div>
 
-            <div className="start-btn-row full-width centered-row">
-                <div className="start-btn-col full-width centered-col">
-                    <div className="full-width space-between-row space-below">
-                        <FontAwesomeBtn
-                            icon={faShuffle}
-                            onClick={() => randomizeArrayVals()}
-                            customStyle={{flexGrow: 1, marginRight: '3%'}}
-                                
-                        />
-                        <FontAwesomeBtn
-                            icon={faPenToSquare}
-                            onClick={() => setInputValsModalOpen(!inputValsModalOpen)}
-                            customStyle={{flexGrow: 1, marginLeft: '3%', marginRight: '3%'}}
-                        />
-                        <FontAwesomeBtn
-                            icon={faBackwardStep}
-                            onClick={() => resetSteps()}
-                            customStyle={{flexGrow: 1, marginLeft: '3%'}}
-                        />
-                    </div>
-                    <button className="primary-btn" onClick={() => toggleGraphState()}>
-                        {graphStateBtnText}
-                    </button> 
-                </div>
-                
-            </div>
+            <PlaybackBtnSection 
+            randomizeGraph={randomizeArrayVals}
+            resetSteps={resetSteps}
+            toggleGraphState={toggleGraphState}
+            btnText={graphStateBtnText}
+        />
             
             <AlgorithmResponsiveDisplayWrapper                
                 containerRef={containerRef}
@@ -118,14 +94,6 @@ const SortingAlgorithmsPage = (props) => {
                     maxArrVal={maxArrVal}
                 />
             </AlgorithmResponsiveDisplayWrapper>
-
-            <InputValsModal 
-                isOpen={inputValsModalOpen}
-                setIsOpen={setInputValsModalOpen}
-                graphVals={array}
-                updateGraphVals={updateArrayVals}
-                maxArrVal = {maxArrVal}
-            /> 
         </div>
     )
 }

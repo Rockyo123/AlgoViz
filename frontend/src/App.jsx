@@ -1,5 +1,5 @@
 import "./main.css"; 
-import TopMenu from "./react/components/menus/TopMenu";
+import TopMenu from "./react/components/nav/TopMenu";
 import SortingAlgorithmsPage from './react/pages/sorting/SortingAlgorithmsPage';
 import GraphAlgorithmsPage from "./react/pages/graphs/GraphAlgorithmsPage";
 import HomePage from "./react/pages/home/Home";
@@ -30,7 +30,6 @@ function App() {
     return (
       <div>
         <TopMenu />
-        {/*<LeftSideNav /> */}
         <div className="content">
           <Outlet />
         </div>

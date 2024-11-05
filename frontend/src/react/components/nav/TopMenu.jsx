@@ -2,7 +2,7 @@ import React from "react";
 import MobileDropdownMenu from "./MobileDropdownMenu";
 import { Link } from 'react-router-dom';
 
-const TopMenu = (props) => {
+const TopMenu = () => {
     return (
         <div className="top-menu">
             <div className="top-menu-responsive-flexbox">
