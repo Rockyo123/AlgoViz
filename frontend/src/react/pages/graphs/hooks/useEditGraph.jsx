@@ -33,7 +33,7 @@ const useEditGraph = (graphVals, setGraph, editTool, squareDimensions, graphDime
     const { top, left, width, height } = graphDimensions;
 
     const updateSquareVals = (val, points) => {
-        const newGraphVals = deepCopyGraphVals(graphValsBeforeEdit.current);
+        let newGraphVals = deepCopyGraphVals(graphValsBeforeEdit.current);
         for (let [x, y] of points) {
             const oldVal = graphValsBeforeEdit.current[x][y];
             if ((val === 4 && oldVal === -1) || (val === -4 && oldVal === 0)) {

@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "concurrently --kill-others \"vite build --watch\" \"yarn sass:watch\"",
+    "prod": "concurrently --kill-others \"vite build \" \"yarn",
     "build": "vite build && yarn sass:build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
