@@ -6,35 +6,34 @@ import ClampedBlurInput from "./ClampedBlurInput";
  * clamped between a specified minimum and maximum and only changed on onBlur.
  *
  * @component
- * @param {Object} props - The props for the component.
- * @param {number} props.xSize - The current size for the x dimension of the grid.
- * @param {number} props.ySize - The current size for the y dimension of the grid.
- * @param {function} props.updateXSize - A callback function to update the xSize
+ * @param {number} xSize - The current size for the x dimension of the grid.
+ * @param {number} ySize - The current size for the y dimension of the grid.
+ * @param {function} updateXSize - A callback function to update the xSize
  * value when the input loses focus.
- * @param {function} props.updateYSize - A callback function to update the ySize
+ * @param {function} updateYSize - A callback function to update the ySize
  * value when the input loses focus.
- * @param {number} props.min - The minimum allowed size for both dimensions.
- * @param {number} props.max - The maximum allowed size for both dimensions.
+ * @param {number} min - The minimum allowed size for both dimensions.
+ * @param {number} max - The maximum allowed size for both dimensions.
  *
  * @returns {JSX.Element} The rendered grid size selector with two input fields.
  */
-const SizeSelector2D = (props) => {
+const SizeSelector2D = ({ xSize, ySize, updateXSize, updateYSize, min, max }) => {
 
     return (
         <div className="row-flex">
             <ClampedBlurInput
-                val={props.xSize}
-                updateVal={props.updateXSize}
-                min={props.min}
-                max={props.max}
+                val={xSize}
+                updateVal={updateXSize}
+                min={min}
+                max={max}
                 style={{ flex: 1, marginRight: '5px', maxWidth: '50%' }}
             />
             x
             <ClampedBlurInput
-                val={props.ySize}
-                updateVal={props.updateYSize}
-                min={props.min}
-                max={props.max}
+                val={ySize}
+                updateVal={updateYSize}
+                min={min}
+                max={max}
                 style={{ flex: 1, marginRight: '5px', marginLeft: '5px', maxWidth: '50%' }}
             />
         </div>

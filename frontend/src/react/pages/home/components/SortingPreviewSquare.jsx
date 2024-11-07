@@ -14,13 +14,13 @@ const SortingPreviewSquare = ({ handleClick }) => {
     const containerRef = useRef(null);
     const {containerDimensions: dispContainerDimensions, xUnits: maxArrEntries, yUnits: maxArrVal} = useResponsiveGrid(containerRef, 40, 1, 20, 20);
     const [array, updateArrayVals, randomizeArrayVals, updateArrayLength] = useResponsiveArray(maxArrVal, maxArrEntries);
-    const [graphState, setGraphState] = useState('NotRunning');
+    const [vizState, setVizState] = useState('NotRunning');
 
     const updateIsFocused = (focused) => {
         let newGraphState = "NotRunning"
         if (focused) newGraphState = "Running";
         if (!focused) updateArrayVals([...array]);
-        setGraphState(newGraphState);
+        setVizState(newGraphState);
     }
 
     return (
@@ -41,8 +41,8 @@ const SortingPreviewSquare = ({ handleClick }) => {
                     <SortableArray 
                         graphVals={array}
                         algorithm={'Selection Sort'}
-                        graphState={graphState}
-                        setGraphState={setGraphState}
+                        vizState={vizState}
+                        setVizState={setVizState}
                         speed={1}
                         maxArrVal={maxArrVal}
                     />

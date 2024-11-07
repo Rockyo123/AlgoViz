@@ -1,6 +1,12 @@
 import React from "react";
 
-const HeaderSelector = ({label, selector}) => {
+/**
+ * Renders a header selector component with label and selector.
+ * @param {String} label - label of the header selector
+ * @param {Element} selector - body of the header selector component.
+ * @returns rendered header selector component.
+ */
+const HeaderSelector = ({ label, selector }) => {
     return (
         <div className="full-width centered-row">
             <div className="full-width centered-col">

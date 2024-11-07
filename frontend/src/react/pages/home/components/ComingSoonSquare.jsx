@@ -6,7 +6,7 @@ import { AVSquare } from "../../../components/elements/layout";
  * @param {Function} title - name of upcoming feature.
  * @returns AlgoViz Coming Soon Square.
  */
-const SortingPreviewSquare = (title) => {
+const SortingPreviewSquare = ({ title }) => {
 
     return (
         <AVSquare

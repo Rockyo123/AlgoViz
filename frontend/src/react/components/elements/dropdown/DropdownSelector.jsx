@@ -2,7 +2,14 @@ import React, { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import DropdownOption from './DropdownOption';
 
-const DropdownSelector = ({val, setVal, options}) => {
+/**
+ * dropdown selector with animations.
+ * @param {string} val - current value of the dropdown selector
+ * @param {function} setVal - callback function to call when option selected
+ * @param {Array} options - array of options for dropdown menu
+ * @returns rendered dropdown selector
+ */
+const DropdownSelector = ({ val, setVal, options }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [curDispOptions, setCurDispOptions] = useState([val]);
 

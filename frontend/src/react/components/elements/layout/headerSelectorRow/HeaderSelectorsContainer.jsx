@@ -7,7 +7,7 @@ import React from "react";
  * @param {React.ReactNode} props.children - The child components to be rendered inside the container.
  * 
  * @returns {JSX.Element} A div containing child elements, styled to be responsive based on the screen width.
- */const HeaderSelectorsContainer = ({children}) => {
+ */const HeaderSelectorsContainer = ({ children }) => {
     return (
         <div className="responsive-header-selectors-row">
             {children}

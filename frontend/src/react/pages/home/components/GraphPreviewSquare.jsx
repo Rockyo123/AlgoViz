@@ -15,14 +15,14 @@ const GraphPreviewSquare = ({ handleClick }) => {
     const {containerDimensions: dispContainerDimensions, xUnits: maxXUnits, yUnits: maxYUnits} = useResponsiveGrid(containerRef, 40, 40, 10, 10);
     const [ graph, graphSize, updateGraphSize, updateGraphVals ] = useResponsiveGraph(maxXUnits, maxYUnits);
 
-    const [graphState, setGraphState] = useState('NotRunning');
+    const [vizState, setVizState] = useState('NotRunning');
     const [isFocused, setIsFocused] = useState(false);
 
     const updateIsFocused = (focused) => {
         let newGraphState = "NotRunning"
         if (focused) newGraphState = "Running";
         if (!focused) updateGraphVals(graph);
-        setGraphState(newGraphState);
+        setVizState(newGraphState);
         setIsFocused(focused);
     }
 
@@ -47,8 +47,8 @@ const GraphPreviewSquare = ({ handleClick }) => {
                         graphSize={graphSize}
                         setGraph={updateGraphVals}
                         algorithm={'Breadth First Search'}
-                        graphState={graphState}
-                        setGraphState={setGraphState}
+                        vizState={vizState}
+                        setVizState={setVizState}
                         speed={1.5}
                         editTool={null}
                     />

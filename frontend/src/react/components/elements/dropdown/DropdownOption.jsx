@@ -1,5 +1,10 @@
 import React from "react";
-
+/**
+ * dropdown option
+ * @param {string} val - value of the dropdown option
+ * @param {function} handleClick - callback function to call when option clicked 
+ * @returns rendered dropdown option
+ */
 const DropdownOption = ({ val, handleClick }) => {
     
       return (
