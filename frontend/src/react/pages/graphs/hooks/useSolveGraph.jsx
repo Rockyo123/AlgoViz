@@ -9,6 +9,18 @@ import { useAsyncOperationController } from "../../../features/algorithms/hooks"
 
 let curGraphVals = [[]];
 
+/**
+ * A custom hook for managing and solving graph-based pathfinding visualizations with a given algorithm and speed setting.
+ * This hook handles asynchronous pathfinding, updating the graph state, and managing operation controls.
+ * 
+ * @param {Array<Array<number>>} graph - Initial 2D array representing the graph's nodes and connections.
+ * @param {string} graphState - Current state of the graph, e.g., 'Running', 'Paused', or 'Finished'.
+ * @param {Function} setGraphState - Function to set the graph's state.
+ * @param {number} speed - Speed at which steps are executed (influences delay between steps).
+ * @param {string} algorithm - The algorithm to use for pathfinding (e.g., 'BFS', 'DFS', 'A*').
+ * 
+ * @returns {Array<Array<number>>} - The current state of the graph (updated as the algorithm executes).
+ */
 const useSolveGraph = (graph, graphState, setGraphState, speed, algorithm) => {
     const [graphVals, setGraphVals] = useState(graph);
     curGraphVals =  graphVals;

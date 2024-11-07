@@ -4,7 +4,13 @@ import { AVSquare, AlgorithmResponsiveDisplayWrapper } from "../../../components
 import { useResponsiveGrid } from "../../../hooks";
 import { useResponsiveGraph } from '../../graphs/hooks/useResponsiveGraph'
 
-const GraphPreviewSquare = (props) => {
+/**
+ * Square for home page that shows a preview of the pathfinding viz when hovered or focused. 
+ * On click, will navigate to that page
+ * @param {Function} handleClick - Sends back link to graph page to navigate to when square clicked
+ * @returns graph viz Preview Square.
+ */
+const GraphPreviewSquare = ({ handleClick }) => {
     const containerRef = useRef(null);
     const {containerDimensions: dispContainerDimensions, xUnits: maxXUnits, yUnits: maxYUnits} = useResponsiveGrid(containerRef, 40, 40, 10, 10);
     const [ graph, graphSize, updateGraphSize, updateGraphVals ] = useResponsiveGraph(maxXUnits, maxYUnits);
@@ -23,7 +29,7 @@ const GraphPreviewSquare = (props) => {
     return (
         <AVSquare
             disabled={false}
-            onClick={() => props.handleClick('/graphs')}
+            onClick={() => handleClick('/graphs')}
             setIsFocused={updateIsFocused}  
         >
             <h2 className="text-white">

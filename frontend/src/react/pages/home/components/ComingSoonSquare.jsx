@@ -1,7 +1,12 @@
 import React from "react";
 import { AVSquare } from "../../../components/elements/layout";
 
-const SortingPreviewSquare = (props) => {
+/**
+ * Square for home page that shows name of algoViz feature coming soon. 
+ * @param {Function} title - name of upcoming feature.
+ * @returns AlgoViz Coming Soon Square.
+ */
+const SortingPreviewSquare = (title) => {
 
     return (
         <AVSquare
@@ -10,7 +15,7 @@ const SortingPreviewSquare = (props) => {
             setIsFocused={() => {}}  
         >
             <h2 className="text-disabled">
-                {props.title}
+                {title}
             </h2>
             <div 
                 className="preview-algoViz-wrapper"

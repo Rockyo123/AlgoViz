@@ -2,7 +2,7 @@ import React from "react";
 import { SortingPreviewSquare, GraphPreviewSquare, ComingSoonSquare } from "./components";
 import { useNavigate } from "react-router-dom";
 
-const HomePage = (props) => {
+const HomePage = () => {
 
     const navigate = useNavigate();
 

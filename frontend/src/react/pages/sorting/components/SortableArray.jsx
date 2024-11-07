@@ -6,6 +6,19 @@ import { Sleep } from "../../../utils/_utils";
 import { useLatestRef } from "../../../hooks/useLatestRef";
 import { getDelay } from "../../../utils/_utils";
 
+
+/**
+ * Array component that displays an array that can be sorted
+ *
+ * @param {Array} graphVals - The current graph values as an array of ints.
+ * @param {string} algorithm - The algorithm being used to solve the graph.
+ * @param {Object} vizState - The current state of the visualization.
+ * @param {Function} setVizState - The function to update the visualization state.
+ * @param {string} speed - The speed setting for the graph algorithm.
+ * @param {string} maxArrVal - Max value of a bar in the graph.
+ *
+ * @returns {JSX.Element} The rendered array component.
+ */
 const SortableArray = ({graphVals, algorithm, vizState, setVizState, speed, maxArrVal}) => {
     
 

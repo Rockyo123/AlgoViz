@@ -1,18 +1,15 @@
 import React, {useState, useRef} from "react";
 import SortableArray from './components/SortableArray';
-import Slider from '../../components/elements/layout/CustomSlider';
 import DropdownSelector from "../../components/elements/dropdown/DropdownSelector";
 import PlaybackBtnSection from "../../components/elements/playback/playbackBtnSection";
-import HeaderSelectorsContainer from "../../components/elements/layout/headerSelectorRow/HeaderSelectorsContainer";
-import HeaderSelector from "../../components/elements/layout/headerSelectorRow/HeaderSelector";
-import AlgorithmResponsiveDisplayWrapper from "../../components/elements/layout/AlgorithmResponsiveDisplayWrapper";
+import { HeaderSelectorsContainer, HeaderSelector, AlgorithmResponsiveDisplayWrapper, Slider } from "../../components/elements/layout";
 import { useResponsiveGrid } from "../../hooks/useResponsiveGrid";
 import { useResponsiveArray } from "./hooks/useResponsiveArray";
 import { useVizStateManager } from "../../hooks/useVizStateManager";
 import {MAX_ARRAY_VAL, MAX_ARRAY_ENTRIES, SORTING_ALGS} from '../../constants'; 
 
 
-const SortingAlgorithmsPage = (props) => {    
+const SortingAlgorithmsPage = () => {    
     const containerRef = useRef(null);
     const {containerDimensions: dispContainerDimensions, xUnits: maxArrEntries, yUnits: maxArrVal} = useResponsiveGrid(containerRef, 1, 1, MAX_ARRAY_ENTRIES, MAX_ARRAY_VAL);
     const [array, updateArrayVals, randomizeArrayVals, updateArrayLength] = useResponsiveArray(maxArrVal, maxArrEntries);
