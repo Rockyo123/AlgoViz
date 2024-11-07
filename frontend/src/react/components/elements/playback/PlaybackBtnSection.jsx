@@ -19,7 +19,7 @@ const PlaybackBtnSection = (props) => {
                         customStyle={{flexGrow: 1, marginLeft: '3%'}}
                     />
                 </div>
-                <button className="primary-btn" onClick={() => props.toggleGraphState()}>
+                <button className="primary-btn" onClick={() => props.toggleVizState()}>
                     {props.btnText}
                 </button> 
             </div>

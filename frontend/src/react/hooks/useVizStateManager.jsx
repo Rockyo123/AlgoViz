@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 
-export const useGraphStateManager = (handleAlgoFinished, dependencyArray=[], initialState = 'NotStarted') => {
-    const [graphState, setGraphState] = useState(initialState);
+export const useVizStateManager = (handleAlgoFinished, dependencyArray=[], initialState = 'NotStarted') => {
+    const [vizState, setVizState] = useState(initialState);
 
-    const graphStateBtnText = (() => {
+    const vizStateBtnText = (() => {
         let newText = 'Start';
-        switch (graphState) {
+        switch (vizState) {
             case 'NotStarted':
                     newText = 'Start';
                     break;
@@ -25,12 +25,12 @@ export const useGraphStateManager = (handleAlgoFinished, dependencyArray=[], ini
     })();
 
     useEffect(() => {
-        setGraphState('NotStarted');
+        setVizState('NotStarted');
     }, dependencyArray)
 
-    const toggleGraphState = () => {
-        let newState = graphState;
-        switch (graphState) {
+    const toggleVizState = () => {
+        let newState = vizState;
+        switch (vizState) {
             case 'NotStarted':
             case 'Paused':
                 newState = 'Running';
@@ -45,12 +45,12 @@ export const useGraphStateManager = (handleAlgoFinished, dependencyArray=[], ini
             default:
                 break;
         }
-        setGraphState(newState);
+        setVizState(newState);
     };
 
-    const setGraphStateWithVal = (valIn) => {
-        setGraphState(valIn);
+    const setVizStateWithVal = (valIn) => {
+        setVizState(valIn);
     }
 
-    return { graphState, graphStateBtnText, toggleGraphState, setGraphStateWithVal };
+    return { vizState, vizStateBtnText, toggleVizState, setVizStateWithVal };
 };

@@ -1,12 +1,12 @@
 import React, { useRef, useState, useEffect } from "react";
 import Bar from "./Bar";
-import { asyncSort } from "../algorithmRouter/algorithmRouter";
+import { asyncSort } from '../../../features/algorithms/sorting';
+import { useAsyncOperationController } from "../../../features/algorithms/hooks";
 import { Sleep } from "../../../utils/_utils";
 import { useLatestRef } from "../../../hooks/useLatestRef";
 import { getDelay } from "../../../utils/_utils";
-import { useAsyncOperationController } from "../../../hooks/useAsyncOperationController";
 
-const SortableArray = ({graphVals, algorithm, graphState, setGraphState, speed, maxArrVal}) => {
+const SortableArray = ({graphVals, algorithm, vizState, setVizState, speed, maxArrVal}) => {
     
 
     const startOperation = async (opStateRef) => {
@@ -31,19 +31,19 @@ const SortableArray = ({graphVals, algorithm, graphState, setGraphState, speed, 
     }, [graphVals, algorithm]);
 
     useEffect(() => {
-        if (graphState === 'Running'){ 
+        if (vizState === 'Running'){ 
             runOp();
         }    
         else{
             pauseOp();
         }
-    }, [graphState])
+    }, [vizState])
 
     //---executes steps ---//
     const executeNextStep = async (nextStep) => {
         let [newBars, newColors, finished] = decodeInstr([...barValsRef.current], nextStep)
         if (finished[0]){
-            setGraphState('Finished');
+            setVizState('Finished');
             return;
         }
         updateBarVals(newBars, newColors);
@@ -89,7 +89,7 @@ const SortableArray = ({graphVals, algorithm, graphState, setGraphState, speed, 
             maxValue={maxArrVal}
             width={val.width}
             colorCode={val.color}
-            started={graphState === "Running"}
+            started={vizState === "Running"}
         />)
     )
     return (

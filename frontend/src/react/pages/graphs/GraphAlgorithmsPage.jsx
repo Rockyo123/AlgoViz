@@ -3,7 +3,7 @@ import Graph from "./components/Graph/Graph"
 import GraphEditingToolbar from "./components/GraphEditingToolbar"
 import { HeaderSelectorsContainer, HeaderSelector, AlgorithmResponsiveDisplayWrapper, Slider, FontAwesomeBtn } from "../../components/elements/layout";
 import { Dropdown } from "../../components/elements/dropdown";
-import { useResponsiveGrid, useGraphStateManager } from "../../hooks"
+import { useResponsiveGrid, useVizStateManager } from "../../hooks"
 import { useResponsiveGraph } from "./hooks/useResponsiveGraph";
 import { MAX_GRAPH_SIZE, PATHFINDING_ALGS } from "../../constants";
 import PlaybackBtnSection from "../../components/elements/playback/playbackBtnSection";
@@ -16,9 +16,8 @@ const GraphAlgorithmsPage = () => {
     const [algorithm, setAlgorithm] = useState('Depth First Search');
     const [editTool, setEditTool] = useState('free');
     const [speed, setSpeed] = useState(50);
-    const [inputValsModalOpen, setInputValsModalOpen] = useState(false);
 
-    const { graphState, graphStateBtnText, toggleGraphState, setGraphStateWithVal } = useGraphStateManager(() => updateGraphVals(graph), [graph, algorithm]);
+    const { vizState, vizStateBtnText, toggleVizState, setVizStateWithVal } = useVizStateManager(() => updateGraphVals(graph), [graph, algorithm]);
 
     const clearGraph = () => {
         const newGraph = [];
@@ -82,7 +81,7 @@ const GraphAlgorithmsPage = () => {
                     label='Edit Graph'
                     selector={
                     <GraphEditingToolbar  
-                        disabled={graphState !== 'NotStarted'}
+                        disabled={vizState !== 'NotStarted'}
                         editTool={editTool}
                         setEditTool={setEditTool}
                         graphSize={graphSize}
@@ -107,8 +106,8 @@ const GraphAlgorithmsPage = () => {
         <PlaybackBtnSection 
             randomizeGraph={randomizeGraph}
             resetSteps={resetSteps}
-            toggleGraphState={toggleGraphState}
-            btnText={graphStateBtnText}
+            toggleVizState={toggleVizState}
+            btnText={vizStateBtnText}
         />
 
         <AlgorithmResponsiveDisplayWrapper                
@@ -120,8 +119,8 @@ const GraphAlgorithmsPage = () => {
                 graphSize={graphSize}
                 setGraph={updateGraphVals}
                 algorithm={algorithm}
-                graphState={graphState}
-                setGraphState={setGraphStateWithVal}
+                vizState={vizState}
+                setVizState={setVizStateWithVal}
                 speed={speed}
                 editTool={editTool}
             />

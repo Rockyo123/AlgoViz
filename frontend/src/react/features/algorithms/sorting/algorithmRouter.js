@@ -1,10 +1,6 @@
-import { checkOpStateRef } from "../../../hooks/useAsyncOperationController";
+import { checkOpStateRef } from "../hooks";
 import { colorBars } from "./algorithmUtils";
-import { MergeSort } from './algorithms/MergeSort';
-import { SelectionSort } from './algorithms/SelectionSort';
-import { BubbleSort } from "./algorithms/BubbleSort";
-import { InsertionSort } from "./algorithms/InsertionSort";
-import { QuickSort } from "./algorithms/QuickSort";
+import { MergeSort, SelectionSort, BubbleSort, InsertionSort, QuickSort } from './algorithms';
 
 export const asyncSort = async(values, algorithm, sendNextStep, opStateRef) => {
     let sortingAlgo = SelectionSort;

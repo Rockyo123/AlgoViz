@@ -14,16 +14,15 @@ import React, {useState} from "react"
  *   4: being edited, to blank
  *   5: pathfinding finished, found
  * 
- * @param {Object} props - The props object.
- * @param {number} props.val - The value representing the state of the square.
+ * @param {number} val - The value representing the state of the square.
  *
  * @returns {JSX.Element} The rendered square component.
  */
-const GraphSquare = (props) => {
+const GraphSquare = ({val}) => {
     
     const getSquareStyling = () =>{ 
         let color = 'rgba(255, 255, 255, 1)';
-        switch (props.val){
+        switch (val){
             case -5:
                 color = 'rgba(255, 0, 0, 1)';
                 break;

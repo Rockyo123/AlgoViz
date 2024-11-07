@@ -3,7 +3,19 @@ import SizeSelector2D from "../../../components/selectors/SizeSelector2D";
 import { MAX_GRAPH_SIZE } from "../../../constants";
 import EditToolSelector from "./EditToolSelector";
 
-const GraphEditingToolbar  = ({disabled, editTool, setEditTool, graphSize, setGraphSize, clearGraph}) => {
+/**
+ * Contains tools for editting the graph. Contains size selector and edit tool selector
+ * 
+ * @param {String} editTool - Currently selected editTool
+ * @param {Function} setEditTool - Function for updating edit tool
+ * @param {Function} ClearGraph - Clear all walls from the graph
+ * @param {Boolean} disabled - Is selector disabled? Will be disabled while pathfinding algo is running.
+ * @param {Object} graphSize - { 'x', 'y' } Number of squares in the graph, ex. { 'x': 10, 'y': 10 } is a 10 x 10 graph.
+ * @param {Function} setGraphSize - Function for updating graph size
+ * 
+ * @returns 
+ */
+const GraphEditingToolbar  = ({editTool, setEditTool, clearGraph,  disabled, graphSize, setGraphSize}) => {
         
     return (
         <div className="centered-row">

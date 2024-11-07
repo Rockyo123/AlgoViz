@@ -24,18 +24,21 @@ import { getSelectedSquares } from "../utils/PaintUtils.js";
  * @returns {Function} editSquare - Function to edit the square at specified coordinates.
  * @returns {Function} endEditMode - Function to end the editing mode and reset square values.
  */
+
+let initEditCoords = [0, 0];
+let graphValsBeforeEdit = [[]];
+let curEditingSquares = [];
+
 const useEditGraph = (graphVals, setGraph, editTool, squareDimensions, graphDimensions) => {
     const [editMode, setEditMode] = useState(null);
-    const initEditCoords = useRef([0, 0]);
-    const graphValsBeforeEdit = useRef(deepCopyGraphVals(graphVals));
-    const curEditingSquares = useRef([]);
+
 
     const { top, left, width, height } = graphDimensions;
 
     const updateSquareVals = (val, points) => {
-        let newGraphVals = deepCopyGraphVals(graphValsBeforeEdit.current);
+        let newGraphVals = deepCopyGraphVals(graphValsBeforeEdit);
         for (let [x, y] of points) {
-            const oldVal = graphValsBeforeEdit.current[x][y];
+            const oldVal = graphValsBeforeEdit[x][y];
             if ((val === 4 && oldVal === -1) || (val === -4 && oldVal === 0)) {
                 newGraphVals[x][y] = val;
             } else if (val === 1 || val === 2) {
@@ -56,15 +59,15 @@ const useEditGraph = (graphVals, setGraph, editTool, squareDimensions, graphDime
         const trueX = clickX - left;
         const trueY = clickY - top;
         const squareCoord = fetchSquareCoordAtPoint(trueX, trueY, squareDimensions[0], squareDimensions[1], width, height);
-        graphValsBeforeEdit.current = deepCopyGraphVals(graphVals);
-        initEditCoords.current = squareCoord;
+        graphValsBeforeEdit = deepCopyGraphVals(graphVals);
+        initEditCoords = squareCoord;
 
         const squareValue = graphVals[squareCoord[0]][squareCoord[1]];
         const isStartOrGoal = squareValue === 1 || squareValue === 2;
 
         if (isStartOrGoal) {
             setEditMode(squareValue);
-            graphValsBeforeEdit.current[squareCoord[0]][squareCoord[1]] = 0;
+            graphValsBeforeEdit[squareCoord[0]][squareCoord[1]] = 0;
         } else {
             if (type === 0) {
                 editType = -4;
@@ -85,10 +88,10 @@ const useEditGraph = (graphVals, setGraph, editTool, squareDimensions, graphDime
         let selectedSquares = [];
         if (editType === 1 || editType === 2) {
             selectedSquares = [squareCoord];
-            curEditingSquares.current = selectedSquares;
+            curEditingSquares = selectedSquares;
         } else {
-            selectedSquares = getSelectedSquares(curEditingSquares.current, editTool, initEditCoords.current[0], initEditCoords.current[1], squareCoord[0], squareCoord[1]);
-            curEditingSquares.current = selectedSquares;
+            selectedSquares = getSelectedSquares(curEditingSquares, editTool, initEditCoords[0], initEditCoords[1], squareCoord[0], squareCoord[1]);
+            curEditingSquares = selectedSquares;
         }
         updateSquareVals(editType, selectedSquares);
     };
@@ -108,7 +111,7 @@ const useEditGraph = (graphVals, setGraph, editTool, squareDimensions, graphDime
             }
         }
         setGraph(newGraphVals);
-        curEditingSquares.current = [];
+        curEditingSquares = [];
     };
 
     return {

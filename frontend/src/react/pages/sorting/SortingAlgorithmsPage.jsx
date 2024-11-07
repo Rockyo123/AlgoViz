@@ -8,7 +8,7 @@ import HeaderSelector from "../../components/elements/layout/headerSelectorRow/H
 import AlgorithmResponsiveDisplayWrapper from "../../components/elements/layout/AlgorithmResponsiveDisplayWrapper";
 import { useResponsiveGrid } from "../../hooks/useResponsiveGrid";
 import { useResponsiveArray } from "./hooks/useResponsiveArray";
-import { useGraphStateManager } from "../../hooks/useGraphStateManager";
+import { useVizStateManager } from "../../hooks/useVizStateManager";
 import {MAX_ARRAY_VAL, MAX_ARRAY_ENTRIES, SORTING_ALGS} from '../../constants'; 
 
 
@@ -20,7 +20,7 @@ const SortingAlgorithmsPage = (props) => {
     const [algorithm, setAlgorithm] = useState('Selection Sort');
     const [speed, setSpeed] = useState(50);
 
-    const { graphState, graphStateBtnText, toggleGraphState, setGraphStateWithVal } = useGraphStateManager(randomizeArrayVals, [array, algorithm]);
+    const { vizState, vizStateBtnText, toggleVizState, setVizStateWithVal } = useVizStateManager(randomizeArrayVals, [array, algorithm]);
     
     const resetSteps = () => {
         updateArrayVals([...array]);
@@ -78,8 +78,8 @@ const SortingAlgorithmsPage = (props) => {
             <PlaybackBtnSection 
             randomizeGraph={randomizeArrayVals}
             resetSteps={resetSteps}
-            toggleGraphState={toggleGraphState}
-            btnText={graphStateBtnText}
+            toggleVizState={toggleVizState}
+            btnText={vizStateBtnText}
         />
             
             <AlgorithmResponsiveDisplayWrapper                
@@ -88,8 +88,8 @@ const SortingAlgorithmsPage = (props) => {
                 <SortableArray 
                     graphVals={array}
                     algorithm={algorithm}
-                    graphState={graphState}
-                    setGraphState={setGraphStateWithVal}
+                    vizState={vizState}
+                    setVizState={setVizStateWithVal}
                     speed={speed / 100}
                     maxArrVal={maxArrVal}
                 />
