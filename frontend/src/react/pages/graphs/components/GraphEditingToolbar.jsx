@@ -1,6 +1,6 @@
 import React from "react"
-import SizeSelector2D from "../../../components/selectors/SizeSelector2D";
-import { MAX_GRAPH_SIZE } from "../../../constants";
+import SizeSelector2D from "@/components/selectors/SizeSelector2D";
+import { MAX_GRAPH_SIZE } from "@/constants";
 import EditToolSelector from "./EditToolSelector";
 
 /**

@@ -1,12 +1,12 @@
 import React, {useState, useRef} from "react"
 import Graph from "./components/Graph/Graph"
 import GraphEditingToolbar from "./components/GraphEditingToolbar"
-import { HeaderSelectorsContainer, HeaderSelector, AlgorithmResponsiveDisplayWrapper, Slider } from "../../components/elements/layout";
-import { Dropdown } from "../../components/elements/dropdown";
-import { useResponsiveGrid, useVizStateManager } from "../../hooks"
+import { HeaderSelectorsContainer, HeaderSelector, AlgorithmResponsiveDisplayWrapper, Slider } from "@/components/elements/layout";
+import { Dropdown } from "@/components/elements/dropdown";
+import { useResponsiveGrid, useVizStateManager } from "@/hooks"
 import { useResponsiveGraph } from "./hooks/useResponsiveGraph";
-import { MAX_GRAPH_SIZE, PATHFINDING_ALGS } from "../../constants";
-import PlaybackBtnSection from "../../components/elements/playback/playbackBtnSection";
+import { MAX_GRAPH_SIZE, PATHFINDING_ALGS } from "@/constants";
+import PlaybackBtnSection from "@/components/elements/playback/playbackBtnSection";
 
 const GraphAlgorithmsPage = () => {
     const containerRef = useRef(null);

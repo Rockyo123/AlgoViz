@@ -7,4 +7,4 @@ export const SORTING_ALGS = ["Selection Sort", "Merge Sort", "Bubble Sort", "Ins
 export const MAX_GRAPH_SIZE = 100;
 export const PATHFINDING_ALGS = ['Depth First Search', 'Breadth First Search'];
 
-export const GITHUB_LINK = "https://github.com/Rockyo123/AlgoViz"
+export const GITHUB_LINK = "https://github.com/Rockyo123/AlgoViz";

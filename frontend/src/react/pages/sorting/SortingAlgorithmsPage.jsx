@@ -1,12 +1,12 @@
 import React, {useState, useRef} from "react";
 import SortableArray from './components/SortableArray';
-import DropdownSelector from "../../components/elements/dropdown/DropdownSelector";
-import PlaybackBtnSection from "../../components/elements/playback/playbackBtnSection";
-import { HeaderSelectorsContainer, HeaderSelector, AlgorithmResponsiveDisplayWrapper, Slider } from "../../components/elements/layout";
-import { useResponsiveGrid } from "../../hooks/useResponsiveGrid";
+import DropdownSelector from "@/components/elements/dropdown/DropdownSelector";
+import PlaybackBtnSection from "@/components/elements/playback/playbackBtnSection";
+import { HeaderSelectorsContainer, HeaderSelector, AlgorithmResponsiveDisplayWrapper, Slider } from "@/components/elements/layout";
+import { useResponsiveGrid } from "@/hooks/useResponsiveGrid";
 import { useResponsiveArray } from "./hooks/useResponsiveArray";
-import { useVizStateManager } from "../../hooks/useVizStateManager";
-import {MAX_ARRAY_VAL, MAX_ARRAY_ENTRIES, SORTING_ALGS} from '../../constants'; 
+import { useVizStateManager } from "@/hooks/useVizStateManager";
+import {MAX_ARRAY_VAL, MAX_ARRAY_ENTRIES, SORTING_ALGS} from '@/constants'; 
 
 
 const SortingAlgorithmsPage = () => {    

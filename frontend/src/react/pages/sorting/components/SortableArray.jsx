@@ -1,10 +1,10 @@
 import React, { useRef, useState, useEffect } from "react";
 import Bar from "./Bar";
-import { asyncSort } from '../../../features/algorithms/sorting';
-import { useAsyncOperationController } from "../../../features/algorithms/hooks";
-import { Sleep } from "../../../utils/_utils";
-import { useLatestRef } from "../../../hooks/useLatestRef";
-import { getDelay } from "../../../utils/_utils";
+import { asyncSort } from '@/features/algorithms/sorting';
+import { useAsyncOperationController } from "@/features/algorithms/hooks";
+import { Sleep } from "@/utils/_utils";
+import { useLatestRef } from "@/hooks/useLatestRef";
+import { getDelay } from "@/utils/_utils";
 
 
 /**

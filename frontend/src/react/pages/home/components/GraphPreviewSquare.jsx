@@ -1,8 +1,8 @@
 import React, { useState, useRef } from "react";
-import Graph from '../../graphs/components/Graph/Graph'
-import { AVSquare, AlgorithmResponsiveDisplayWrapper } from "../../../components/elements/layout";
-import { useResponsiveGrid } from "../../../hooks";
-import { useResponsiveGraph } from '../../graphs/hooks/useResponsiveGraph'
+import Graph from '@/pages/graphs/components/Graph/Graph'
+import { AVSquare, AlgorithmResponsiveDisplayWrapper } from "@/components/elements/layout";
+import { useResponsiveGrid } from "@/hooks";
+import { useResponsiveGraph } from '@/pages/graphs/hooks/useResponsiveGraph'
 
 /**
  * Square for home page that shows a preview of the pathfinding viz when hovered or focused. 

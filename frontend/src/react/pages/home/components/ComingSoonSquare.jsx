@@ -1,5 +1,5 @@
 import React from "react";
-import { AVSquare } from "../../../components/elements/layout";
+import { AVSquare } from "@/components/elements/layout";
 
 /**
  * Square for home page that shows name of algoViz feature coming soon. 

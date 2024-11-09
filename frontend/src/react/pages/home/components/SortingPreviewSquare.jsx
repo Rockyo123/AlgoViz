@@ -1,8 +1,8 @@
 import React, { useState, useRef } from "react";
-import SortableArray from '../../sorting/components/SortableArray';
-import { AVSquare, AlgorithmResponsiveDisplayWrapper } from "../../../components/elements/layout";
-import { useResponsiveGrid } from "../../../hooks/useResponsiveGrid";
-import { useResponsiveArray } from "../../sorting/hooks/useResponsiveArray";
+import SortableArray from '@/pages/sorting/components/SortableArray';
+import { AVSquare, AlgorithmResponsiveDisplayWrapper } from "@/components/elements/layout";
+import { useResponsiveGrid } from "@/hooks/useResponsiveGrid";
+import { useResponsiveArray } from "@/pages/sorting/hooks/useResponsiveArray";
 
 /**
  * Square for home page that shows a preview of the sorting viz when hovered or focused. 

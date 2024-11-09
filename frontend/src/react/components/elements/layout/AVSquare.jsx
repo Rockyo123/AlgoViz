@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Sleep } from "../../../utils/_utils";
+import { Sleep } from "@/utils/_utils";
 
 /**
  * Renders children inside of AV Square. Allows for the square to be clicked / focused, and to be disabled.

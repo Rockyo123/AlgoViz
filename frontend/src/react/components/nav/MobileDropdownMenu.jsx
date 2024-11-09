@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
-import { GITHUB_LINK } from '../../constants';
+import { GITHUB_LINK } from '@/constants';
 const MobileDropdownMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
 
