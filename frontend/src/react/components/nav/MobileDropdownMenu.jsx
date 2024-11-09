@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import { GITHUB_LINK } from '../../constants';
 const MobileDropdownMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -49,7 +51,17 @@ const MobileDropdownMenu = () => {
             className='left-menu-link'
           >
             Graphs
-        </Link>
+          </Link>
+          <a 
+            href={GITHUB_LINK}
+            target='_blank'
+            rel='noopener noreferrer'
+            className="left-menu-link"
+          >
+            <FontAwesomeIcon 
+              icon={faGithub}
+            />
+          </a>
         </div>
     </motion.nav>}
     </AnimatePresence>

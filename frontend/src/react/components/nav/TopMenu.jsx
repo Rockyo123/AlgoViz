@@ -1,6 +1,9 @@
 import React from "react";
 import MobileDropdownMenu from "./MobileDropdownMenu";
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import { GITHUB_LINK } from '../../constants';
 
 const TopMenu = () => {
     return (
@@ -32,6 +35,18 @@ const TopMenu = () => {
                     >
                         Graphs
                     </Link>
+                    <a 
+                        href={GITHUB_LINK}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        className="top-menu-link"
+                        style={{position: 'absolute', right: '20px'}}
+                    >
+                        <FontAwesomeIcon 
+                            icon={faGithub}
+                            
+                        />
+                    </a>
                 </div>
             </div>
         </div>

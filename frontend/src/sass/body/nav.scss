@@ -9,7 +9,8 @@
 
 .top-menu-responsive-flexbox{
   display: flex;
-  width: 95%;
+  width: 100%;
+  padding: 0 min(5%, 20px) 0 min(5%, 20px);
   align-items: center;
   @media (max-width: 500px) {
     justify-content: space-between;
