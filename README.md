@@ -18,10 +18,10 @@
 To get a local copy up and running follow these simple steps.
 
 ### Dependencies
-Go - https://go.dev/doc/install
-Airverse Air - https://github.com/air-verse/air
-Node / NPM - https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
-Yarn - https://classic.yarnpkg.com/en/docs/getting-started
+- Go - https://go.dev/doc/install
+- Airverse Air - https://github.com/air-verse/air
+- Node / NPM - https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
+- Yarn - https://classic.yarnpkg.com/en/docs/getting-started
 
 ### Setup
 - Install required dependencies above
@@ -40,4 +40,3 @@ Yarn - https://classic.yarnpkg.com/en/docs/getting-started
 - [ ] Add code editor for users to test their own algorithms
 - [ ] Add light mode
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
