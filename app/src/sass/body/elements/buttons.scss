@@ -1,0 +1,65 @@
+.neumorphic-btn{
+    border-radius: 25px;
+    border: none;
+    background: #2C2F33;
+    box-shadow: 5px 5px 8px #000, -5px -3px 11px #353d48, -1px -1px 9px #424242;
+    color: white;
+    user-select: none;
+    &:hover{ 
+        color: skyblue;
+    }
+    &:active{
+        box-shadow: 
+        5px 5px 15px #000000, -5px -5px 15px #3B4451,
+        inset 5px 5px 15px #000000, inset -5px -5px 15px #3B4451;
+    }
+}
+.neumorphic-btn.active{
+    color: skyblue;
+    box-shadow: 
+    5px 5px 15px #000000, -5px -5px 15px #3B4451,
+    inset 5px 5px 15px #000000, inset -5px -5px 15px #3B4451;
+}
+
+.primary-btn{
+    @extend .neumorphic-btn;
+    min-width: 150px;
+    min-height: 40px;
+}
+
+.secondary-btn{
+    @extend .neumorphic-btn;    
+}
+
+.av-square {
+    @extend .neumorphic-btn;    
+    border-radius: 25px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+ 
+.preview-algoViz-wrapper{
+    width: 80%;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.disabled {
+    pointer-events: none;
+    cursor: default;
+    box-shadow: 5px 5px 8px #000, -5px -3px 11px #353d48, -1px -1px 9px #424242,
+    inset 0 0 0 1000px #0d0c0c61;
+
+    &:hover,
+    &:active {
+        color: inherit; 
+        background-color: inherit;
+        box-shadow: none; 
+        transform: none; 
+    }
+}

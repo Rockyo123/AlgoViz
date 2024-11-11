@@ -1,0 +1,30 @@
+.graph-grid-responsive-container{
+    padding-top: 20px;
+    height: 98%;
+    width: 100%;
+    @media (max-height: 900px) {
+        padding-top: 5px;
+    }
+}
+
+.graph-grid{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    box-shadow: 9px 9px 20px 0 rgb(19 19 19 / 70%), -10px -7px 20px 0 rgb(114 114 114 / 50%);
+}
+
+.graph-grid-row{
+    height: 100%;
+    width: 100%;
+    display: grid;
+}
+
+.graph-grid-square{
+    background-color: white;
+    border-color: black;
+    margin: 1px;
+    border-radius: 5%;
+    box-shadow: inset -4px -2px 1px #00000080
+}

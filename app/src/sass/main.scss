@@ -1,0 +1,29 @@
+@import './pages/sorting/sorting_graph.scss';
+@import './pages/graphs/graphs.scss';
+@import './body/nav.scss';
+@import './body/body.scss';
+@import './body/layout.scss';
+@import './body/elements/inputs.scss';
+@import "./body/elements/sliders.scss";
+@import './body/elements/modal.scss';
+@import './body/elements/buttons.scss';
+@import './body/elements/dropdown.scss';
+@import'./body/animations/animations.scss';
+
+.bar{
+  width: 33%;
+  height: 20px;
+}
+
+.bars-container{
+  display: flex;
+  align-items: baseline;
+  height: 20px;
+  width: 30px;
+  color: #000;
+}
+
+.dropdown-label{
+  cursor: pointer;
+}
+
