@@ -26,7 +26,7 @@ To get a local copy up and running follow these simple steps.
 ### Setup
 - Install required dependencies above
 - Install all the correct Go packages using `go mod download`
-- Install all the correct JS packages using `npm install` in both the AlgoViz folder and the `frontend` folder
+- Install all the correct JS packages using `npm install` in both the `AlgoViz` folder and the `frontend` folder
 
 ### Commands
 - running `./dev.sh` will setup a dev server on port 8080
