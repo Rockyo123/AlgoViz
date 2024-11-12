@@ -1,9 +1,9 @@
 # Node.js
-frontend/node_modules/
 node_modules/
+app/node_modules/
 npm-debug.log
 yarn-error.log
-package-lock.json
+
 
 # Logs
 logs/
@@ -13,7 +13,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # Compiled source
-frontend/dist/
+app/dist/
 
 # Yarn Integrity file
 .yarn-integrity

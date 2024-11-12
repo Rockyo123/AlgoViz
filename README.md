@@ -18,15 +18,12 @@
 To get a local copy up and running follow these simple steps.
 
 ### Dependencies
-- Go - https://go.dev/doc/install
-- Airverse Air - https://github.com/air-verse/air
 - Node / NPM - https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
 - Yarn - https://classic.yarnpkg.com/en/docs/getting-started
 
 ### Setup
 - Install required dependencies above
-- Install all the correct Go packages using `go mod download`
-- Install all the correct JS packages using `npm install` in both the `AlgoViz` folder and the `frontend` folder
+- Install all the correct JS packages using `npm install` in the `app` folder
 
 ### Commands
 - running `./dev.sh` will setup a dev server on port 8080

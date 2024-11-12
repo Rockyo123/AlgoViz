@@ -1,3 +1,3 @@
 #!/bin/sh
-trap 'echo "Cleaning up..."; rm -rf ./tmp; rm -rf ./frontend/tmp; exit' INT
-cd frontend && yarn prod & air && fg
+trap 'echo "Cleaning up..."; rm -rf ./tmp; rm -rf ./app/tmp; exit' INT
+cd app && yarn prod
