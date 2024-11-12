@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { deepCopyGraphVals } from "../utils/GraphUtils";
+import { deepCopyGraphVals } from "../utils/GraphUtils.js";
 import { fetchSquareCoordAtPoint } from '../utils/CoordUtils.js'
 import { getSelectedSquares } from "../utils/PaintUtils.js";
 /**

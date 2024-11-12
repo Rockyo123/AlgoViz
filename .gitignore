@@ -1,6 +1,5 @@
 # Node.js
 node_modules/
-app/node_modules/
 npm-debug.log
 yarn-error.log
 
@@ -13,16 +12,13 @@ yarn-debug.log*
 yarn-error.log*
 
 # Compiled source
-app/dist/
+dist/
 
 # Yarn Integrity file
 .yarn-integrity
-
+yarn.lock
 # Vite
 .vite/
 
 #tmp executable
 tmp
-
-#air file
-.air.toml
