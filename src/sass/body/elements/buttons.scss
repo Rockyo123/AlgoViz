@@ -6,16 +6,18 @@
     color: white;
     user-select: none;
     &:hover{ 
-        color: skyblue;
+        transition: .3s;
+        color: #25CEDE   
     }
     &:active{
+        transition: .3s;
         box-shadow: 
         5px 5px 15px #000000, -5px -5px 15px #3B4451,
         inset 5px 5px 15px #000000, inset -5px -5px 15px #3B4451;
     }
 }
 .neumorphic-btn.active{
-    color: skyblue;
+    color: #25CEDE;
     box-shadow: 
     5px 5px 15px #000000, -5px -5px 15px #3B4451,
     inset 5px 5px 15px #000000, inset -5px -5px 15px #3B4451;

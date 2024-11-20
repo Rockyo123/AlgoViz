@@ -35,6 +35,13 @@ const TopMenu = () => {
                     >
                         Graphs
                     </Link>
+                    <Link 
+                        to="/trees" 
+                        className="top-menu-link"
+
+                    >
+                        Trees
+                    </Link>
                     <a 
                         href={GITHUB_LINK}
                         target='_blank'

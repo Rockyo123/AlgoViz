@@ -1,0 +1,40 @@
+.tree-node{
+    color: black;
+    background-color: white;
+    border-radius: 50%;
+    height: 100%;
+    width: 100%;
+    box-shadow: 5px 5px 8px #000, -5px -3px 11px #353d48, -1px -1px 9px #424242, inset -4px -2px 9px #424242;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.add-new-tree-node{
+    border-radius: 50%;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: dashed gray;
+    opacity: .2;
+    &:hover{
+        transition: .3s;
+        transform: scale(1.1);
+        opacity: .8;
+        border: dashed #25CEDE;
+    }
+
+    &:focus { 
+        transition: .3s;
+        transform: scale(1.1);      
+        opacity: .8;
+        border: dashed #25CEDE; 
+        size: 1.2;
+    }
+
+    .inactive {
+        opacity: 0;
+    }
+}
