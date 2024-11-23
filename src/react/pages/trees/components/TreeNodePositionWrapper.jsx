@@ -1,5 +1,5 @@
 import React from "react";
-import AddNewTreeNode from "./AddNewTreeNode";
+import { motion } from "framer-motion";
 /**
  * Tree Node Wrapper handles the positioning of the actual tree node. It also handles displaying children nodes
  * @param {*} param0 
@@ -12,19 +12,20 @@ const TreeNodePositionWrapper = ({ level, offset, gridXPos, gridSquareSize, chil
 
     const circleSize = Math.max(Math.min(gridSquareSize[0], gridSquareSize[1]), 50)
     return (
-        <>
-            <div className="tree-node-wrapper"
-                style={{
-                    position: 'absolute',
-                    left: `${treeNodeLeft}px`,
-                    top: `${treeNodeTop}px`,
-                    width: `${circleSize}px`,
-                    height: `${circleSize}px`,
-                }}
-            >
-                {children}
-            </div>
-        </>
+        <motion.div 
+            className="tree-node-wrapper"
+            layout
+            style={{
+                position: 'absolute',
+                left: `${treeNodeLeft}px`,
+                top: `${treeNodeTop}px`,
+                width: `${circleSize}px`,
+                height: `${circleSize}px`,
+            }}
+            key={`tree-node-wrapper-${treeNodeLeft}-${treeNodeTop}`}
+        >
+            {children}
+        </motion.div>
     )
 }
 

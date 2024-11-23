@@ -1,70 +1,80 @@
 import TreeNodePositionWrapper from "./TreeNodePositionWrapper";
 import TreeNodeViz from "./TreeNodeViz";
 import AddNewTreeNode from "./AddNewTreeNode";
-const Tree = ({ tree, treeHeight, gridSize }) => {
+import { motion, AnimatePresence } from "framer-motion";
+import { useMemo } from "react";
 
-    const addTreeNode = (level, pos) => {
-        
-        console.log('rocky debug: level, pos: ', level, pos)
-        /*
-        const parentPos = Math.floor(pos / (level + 1));
-        const leftNode = Math.round(pos / (level + 1)) === parentPos;
-        console.log('rocky debug: parentPos: ', parentPos, leftNode)
-        */
+const Tree = ({ tree, treeHeight, treeChangedFlag, gridSize, updateTree }) => {
+
+    const treeGridDimensions = [Math.pow(2, treeHeight)+1, treeHeight]
+
+    const addTreeNode = (level, pos) => {        
+        // given position in grid, find position in level
+        const amtSpaceBetweenNode = Math.floor(treeGridDimensions[0] /  (Math.pow(2, level)));
+        const posInLevel = Math.floor(pos / amtSpaceBetweenNode)
+        updateTree('add', level, posInLevel, -1);
     }
 
-    const treeGridDimensions = [Math.pow(2, treeHeight+1) + 1, treeHeight]
-    const gridSquareSize = [gridSize.width / treeGridDimensions[0], gridSize.height / treeGridDimensions[1]]
-        
-    const offset = [
-        gridSize?.left || 0,
-        gridSize?.top || 0
-    ];
+    
+    //--- UPDATE TREE WHENEVER TREE NODE ADDED
+    const TreeViz = useMemo(() => {
 
-    const buildTreeNodeViz = (nodes, node, level, gridXPos) => {
-        const childXDistance = Math.floor(Math.floor((treeGridDimensions[0]-2) / 2) / (2 * (level + 1)));
-        if (!node) {
+        const ret = []
+        const gridSquareSize = [gridSize.width / treeGridDimensions[0], gridSize.height / treeGridDimensions[1]]
+            
+        const offset = [
+            gridSize?.left || 0,
+            gridSize?.top || 0
+        ];
+    
+        const buildTreeNodeViz = (nodes, node, level, gridXPos, childXDistance) => {
+            if (!node) {
+                nodes.push(
+                    <TreeNodePositionWrapper
+                        level={level} 
+                        offset={offset}
+                        gridXPos={gridXPos}
+                        gridSquareSize={gridSquareSize} 
+                    >
+                        <AddNewTreeNode 
+                            level={level}
+                            gridXPos={gridXPos}
+                            addTreeNode={addTreeNode}
+                        />
+                    </TreeNodePositionWrapper>
+                ); 
+                return;
+            } 
             nodes.push(
                 <TreeNodePositionWrapper
+                    node={node} 
                     level={level} 
                     offset={offset}
                     gridXPos={gridXPos}
                     gridSquareSize={gridSquareSize} 
                 >
-                    <AddNewTreeNode 
+                    <TreeNodeViz 
+                        node={node}
                         level={level}
                         gridXPos={gridXPos}
-                        addTreeNode={addTreeNode}
+                        handleClick={addTreeNode}
                     />
                 </TreeNodePositionWrapper>
             ); 
-            return;
+            buildTreeNodeViz(nodes, node.left, level+1, gridXPos-childXDistance, Math.floor(childXDistance / 2))
+            buildTreeNodeViz(nodes, node.right, level+1, gridXPos+childXDistance, Math.floor(childXDistance / 2))
         }
-        nodes.push(
-            <TreeNodePositionWrapper
-                node={node} 
-                level={level} 
-                treeGridDimensions={treeGridDimensions} 
-                offset={offset}
-                gridXPos={gridXPos}
-                gridSquareSize={gridSquareSize} 
-            >
-                <TreeNodeViz 
-                    node={node}
-                />
-            </TreeNodePositionWrapper>
-        ); 
-        buildTreeNodeViz(nodes, node.left, level+1, gridXPos-childXDistance)
-        buildTreeNodeViz(nodes, node.right, level+1, gridXPos+childXDistance)
-    
-    }
+        const childXDistance = Math.floor(Math.floor((treeGridDimensions[0]) / 2) / 2);
+        buildTreeNodeViz(ret, tree, 0, Math.floor(treeGridDimensions[0] / 2), childXDistance);
+        console.log('returning tree')
+        return ret;
 
-    const TreeViz = [];
-    buildTreeNodeViz(TreeViz, tree, 0, Math.floor(treeGridDimensions[0] / 2));
+    }, [treeChangedFlag, gridSize])
+    
     return (
-        <>
+        <AnimatePresence>
             {TreeViz}
-        </>
+        </AnimatePresence>
     );
 }
 
