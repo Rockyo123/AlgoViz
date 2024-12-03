@@ -9,10 +9,25 @@ const Tree = ({ tree, treeHeight, treeChangedFlag, gridSize, updateTree }) => {
     const treeGridDimensions = [Math.pow(2, treeHeight)+1, treeHeight]
 
     const addTreeNode = (level, pos) => {        
+        console.log('rocky debug: trying to add Tree node')
         // given position in grid, find position in level
         const amtSpaceBetweenNode = Math.floor(treeGridDimensions[0] /  (Math.pow(2, level)));
         const posInLevel = Math.floor(pos / amtSpaceBetweenNode)
         updateTree('add', level, posInLevel, -1);
+    }
+
+    const removeTreeNode = (level, pos) => {
+        // given position in grid, find position in level
+        const amtSpaceBetweenNode = Math.floor(treeGridDimensions[0] /  (Math.pow(2, level)));
+        const posInLevel = Math.floor(pos / amtSpaceBetweenNode)
+        updateTree('remove', level, posInLevel, -1);
+    }
+
+    const updateNodeVal = (val, level, pos) => {
+        // given position in grid, find position in level
+        const amtSpaceBetweenNode = Math.floor(treeGridDimensions[0] /  (Math.pow(2, level)));
+        const posInLevel = Math.floor(pos / amtSpaceBetweenNode)
+        updateTree('updateVal', level, posInLevel, val);
     }
 
     
@@ -57,7 +72,8 @@ const Tree = ({ tree, treeHeight, treeChangedFlag, gridSize, updateTree }) => {
                         node={node}
                         level={level}
                         gridXPos={gridXPos}
-                        handleClick={addTreeNode}
+                        handleNodeUpdateVal={updateNodeVal}
+                        handleNodeRemove={removeTreeNode}
                     />
                 </TreeNodePositionWrapper>
             ); 

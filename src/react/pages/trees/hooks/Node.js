@@ -12,4 +12,5 @@ export default class Node {
         this.left = left ? left : null;
         this.right = right ? right : null;
     }
+
 }

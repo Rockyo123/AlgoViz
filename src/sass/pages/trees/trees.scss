@@ -8,6 +8,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    
+    &.focused{
+        transition: .3s;
+        transform: scale(1.2);
+    }
+
 }
 
 .add-new-tree-node{
@@ -37,4 +44,11 @@
     .inactive {
         opacity: 0;
     }
+}
+
+.node-remove-icon{
+    color: red;
+    position: absolute;
+    top: -5px;
+    left: -5px;
 }

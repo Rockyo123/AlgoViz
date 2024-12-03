@@ -13,15 +13,12 @@ export const useResponsiveTree = (maxTreeHeight, defaultHeight=4) => {
     const [treeChangedFlag, setTreeChangedFlag] = useState(0);
     const treeHeight = getTreeHeight(tree);
 
-    //console.log('rocky debug: tree: ', tree);
+    console.log('rocky debug: tree: ', tree);
 
-    const addNodeToTree = (level, levelPos, value) => {
-        const addedNode = (value === -1) ? createRandomNode() : new Node(value);
-        //console.log('rocky debug: addedNode: ', addedNode, level, levelPos);
+    const findParentNodeInTreeFromPosition = (level, levelPos) => {
         let totalLevelNodes = Math.pow(2, level);
         let curLevel = 0;
-        const newTree = tree;
-        let curNode = newTree
+        let curNode = tree;
         let comparisonVal = Math.ceil(totalLevelNodes / 2);
         //find parent node
         while (curNode && curLevel < level - 1){
@@ -37,23 +34,63 @@ export const useResponsiveTree = (maxTreeHeight, defaultHeight=4) => {
             }
             curLevel++;
         }
+
+        return [curNode, comparisonVal];
+    }
+
+    const addNodeToTree = (level, levelPos, value) => {
+        const addedNode = (value === -1) ? createRandomNode() : new Node(value);
+        let [parentNode, comparisonVal] = findParentNodeInTreeFromPosition(level, levelPos);
+        
         if (levelPos < comparisonVal){
-            curNode.left = addedNode
+            parentNode.left = addedNode
         }
         else {
-            curNode.right = addedNode
+            parentNode.right = addedNode
         }
-        setTree(newTree);
-        setTreeChangedFlag(prevState => prevState + 1);
+    }
+
+    const removeNodeFromTree = (level, levelPos) => {
+        let [parentNode, comparisonVal] = findParentNodeInTreeFromPosition(level, levelPos);
+        if (levelPos < comparisonVal){
+            parentNode.left = null;
+        }
+        else {
+            parentNode.right = null
+        }
+    }
+
+    const updateTreeVal = (level, levelPos, value) => {
+        let nodeToUpdate = null;
+        let [parentNode, comparisonVal] = findParentNodeInTreeFromPosition(level, levelPos);
+        if (levelPos < comparisonVal){
+            nodeToUpdate = parentNode.left;
+            nodeToUpdate.val = parseInt(value);
+        }
+        else {
+            nodeToUpdate = parentNode.right;
+            nodeToUpdate.val = parseInt(value);
+        }
+        console.log('rocky ebug: updated: ', value, parentNode, nodeToUpdate)
     }
 
     const updateTree = (method, level, levelPos, value=-1) => {
+        const newTree = tree;
         switch(method){
             case 'add': 
                 addNodeToTree(level, levelPos, value);
+                break;
+            case 'remove':
+                removeNodeFromTree(level, levelPos);
+                break;
+            case 'updateVal':
+                updateTreeVal(level, levelPos, value);
+                break;
             default:
-                return;
+                break;
         }
+        setTree(newTree);
+        setTreeChangedFlag(prevState => prevState + 1);
     }
 
     const randomizeTreeVals = () => {
