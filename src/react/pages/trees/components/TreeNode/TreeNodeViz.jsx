@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleMinus } from "@fortawesome/free-solid-svg-icons";
 import { ClampedBlurInput } from "@/components/selectors";
@@ -9,11 +9,20 @@ import { ClampedBlurInput } from "@/components/selectors";
 const TreeNodeViz = ({ node, level, gridXPos, handleNodeUpdateVal, handleNodeRemove }) => {
     
     const [focused, setFocused] = useState(false);
+    const [editMode, setEditMode] = useState(false);
+
     const [nodeVal, setNodeVal] = useState(node.val);
 
+    const inputRef = useRef(null);
+
+    useEffect(() => {
+        if (editMode){
+            inputRef.current.focus();
+        }
+    }, [editMode]);
 
     const removeNode = () => {
-        if (focused){
+        if (focused && !editMode){
             handleNodeRemove(level, gridXPos);
         }
     }
@@ -22,27 +31,51 @@ const TreeNodeViz = ({ node, level, gridXPos, handleNodeUpdateVal, handleNodeRem
         setNodeVal(newVal);
     }
 
+    const handleNodeClick = () => {
+        if(!editMode){
+            setEditMode(true);
+        }
+        else{
+            confirmChanges();
+        }
+    }
+    
     const confirmChanges = () => {
         handleNodeUpdateVal(nodeVal, level, gridXPos);
         setFocused(false);
+        setEditMode(false);
     }
 
+    const handleRemoveFocus = (e) => {
+        if (editMode){
+            e.preventDefault();
+            inputRef.current.focus();
+        }
+        else{
+            setFocused(false);
+        }
+    }
+   
     return (
         <div 
             className={`tree-node ${focused ? 'focused': ''}`} 
             tabIndex={0}
             aria-label={`tree node ${node.val}`}
+
             onMouseEnter={() => setFocused(true)}
-            onMouseLeave={() =>  confirmChanges()}
+            onMouseLeave={(e) =>  handleRemoveFocus(e)}
+            
             onFocus={() => setFocused(true)}
-            onBlur={() => confirmChanges()}
+            onBlur={(e) => handleRemoveFocus(e)}
+            
+            onClick={() => handleNodeClick()}
             onKeyDown={(e) => {
                 //if backspace or delete then remove
                 if (e.key  === "Backspace" || e.key  === "Delete"){
                     removeNode();
                 }
                 if (e.key === 'Enter'){
-                    confirmChanges();
+                    handleNodeClick();
                 }
                 e.stopPropagation();
             }}
@@ -50,7 +83,6 @@ const TreeNodeViz = ({ node, level, gridXPos, handleNodeUpdateVal, handleNodeRem
             key={node.id}
         >
             {focused && 
-                <>
                 <span 
                     className="node-remove-icon"
                     aria-label={`remove tree node ${node.val}`}
@@ -64,19 +96,20 @@ const TreeNodeViz = ({ node, level, gridXPos, handleNodeUpdateVal, handleNodeRem
                         icon={faCircleMinus}
                     />
                 </span>
-                <input 
-                    className=""
-                    type="number"
-                    value={nodeVal}
-                    min={-100}
-                    max={100}
-                    style={{'height': '50%', 'width': '90%'}}
-                    onChange={(e) => updateNodeVal(e.target.value)}
-                />
-                </>
             }
-
-            {(!focused) && 
+            <input 
+                ref={inputRef}
+                hidden={!editMode}
+                className=""
+                type="number"
+                value={nodeVal}
+                min={-100}
+                max={100}
+                style={{'height': '50%', 'width': '90%'}}
+                onChange={(e) => updateNodeVal(e.target.value)}
+            />
+            
+            {(!editMode) && 
             <>
                 {nodeVal}
             </>

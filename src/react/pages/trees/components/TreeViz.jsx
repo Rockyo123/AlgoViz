@@ -1,6 +1,6 @@
-import TreeNodePositionWrapper from "./TreeNodePositionWrapper";
-import TreeNodeViz from "./TreeNodeViz";
-import AddNewTreeNode from "./AddNewTreeNode";
+import TreeNodePositionWrapper from "./TreeNode/TreeNodePositionWrapper";
+import TreeNodeViz from "./TreeNode/TreeNodeViz";
+import AddNewTreeNode from "./TreeNode/AddNewTreeNode";
 import { motion, AnimatePresence } from "framer-motion";
 import { useMemo } from "react";
 

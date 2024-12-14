@@ -25,11 +25,11 @@ export const useResponsiveTree = (maxTreeHeight, defaultHeight=4) => {
             if (levelPos < comparisonVal){
                 curNode = curNode.left;
                 //this needs to be 2
-                comparisonVal -= totalLevelNodes / (2 * Math.pow(2, curLevel+1))
+                comparisonVal -= totalLevelNodes / (2 * Math.pow(2, curLevel+1));
             }
             else{
                 curNode = curNode.right;
-                comparisonVal += totalLevelNodes / (2 * Math.pow(2, curLevel+1))
+                comparisonVal += totalLevelNodes / (2 * Math.pow(2, curLevel+1));
 
             }
             curLevel++;
@@ -43,10 +43,10 @@ export const useResponsiveTree = (maxTreeHeight, defaultHeight=4) => {
         let [parentNode, comparisonVal] = findParentNodeInTreeFromPosition(level, levelPos);
         
         if (levelPos < comparisonVal){
-            parentNode.left = addedNode
+            parentNode.left = addedNode;
         }
         else {
-            parentNode.right = addedNode
+            parentNode.right = addedNode;
         }
     }
 
@@ -56,7 +56,7 @@ export const useResponsiveTree = (maxTreeHeight, defaultHeight=4) => {
             parentNode.left = null;
         }
         else {
-            parentNode.right = null
+            parentNode.right = null;
         }
     }
 
