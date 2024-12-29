@@ -68,7 +68,7 @@
   border-radius: 50%;
   height: 100%;
   width: 100%;
-  box-shadow: 5px 5px 8px #000, -5px -3px 11px #353d48, -1px -1px 9px #424242, inset -4px -2px 9px #424242;
+  box-shadow: 5px 5px 8px #000;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -292,6 +292,7 @@
 }
 
 .algorithm-viz-wrapper {
+  position: relative;
   width: 100%;
   height: 100%;
   margin-top: 5%;

@@ -1,5 +1,5 @@
 import React from "react";
-import { SortingPreviewSquare, GraphPreviewSquare, ComingSoonSquare } from "./components";
+import { SortingPreviewSquare, GraphPreviewSquare, TreePreviewSquare, ComingSoonSquare } from "./components";
 import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
@@ -9,8 +9,9 @@ const HomePage = () => {
     const handleClick = (link) => {
         navigate(link);
     }
+
     return (
-        <div className="home-page"> 
+        <div className="home-page">
             <div className="full-width centered-row">
                 <h1 className="text-white">
                     Home
@@ -24,11 +25,9 @@ const HomePage = () => {
                 <GraphPreviewSquare
                     handleClick={handleClick}
                 />
-
-                <ComingSoonSquare 
-                    title='Trees'
+                <TreePreviewSquare 
+                    handleClick={handleClick}
                 />
-
                 <ComingSoonSquare 
                     title='Linked Lists'
                 />

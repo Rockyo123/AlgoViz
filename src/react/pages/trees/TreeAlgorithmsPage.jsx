@@ -6,19 +6,20 @@ import { useResponsiveGrid } from "@/hooks/useResponsiveGrid";
 import { useVizStateManager } from "@/hooks/useVizStateManager";
 import { useResponsiveTree } from "./hooks/useResponsiveTree";
 import { MAX_TREE_HEIGHT, MAX_TREE_WIDTH, TREE_ALGS } from "@/constants";
-import TreeViz from "./components/treeViz";
+import TreeViz from "./components/TreeViz";
+
 const TreeAlgorithmsPage = () => {  
     const containerRef = useRef(null);
-    const {containerDimensions: dispContainerDimensions, xUnits: maxTreeWidth, yUnits: maxTreeHeight} = useResponsiveGrid(containerRef, 50, 50, MAX_TREE_HEIGHT, MAX_TREE_WIDTH);
-    const [ tree, treeHeight, treeChangedFlag, updateTree, randomizeTreeVals ] = useResponsiveTree(maxTreeHeight);
+    const {containerDimensions: dispContainerDimensions, xUnits: maxTreeWidth, yUnits: maxTreeHeight} = useResponsiveGrid(containerRef, 30, 30, MAX_TREE_WIDTH, MAX_TREE_HEIGHT);
+    const [ tree, treeHeight, treeChangedFlag, updateTree, randomizeTreeVals, resetTree ] = useResponsiveTree(maxTreeHeight);
     
     const [algorithm, setAlgorithm] = useState('Breadth First Search');
     const [speed, setSpeed] = useState(50);
-
-    const { vizState, vizStateBtnText, toggleVizState, setVizStateWithVal } = useVizStateManager(randomizeTreeVals, [tree, algorithm]);
+    const [target, setTarget] = useState(20);
+    const { vizState, vizStateBtnText, toggleVizState, setVizStateWithVal } = useVizStateManager(resetTree, [tree, algorithm]);
     
     const resetSteps = () => {
-        //updateArrayVals([...array]);
+        resetTree();
     }
 
 return (
@@ -44,17 +45,17 @@ return (
                 }
             />
             <HeaderSelector
-                label={"Num Entries"}
+                label={"Target"}
                 selector={
-                    <>
-                    {/*<Slider 
-                        val={array.length}
-                        setVal={updateArrayLength}
-                        min={10}
-                        max={maxArrEntries}
-                        tooltip={"auto"}
-                    /> */}
-                    </>
+                    <input
+                        className="av-input"
+                        type='number'
+                        value={target}
+                        style={{maxWidth: '90%'}}
+                        aria-label="target value"
+                        onChange={(e) => setTarget(parseInt(e.target.value))}
+                    />
+
                 }
             />
             <HeaderSelector
@@ -85,9 +86,15 @@ return (
         <TreeViz
             tree={tree}
             treeHeight={treeHeight+1}
+            maxTreeHeight={maxTreeHeight}
             treeChangedFlag={treeChangedFlag}
             gridSize={dispContainerDimensions}
             updateTree={updateTree}
+            speed={speed}
+            algorithm={algorithm}
+            target={target}
+            vizState={vizState}
+            updateVizState={setVizStateWithVal}
         />
         
     </AlgorithmResponsiveDisplayWrapper>

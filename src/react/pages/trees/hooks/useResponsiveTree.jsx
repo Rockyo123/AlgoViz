@@ -1,19 +1,27 @@
-import React, { useState } from "react"
+import React, { useState, useLayoutEffect } from "react"
 import Node, { createRandomNode } from "./Node";
+import { deepCopyTree, createTree, trimTree } from "../treeUtils";
 
 const getTreeHeight = (node) => {
     if (!node) return 0;
     return 1 + Math.max(getTreeHeight(node.left), getTreeHeight(node.right));
 }
 
-export const useResponsiveTree = (maxTreeHeight, defaultHeight=4) => {
-    const [tree, setTree] = useState(
-        new Node(1, new Node(2, new Node(5, new Node(3)), new Node(7)), new Node(3, new Node(8), new Node(9, new Node(11), new Node(10))))
-    );
+export const useResponsiveTree = (maxTreeHeight, defaultHeight=2) => {
+
+    const [tree, setTree] = useState(createTree(defaultHeight));
+    
     const [treeChangedFlag, setTreeChangedFlag] = useState(0);
     const treeHeight = getTreeHeight(tree);
 
-    console.log('rocky debug: tree: ', tree);
+    useLayoutEffect(() => {
+        if (maxTreeHeight === 0) return;
+        if (maxTreeHeight < treeHeight) {
+            const newTree = trimTree(tree, maxTreeHeight);
+            setTree(newTree);
+            setTreeChangedFlag(prevVal => prevVal + 1);
+        }
+    }, [maxTreeHeight]);
 
     const findParentNodeInTreeFromPosition = (level, levelPos) => {
         let totalLevelNodes = Math.pow(2, level);
@@ -24,7 +32,6 @@ export const useResponsiveTree = (maxTreeHeight, defaultHeight=4) => {
         while (curNode && curLevel < level - 1){
             if (levelPos < comparisonVal){
                 curNode = curNode.left;
-                //this needs to be 2
                 comparisonVal -= totalLevelNodes / (2 * Math.pow(2, curLevel+1));
             }
             else{
@@ -71,7 +78,6 @@ export const useResponsiveTree = (maxTreeHeight, defaultHeight=4) => {
             nodeToUpdate = parentNode.right;
             nodeToUpdate.val = parseInt(value);
         }
-        console.log('rocky ebug: updated: ', value, parentNode, nodeToUpdate)
     }
 
     const updateTree = (method, level, levelPos, value=-1) => {
@@ -93,9 +99,40 @@ export const useResponsiveTree = (maxTreeHeight, defaultHeight=4) => {
         setTreeChangedFlag(prevState => prevState + 1);
     }
 
-    const randomizeTreeVals = () => {
+    // will reset tree node colors all to white
+    const resetTree = () => {
+        const nodeQueue = [];
+        const newTree = deepCopyTree(tree);
+        nodeQueue.push(newTree);
+        while (nodeQueue && nodeQueue.length){
+            const curNode = nodeQueue.shift();
 
+            if (!curNode) continue;
+
+            curNode.color = 'white';
+            nodeQueue.push(curNode.left);
+            nodeQueue.push(curNode.right);
+        }
+        setTree(newTree);
+        setTreeChangedFlag(prevState => prevState + 1);
     }
 
-    return [ tree, treeHeight, treeChangedFlag, updateTree, randomizeTreeVals ];
+    const randomizeTreeVals = () => {
+        const nodeQueue = [];
+        const newTree = deepCopyTree(tree);
+        nodeQueue.push(newTree);
+        while (nodeQueue && nodeQueue.length){
+            const curNode = nodeQueue.shift();
+
+            if (!curNode) continue;
+            const randomValue = Math.floor(Math.random() * 100) + 0;
+            curNode.val = randomValue;
+            nodeQueue.push(curNode.left);
+            nodeQueue.push(curNode.right);
+        }
+        setTree(newTree);
+        setTreeChangedFlag(prevState => prevState + 1);
+    }
+
+    return [ tree, treeHeight, treeChangedFlag, updateTree, randomizeTreeVals, resetTree ];
 }
