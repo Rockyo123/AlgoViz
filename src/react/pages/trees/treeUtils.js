@@ -38,3 +38,44 @@ export const trimTree = (tree, height) => {
 
     return newTree;
 }
+
+export const createTreeArr = (rootIn, treeHeight) => {
+    const heightToUse = treeHeight + 1;
+    const arrLen = Math.pow(2, heightToUse+1) - 1;
+    const treeArr = new Array(arrLen).fill(null)
+    const nodeQueue = [];
+    const width = Math.pow(2, heightToUse+1)+1;
+
+    const childGridXDistance = Math.floor(Math.floor((width) / 2) / 2);
+    const gridXPos = Math.floor(childGridXDistance / 2);
+
+    nodeQueue.push([rootIn, 0, 0, childGridXDistance, gridXPos]);
+    
+    while (nodeQueue && nodeQueue.length){
+        const [curNode, level, levelPos, gridXPos, childGridXDistance] = nodeQueue.shift();
+        const levelIdx = Math.pow(2, level) - 1;
+        const idx = levelIdx + levelPos;
+        if (!curNode){
+            treeArr[idx] = {
+                //'id': -1,
+                'val': null,
+                'color': 'white',
+                'level': level,
+                'gridXPos': gridXPos
+            }
+            continue;
+        }
+        const arrNode = {
+            //'id': curNode.id,
+            'val': curNode.val,
+            'color': 'white',
+            'level': level,
+            'gridXPos': gridXPos
+        }
+
+        treeArr[idx] = arrNode;
+        nodeQueue.push([curNode.left, level+1, (2 * levelPos),     gridXPos-childGridXDistance, Math.floor(childGridXDistance/2)]);
+        nodeQueue.push([curNode.right,level+1, (2 * levelPos) + 1, gridXPos+childGridXDistance, Math.floor(childGridXDistance/2)]);
+    }
+    return treeArr;
+}

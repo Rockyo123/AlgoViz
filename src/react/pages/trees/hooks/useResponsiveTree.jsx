@@ -1,6 +1,6 @@
 import React, { useState, useLayoutEffect } from "react"
 import Node, { createRandomNode } from "./Node";
-import { deepCopyTree, createTree, trimTree } from "../treeUtils";
+import { deepCopyTree, createTree, createTreeArr, trimTree } from "../treeUtils";
 
 const getTreeHeight = (node) => {
     if (!node) return 0;
@@ -10,16 +10,22 @@ const getTreeHeight = (node) => {
 export const useResponsiveTree = (maxTreeHeight, defaultHeight=2) => {
 
     const [tree, setTree] = useState(createTree(defaultHeight));
-    
+    const [treeArr, setTreeArr] = useState(createTreeArr(tree, getTreeHeight(tree)));
+
     const [treeChangedFlag, setTreeChangedFlag] = useState(0);
     const treeHeight = getTreeHeight(tree);
+
+    const updateTreeState = (newTreeIn) => {
+        setTree(newTreeIn);
+        setTreeChangedFlag(prevVal => prevVal + 1);
+        setTreeArr(createTreeArr(newTreeIn, getTreeHeight(newTreeIn)));
+    }
 
     useLayoutEffect(() => {
         if (maxTreeHeight === 0) return;
         if (maxTreeHeight < treeHeight) {
             const newTree = trimTree(tree, maxTreeHeight);
-            setTree(newTree);
-            setTreeChangedFlag(prevVal => prevVal + 1);
+            updateTreeState(newTree)
         }
     }, [maxTreeHeight]);
 
@@ -95,8 +101,7 @@ export const useResponsiveTree = (maxTreeHeight, defaultHeight=2) => {
             default:
                 break;
         }
-        setTree(newTree);
-        setTreeChangedFlag(prevState => prevState + 1);
+        updateTreeState(newTree)
     }
 
     // will reset tree node colors all to white
@@ -113,8 +118,7 @@ export const useResponsiveTree = (maxTreeHeight, defaultHeight=2) => {
             nodeQueue.push(curNode.left);
             nodeQueue.push(curNode.right);
         }
-        setTree(newTree);
-        setTreeChangedFlag(prevState => prevState + 1);
+        updateTreeState(newTree)
     }
 
     const randomizeTreeVals = () => {
@@ -130,9 +134,8 @@ export const useResponsiveTree = (maxTreeHeight, defaultHeight=2) => {
             nodeQueue.push(curNode.left);
             nodeQueue.push(curNode.right);
         }
-        setTree(newTree);
-        setTreeChangedFlag(prevState => prevState + 1);
+        updateTreeState(newTree)
     }
 
-    return [ tree, treeHeight, treeChangedFlag, updateTree, randomizeTreeVals, resetTree ];
+    return [ tree, treeHeight, treeArr, treeChangedFlag, updateTree, randomizeTreeVals, resetTree ];
 }

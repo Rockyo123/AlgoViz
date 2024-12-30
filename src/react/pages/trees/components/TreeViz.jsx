@@ -3,8 +3,9 @@ import TreeNodeViz from "./TreeNode/TreeNodeViz";
 import AddNewTreeNode from "./TreeNode/AddNewTreeNode";
 import useSolveTree from './hooks/useSolveTree';
 import { useMemo } from "react";
+import { AnimatePresence } from "framer-motion";
 
-const Tree = ({ tree, treeHeight, maxTreeHeight, treeChangedFlag, gridSize, updateTree, speed, algorithm, target, vizState, updateVizState, editEnabled=true }) => {
+const Tree = ({ tree, treeArr, treeHeight, maxTreeHeight, treeChangedFlag, gridSize, updateTree, speed, algorithm, target, vizState, updateVizState, editEnabled=true }) => {
 
     const trueHeight = Math.min(treeHeight, maxTreeHeight+1)
     const treeGridDimensions = [Math.pow(2, trueHeight)+1, trueHeight]
@@ -31,57 +32,50 @@ const Tree = ({ tree, treeHeight, maxTreeHeight, treeChangedFlag, gridSize, upda
         updateTree('updateVal', level, posInLevel, val);
     }
 
-    
-    //--- UPDATE TREE WHENEVER TREE NODE ADDED
-    const TreeViz = useMemo(() => {
-        const ret = []
-        const gridSquareSize = [gridSize.width / treeGridDimensions[0], gridSize.height / treeGridDimensions[1]]
-            
-        const buildTreeNodeViz = (nodes, node, level, gridXPos, childXDistance) => {
-            if (level > maxTreeHeight) return;
-            if (!node) {
-                if (vizState === 'NotStarted'){
-                    nodes.push(
-                        <TreeNodePositionWrapper
-                            level={level} 
-                            gridXPos={gridXPos}
-                            gridSquareSize={gridSquareSize} 
-                        >
-                            <AddNewTreeNode 
-                                level={level}
-                                gridXPos={gridXPos}
-                                addTreeNode={addTreeNode}
-                            />
-                        </TreeNodePositionWrapper>
-                    ); 
-                }
-                return;
-            } 
-            nodes.push(
-                <TreeNodePositionWrapper
-                    node={node} 
-                    level={level} 
-                    gridXPos={gridXPos}
-                    gridSquareSize={gridSquareSize} 
-                >
-                    <TreeNodeViz 
-                        node={node}
-                        level={level}
-                        gridXPos={gridXPos}
-                        editEnabled={vizState === 'NotStarted' && editEnabled}
-                        handleNodeUpdateVal={updateNodeVal}
-                        handleNodeRemove={removeTreeNode}
-                    />
-                </TreeNodePositionWrapper>
-            ); 
-            buildTreeNodeViz(nodes, node.left, level+1, gridXPos-childXDistance, Math.floor(childXDistance / 2))
-            buildTreeNodeViz(nodes, node.right, level+1, gridXPos+childXDistance, Math.floor(childXDistance / 2))
-        }
-        const childXDistance = Math.floor(Math.floor((treeGridDimensions[0]) / 2) / 2);
-        buildTreeNodeViz(ret, solvedTree, 0, Math.floor(treeGridDimensions[0] / 2), childXDistance);
-        return ret;
+    const gridSquareSize = [gridSize.width / treeGridDimensions[0], gridSize.height / treeGridDimensions[1]]
 
-    }, [solvedTreeChangedFlag, gridSize, vizState])
+    const TreeViz = treeArr.map((node, idx) => {
+        if (!node) return <></>;
+        const level = node.level;
+        const gridXPos = node.gridXPos;
+        if (!node.val) {
+            if (vizState === 'NotStarted'){
+                return (
+                    <TreeNodePositionWrapper
+                        node={node}
+                        level={level} 
+                        gridXPos={gridXPos}
+                        gridSquareSize={gridSquareSize} 
+                        //key={`node-pos-wrapper-${level}-${gridXPos}`}
+                    >
+                        <AddNewTreeNode 
+                            level={level}
+                            gridXPos={gridXPos}
+                            addTreeNode={addTreeNode}
+                        />
+                    </TreeNodePositionWrapper>
+                ); 
+            }
+        } 
+        return (
+            <TreeNodePositionWrapper
+                node={node} 
+                level={level} 
+                gridXPos={gridXPos}
+                gridSquareSize={gridSquareSize} 
+                //key={`node-pos-wrapper-${level}-${gridXPos}`}
+            >
+                <TreeNodeViz 
+                    node={node}
+                    level={level}
+                    gridXPos={gridXPos}
+                    editEnabled={vizState === 'NotStarted' && editEnabled}
+                    handleNodeUpdateVal={updateNodeVal}
+                    handleNodeRemove={removeTreeNode}
+                />
+            </TreeNodePositionWrapper>
+        ); 
+    });
     
     return (
         <>

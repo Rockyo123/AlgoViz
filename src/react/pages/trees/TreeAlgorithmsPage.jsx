@@ -11,8 +11,7 @@ import TreeViz from "./components/TreeViz";
 const TreeAlgorithmsPage = () => {  
     const containerRef = useRef(null);
     const {containerDimensions: dispContainerDimensions, xUnits: maxTreeWidth, yUnits: maxTreeHeight} = useResponsiveGrid(containerRef, 30, 30, MAX_TREE_WIDTH, MAX_TREE_HEIGHT);
-    const [ tree, treeHeight, treeChangedFlag, updateTree, randomizeTreeVals, resetTree ] = useResponsiveTree(maxTreeHeight);
-    
+    const [ tree, treeHeight, treeArr, treeChangedFlag, updateTree, randomizeTreeVals, resetTree ] = useResponsiveTree(maxTreeHeight);
     const [algorithm, setAlgorithm] = useState('Breadth First Search');
     const [speed, setSpeed] = useState(50);
     const [target, setTarget] = useState(20);
@@ -85,6 +84,7 @@ return (
     >
         <TreeViz
             tree={tree}
+            treeArr={treeArr}
             treeHeight={treeHeight+1}
             maxTreeHeight={maxTreeHeight}
             treeChangedFlag={treeChangedFlag}
