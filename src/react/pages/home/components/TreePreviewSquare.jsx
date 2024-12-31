@@ -46,7 +46,7 @@ const TreePreviewSquare = ({ handleClick }) => {
                 >
                     <TreeViz
                         tree={tree}
-                        treeHeight={treeHeight}
+                        treeHeight={treeHeight+1}
                         maxTreeHeight={3}
                         treeChangedFlag={treeChangedFlag}
                         gridSize={dispContainerDimensions}

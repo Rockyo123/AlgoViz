@@ -61,6 +61,7 @@ export const createTreeArr = (rootIn, treeHeight) => {
                 'val': null,
                 'color': 'white',
                 'level': level,
+                'levelPos': levelPos,
                 'gridXPos': gridXPos
             }
             continue;
@@ -68,8 +69,9 @@ export const createTreeArr = (rootIn, treeHeight) => {
         const arrNode = {
             //'id': curNode.id,
             'val': curNode.val,
-            'color': 'white',
+            'color': curNode.color,
             'level': level,
+            'levelPos': levelPos,
             'gridXPos': gridXPos
         }
 
@@ -78,4 +80,9 @@ export const createTreeArr = (rootIn, treeHeight) => {
         nodeQueue.push([curNode.right,level+1, (2 * levelPos) + 1, gridXPos+childGridXDistance, Math.floor(childGridXDistance/2)]);
     }
     return treeArr;
+}
+
+export const getTreeHeight = (node) => {
+    if (!node) return 0;
+    return 1 + Math.max(getTreeHeight(node.left), getTreeHeight(node.right));
 }

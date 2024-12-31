@@ -6,7 +6,7 @@ import { faCircleMinus } from "@fortawesome/free-solid-svg-icons";
 //      - vizualize itself and children
 //      - change value
 //      - be able to remove
-const TreeNodeVizEdit = ({ node, level, gridXPos, handleNodeUpdateVal, handleNodeRemove }) => {
+const TreeNodeVizEdit = ({ node, level, levelPos, handleNodeUpdateVal, handleNodeRemove }) => {
     
     const [focused, setFocused] = useState(false);
     const [editMode, setEditMode] = useState(false);
@@ -26,7 +26,7 @@ const TreeNodeVizEdit = ({ node, level, gridXPos, handleNodeUpdateVal, handleNod
 
     const removeNode = () => {
         if (focused && !editMode){
-            handleNodeRemove(level, gridXPos);
+            handleNodeRemove(level, levelPos);
         }
     }
 
@@ -44,7 +44,7 @@ const TreeNodeVizEdit = ({ node, level, gridXPos, handleNodeUpdateVal, handleNod
     }
     
     const confirmChanges = () => {
-        handleNodeUpdateVal(nodeVal, level, gridXPos);
+        handleNodeUpdateVal(nodeVal, level, levelPos);
         setFocused(false);
         setEditMode(false);
     }

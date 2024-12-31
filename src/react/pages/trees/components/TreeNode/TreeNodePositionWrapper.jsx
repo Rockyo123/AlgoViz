@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
  * @param {*} param0 
  * @returns 
  */
-const TreeNodePositionWrapper = ({ node, level, gridXPos, gridSquareSize, children }) => {
+const TreeNodePositionWrapper = ({ level, gridXPos, gridSquareSize, children }) => {
    
     const [layoutStyle, setLayoutStyle] = useState({
         left: gridXPos * gridSquareSize[0],
@@ -13,8 +13,8 @@ const TreeNodePositionWrapper = ({ node, level, gridXPos, gridSquareSize, childr
         width: Math.max(Math.min(gridSquareSize[0], gridSquareSize[1]), 30),
         height: Math.max(Math.min(gridSquareSize[0], gridSquareSize[1]), 30),
       });
-    //console.log('rocky debug: node, lev, gridXPos: ', node?.val, level, gridXPos)
-    // Recalculate position and size when props change
+
+      // Recalculate position and size when props change
     useEffect(() => {
         let left = gridXPos * gridSquareSize[0];
         if (gridSquareSize[0] < 30) {
@@ -35,10 +35,10 @@ const TreeNodePositionWrapper = ({ node, level, gridXPos, gridSquareSize, childr
             animate={
                 layoutStyle
             }
+            initial={{ 'left': layoutStyle['left'], 'top': layoutStyle['top'] - 10, 'height': 10, 'width': layoutStyle['width']}}
             style={{
                 position: 'absolute',
             }}
-            //={`tree-node-wrapper-${treeNodeLeft}-${treeNodeTop}`}
         >
             {children}
         </motion.div>

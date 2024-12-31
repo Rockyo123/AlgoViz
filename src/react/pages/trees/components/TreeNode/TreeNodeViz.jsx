@@ -5,14 +5,14 @@ import TreeNodeVizSolve from './TreeNodeVizSolve';
 //      - vizualize itself and children
 //      - change value
 //      - be able to remove
-const TreeNodeViz = ({ node, level, gridXPos, handleNodeUpdateVal, handleNodeRemove, editEnabled }) => {
+const TreeNodeViz = ({ node, level, levelPos, handleNodeUpdateVal, handleNodeRemove, editEnabled }) => {
     return (
         <>
             {(editEnabled) &&
                 <TreeNodeVizEdit 
                     node={node}
                     level={level}
-                    gridXPos={gridXPos} 
+                    levelPos={levelPos} 
                     handleNodeUpdateVal={handleNodeUpdateVal} 
                     handleNodeRemove={handleNodeRemove}
                 />

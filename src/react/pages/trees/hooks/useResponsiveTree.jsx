@@ -10,7 +10,6 @@ const getTreeHeight = (node) => {
 export const useResponsiveTree = (maxTreeHeight, defaultHeight=2) => {
 
     const [tree, setTree] = useState(createTree(defaultHeight));
-    const [treeArr, setTreeArr] = useState(createTreeArr(tree, getTreeHeight(tree)));
 
     const [treeChangedFlag, setTreeChangedFlag] = useState(0);
     const treeHeight = getTreeHeight(tree);
@@ -18,7 +17,6 @@ export const useResponsiveTree = (maxTreeHeight, defaultHeight=2) => {
     const updateTreeState = (newTreeIn) => {
         setTree(newTreeIn);
         setTreeChangedFlag(prevVal => prevVal + 1);
-        setTreeArr(createTreeArr(newTreeIn, getTreeHeight(newTreeIn)));
     }
 
     useLayoutEffect(() => {
@@ -137,5 +135,5 @@ export const useResponsiveTree = (maxTreeHeight, defaultHeight=2) => {
         updateTreeState(newTree)
     }
 
-    return [ tree, treeHeight, treeArr, treeChangedFlag, updateTree, randomizeTreeVals, resetTree ];
+    return [ tree, treeHeight, treeChangedFlag, updateTree, randomizeTreeVals, resetTree ];
 }
