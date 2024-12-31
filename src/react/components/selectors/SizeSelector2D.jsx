@@ -24,6 +24,7 @@ const SizeSelector2D = ({ xSize, ySize, updateXSize, updateYSize, min, max }) =>
             <ClampedBlurInput
                 val={xSize}
                 updateVal={updateXSize}
+                customClassName="av-input"
                 min={min}
                 max={max}
                 style={{ flex: 1, marginRight: '5px', maxWidth: '50%' }}
@@ -32,6 +33,7 @@ const SizeSelector2D = ({ xSize, ySize, updateXSize, updateYSize, min, max }) =>
             <ClampedBlurInput
                 val={ySize}
                 updateVal={updateYSize}
+                customClassName="av-input"
                 min={min}
                 max={max}
                 style={{ flex: 1, marginRight: '5px', marginLeft: '5px', maxWidth: '50%' }}

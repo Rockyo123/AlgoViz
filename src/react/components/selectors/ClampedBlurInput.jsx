@@ -15,7 +15,7 @@ import React, { useState, useEffect } from "react";
  *
  * @returns {JSX.Element} The rendered input element.
  */
-const ClampedBlurInput = ({ val, min, max, updateVal, style={} }) =>  {
+const ClampedBlurInput = ({ val, min, max, updateVal, style={}, customClassName="" }) =>  {
     const [curInput, setCurInput] = useState(val);
 
     useEffect(() => {
@@ -24,7 +24,7 @@ const ClampedBlurInput = ({ val, min, max, updateVal, style={} }) =>  {
     
     return <input
         type="number"
-        className="av-input"
+        className={customClassName}
         style={style}
         value={curInput}
         onChange={(e) => setCurInput(e.target.value)}

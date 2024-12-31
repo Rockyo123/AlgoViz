@@ -1,0 +1,54 @@
+.tree-node{
+    color: black;
+    background-color: white;
+    border-radius: 50%;
+    height: 100%;
+    width: 100%;
+    box-shadow: 5px 5px 8px #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    
+    &.focused{
+        transition: .3s;
+        transform: scale(1.2);
+    }
+
+}
+
+.add-new-tree-node{
+    border-radius: 50%;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: dashed gray;
+    opacity: .2;
+    &:hover{
+        transition: .3s;
+        transform: scale(1.1);
+        opacity: .8;
+        border: dashed #25CEDE;
+    }
+
+    &:focus { 
+        transition: .3s;
+        transform: scale(1.1);      
+        opacity: .8;
+        border: dashed #25CEDE; 
+        size: 1.2;
+    }
+
+    .inactive {
+        opacity: 0;
+    }
+}
+
+.node-remove-icon{
+    color: red;
+    position: absolute;
+    top: -5px;
+    left: -5px;
+}
