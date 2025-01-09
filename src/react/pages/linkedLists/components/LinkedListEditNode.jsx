@@ -1,19 +1,15 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleMinus } from "@fortawesome/free-solid-svg-icons";
 
-//  needs to: 
-//      - vizualize itself and children
-//      - change value
-//      - be able to remove
-const TreeNodeVizEdit = ({ node, level, levelPos, handleNodeUpdateVal, handleNodeRemove }) => {
-    
+const LinkedListEditNode = ({node, idx, height, width, includeAddNode=false, addNode, removeNode, updateNodeVal}) => {
+
     const [focused, setFocused] = useState(false);
     const [editMode, setEditMode] = useState(false);
 
     const [nodeVal, setNodeVal] = useState(node.val);
     const inputRef = useRef(null);
-
+    
     useEffect(() => {
         setNodeVal(node.val);
     }, [node.val])
@@ -24,13 +20,13 @@ const TreeNodeVizEdit = ({ node, level, levelPos, handleNodeUpdateVal, handleNod
         }
     }, [editMode]);
 
-    const removeNode = () => {
+    const removeNodeHandler = () => {
         if (focused && !editMode){
-            handleNodeRemove(level, levelPos);
+            removeNode(idx);
         }
     }
 
-    const updateNodeVal = (newVal) => {
+    const updateNodeValHandler = (newVal) => {
         setNodeVal(newVal);
     }
 
@@ -44,7 +40,7 @@ const TreeNodeVizEdit = ({ node, level, levelPos, handleNodeUpdateVal, handleNod
     }
     
     const confirmChanges = () => {
-        handleNodeUpdateVal(nodeVal, level, levelPos);
+        updateNodeVal(idx, nodeVal);
         setFocused(false);
         setEditMode(false);
     }
@@ -58,38 +54,38 @@ const TreeNodeVizEdit = ({ node, level, levelPos, handleNodeUpdateVal, handleNod
             setFocused(false);
         }
     }
-   
+    
     return (
+    <>
         <div 
-            className={`tree-node ${focused ? 'focused': ''}`} 
+            className="linked-list-node-val"
             tabIndex={0}
-            aria-label={`tree node ${node.val}`}
+            aria-label={`linked list node ${node.val}`}
 
             onMouseEnter={() => setFocused(true)}
             onMouseLeave={(e) =>  handleRemoveFocus(e)}
             
             onFocus={() => setFocused(true)}
             onBlur={(e) => handleRemoveFocus(e)}
-            
+
             onClick={() => handleNodeClick()}
             onKeyDown={(e) => {
                 //if backspace or delete then remove
                 if (e.key  === "Backspace" || e.key  === "Delete"){
-                    removeNode();
+                    removeNodeHandler();
                 }
                 if (e.key === 'Enter'){
                     handleNodeClick();
                 }
                 e.stopPropagation();
             }}
-
         >
             {focused && 
                 <span 
-                    className="node-remove-icon left"
-                    aria-label={`remove tree node ${node.val}`}
+                    className="node-remove-icon right"
+                    aria-label={`remove tree node ${nodeVal}`}
                     onClick={(e) => {
-                        removeNode()
+                        removeNodeHandler()
                         e.stopPropagation();    
                     }
                     }
@@ -99,25 +95,44 @@ const TreeNodeVizEdit = ({ node, level, levelPos, handleNodeUpdateVal, handleNod
                     />
                 </span>
             }
-            <input 
-                ref={inputRef}
-                hidden={!editMode}
-                className=""
-                type="number"
-                value={nodeVal}
-                min={-100}
-                max={100}
-                style={{'height': '50%', 'width': '90%'}}
-                onChange={(e) => updateNodeVal(e.target.value)}
-            />
+        <input 
+            ref={inputRef}
+            hidden={!editMode}
+            className=""
+            type="number"
+            value={nodeVal}
+            min={-100}
+            max={100}
+            style={{'height': '90%', 'width': '90%'}}
+            onChange={(e) => updateNodeValHandler(e.target.value)}
+        />
             
-            {(!editMode) && 
-            <>
-                {nodeVal}
-            </>
-            }
+        {(!editMode) && 
+        <>
+            {nodeVal}
+        </>
+        }
         </div>
+
+        {/**add new node btn */}
+        {(includeAddNode) && 
+        <div 
+            className="add-new-list-node" 
+            style={{position: 'absolute', height: Math.max(30, height / 2), width: Math.max(30, height / 2), top: (height / 2) - (Math.max(30, height / 2)/2), left: width + 10}}
+            tabIndex={0}
+            onClick={() => addNode(idx)}
+            onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                    addNode(idx);
+                }
+            }}
+            key={`add-new-list-node-${idx+1}`}
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/></svg>
+        </div>
+        }
+    </>
     )
 }
 
-export default TreeNodeVizEdit;
+export default LinkedListEditNode;

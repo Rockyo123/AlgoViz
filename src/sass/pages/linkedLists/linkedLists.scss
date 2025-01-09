@@ -1,0 +1,64 @@
+.linked-list-dnd-box{
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.linked-list-node{
+    position: absolute;
+    border: none;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    background-color: white;
+    color: black;
+    height: 30px;
+    width: 50px;
+    box-shadow: 5px 5px 8px #000;
+    padding-left: 5px;
+}
+
+.linked-list-node-drag-handle{
+    width: 10%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    cursor: move;
+}
+
+.linked-list-node-val{
+    width: 90%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-new-list-node{
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: dashed gray;
+    opacity: .2;
+    &:hover{
+        transition: .3s;
+        transform: scale(1.1);
+        opacity: .8;
+        border: dashed #25CEDE;
+    }
+
+    &:focus { 
+        transition: .3s;
+        transform: scale(1.1);      
+        opacity: .8;
+        border: dashed #25CEDE; 
+        size: 1.2;
+    }
+
+    .inactive {
+        opacity: 0;
+    }
+}

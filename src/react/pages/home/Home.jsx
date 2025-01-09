@@ -1,5 +1,5 @@
 import React from "react";
-import { SortingPreviewSquare, GraphPreviewSquare, TreePreviewSquare, ComingSoonSquare } from "./components";
+import { SortingPreviewSquare, GraphPreviewSquare, TreePreviewSquare, LinkedListPreviewSquare } from "./components";
 import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
@@ -28,8 +28,8 @@ const HomePage = () => {
                 <TreePreviewSquare 
                     handleClick={handleClick}
                 />
-                <ComingSoonSquare 
-                    title='Linked Lists'
+                <LinkedListPreviewSquare 
+                    handleClick={handleClick}
                 />
             </div>
         </div>

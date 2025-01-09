@@ -9,7 +9,6 @@
     align-items: center;
     justify-content: center;
 
-    
     &.focused{
         transition: .3s;
         transform: scale(1.2);
@@ -50,5 +49,13 @@
     color: red;
     position: absolute;
     top: -5px;
-    left: -5px;
+
+    &.right{
+        left: calc(100% - 10px);
+        top: -10px
+    }
+
+    &.left{
+        left: -5px;
+    }
 }
