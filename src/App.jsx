@@ -3,6 +3,7 @@ import TopMenu from "./react/components/nav/TopMenu";
 import SortingAlgorithmsPage from './react/pages/sorting/SortingAlgorithmsPage';
 import GraphAlgorithmsPage from "./react/pages/graphs/GraphAlgorithmsPage";
 import TreeAlgorithmsPage from "@/pages/trees/TreeAlgorithmsPage";
+import LinkedListAlgorithmsPage from "@/pages/linkedLists/LinkedListAlgorithmsPage";
 import HomePage from "./react/pages/home/Home";
 import {
   Routes,
@@ -22,6 +23,7 @@ function App() {
         <Route path="sorting" element={<SortingAlgorithmsPage />} />
         <Route path="graphs" element={<GraphAlgorithmsPage />} />
         <Route path="trees" element={<TreeAlgorithmsPage />} />
+        <Route path="linkedLists" element={<LinkedListAlgorithmsPage />} />
       </Route>
     </Routes>
    </div>

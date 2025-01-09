@@ -4,28 +4,29 @@ import PlaybackBtnSection from "@/components/elements/playback/PlaybackBtnSectio
 import { HeaderSelectorsContainer, HeaderSelector, AlgorithmResponsiveDisplayWrapper, Slider } from "@/components/elements/layout";
 import { useResponsiveGrid } from "@/hooks/useResponsiveGrid";
 import { useVizStateManager } from "@/hooks/useVizStateManager";
-import { useResponsiveTree } from "./hooks/useResponsiveTree";
-import { MAX_TREE_HEIGHT, MAX_TREE_WIDTH, TREE_ALGS } from "@/constants";
-import TreeViz from "./components/TreeViz";
+import { MAX_LIST_NODES } from '@/constants';
+import { useResponsiveLinkedList } from "./hooks/useResponsiveLinkedList";
+import LinkedListViz from "./components/LinkedListViz";
 
-const TreeAlgorithmsPage = () => {  
+const LinkedListAlgorithmsPage = (props) => {
     const containerRef = useRef(null);
-    const {containerDimensions: dispContainerDimensions, xUnits: maxTreeWidth, yUnits: maxTreeHeight} = useResponsiveGrid(containerRef, 30, 30, MAX_TREE_WIDTH, MAX_TREE_HEIGHT);
-    const [ tree, treeHeight, treeChangedFlag, updateTree, randomizeTreeVals, resetTree ] = useResponsiveTree(maxTreeHeight);
+    const {containerDimensions: dispContainerDimensions, xUnits: maxXUnits, yUnits: maxYUnits} = useResponsiveGrid(containerRef, 80, 80, MAX_LIST_NODES, MAX_LIST_NODES);
+    const [ linkedList, linkedListChangedFlag, updateLinkedList, randomizeLinkedList, resetList ] = useResponsiveLinkedList(Math.max(maxXUnits, maxYUnits));
+
     const [algorithm, setAlgorithm] = useState('Breadth First Search');
     const [speed, setSpeed] = useState(50);
     const [target, setTarget] = useState(20);
-    const { vizState, vizStateBtnText, toggleVizState, setVizStateWithVal } = useVizStateManager(resetTree, [tree, algorithm]);
+    const { vizState, vizStateBtnText, toggleVizState, setVizStateWithVal } = useVizStateManager(resetList, [linkedList, algorithm]);
     
     const resetSteps = () => {
-        resetTree();
+        resetList();
     }
 
-return (
+    return (
     <div className="algorithms-page"> 
         <div className="full-width centered-row">
             <h1 className="text-white">
-                Trees
+                Linked Lists
             </h1>
         </div>
         <div className="full-width centered-row">
@@ -36,9 +37,9 @@ return (
                     selector={
                         <div style={{width: '100%', display: 'flex', justifyContent: 'center'}}>
                             <DropdownSelector 
-                                val={algorithm}
-                                setVal={setAlgorithm}
-                                options={TREE_ALGS}
+                                val={'Linked List Search'}
+                                setVal={() => {}}
+                                options={['Linked List Search']}
                             />                            
                         </div>
                     }
@@ -73,32 +74,31 @@ return (
         </div>
 
         <PlaybackBtnSection 
-            randomizeGraph={randomizeTreeVals}
+            randomizeGraph={() => randomizeLinkedList()}
             resetSteps={resetSteps}
             toggleVizState={toggleVizState}
             btnText={vizStateBtnText}
         />
-            
+        
         <AlgorithmResponsiveDisplayWrapper                
             containerRef={containerRef}
         >
-            <TreeViz
-                tree={tree}
-                treeHeight={treeHeight+1}
-                maxTreeHeight={maxTreeHeight}
-                treeChangedFlag={treeChangedFlag}
-                gridSize={dispContainerDimensions}
-                updateTree={updateTree}
+            <LinkedListViz
+                linkedList={linkedList}
+                linkedListChangedFlag={linkedListChangedFlag}
+                updateLinkedList={updateLinkedList}
+                maxListLength={maxXUnits}
+                containerDimensions={dispContainerDimensions}
+                listState={vizState}
+                setListState={setVizStateWithVal}
+                editable={true}
                 speed={speed}
-                algorithm={algorithm}
                 target={target}
-                vizState={vizState}
-                updateVizState={setVizStateWithVal}
+                algorithm={algorithm}
             />
-            
         </AlgorithmResponsiveDisplayWrapper>
     </div>
     );
 }
 
-export default TreeAlgorithmsPage;
+export default LinkedListAlgorithmsPage;

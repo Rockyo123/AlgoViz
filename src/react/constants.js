@@ -13,3 +13,6 @@ export const PATHFINDING_ALGS = ['Depth First Search', 'Breadth First Search'];
 export const MAX_TREE_HEIGHT = 4;
 export const MAX_TREE_WIDTH = Math.pow(2, MAX_TREE_HEIGHT);
 export const TREE_ALGS = ['Depth First Search', 'Breadth First Search']
+
+//---   LINKED LISTS PAGE CONST
+export const MAX_LIST_NODES = 30;

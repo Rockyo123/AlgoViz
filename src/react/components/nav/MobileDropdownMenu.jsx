@@ -58,6 +58,12 @@ const MobileDropdownMenu = () => {
           >
             Trees
           </Link>
+          <Link
+            to="/linkedLists" 
+            className='left-menu-link'
+          >
+            Linked Lists
+          </Link>
           <a 
             href={GITHUB_LINK}
             target='_blank'
