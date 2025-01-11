@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
  * @param {*} param0 
  * @returns 
  */
-const TreeNodePositionWrapper = ({ level, gridXPos, gridSquareSize, children }) => {
+const TreeNodePositionWrapper = ({ level, gridXPos, gridSquareSize, animate, children }) => {
    
     const [layoutStyle, setLayoutStyle] = useState({
         left: gridXPos * gridSquareSize[0],
@@ -30,7 +30,8 @@ const TreeNodePositionWrapper = ({ level, gridXPos, gridSquareSize, children }) 
     }, [level, gridXPos, gridSquareSize]);
 
     return (
-        <motion.div 
+        <>
+        {animate && <motion.div 
             className="tree-node-wrapper"
             animate={
                 layoutStyle
@@ -42,6 +43,20 @@ const TreeNodePositionWrapper = ({ level, gridXPos, gridSquareSize, children }) 
         >
             {children}
         </motion.div>
+        }
+        
+        {(!animate) && 
+            <div
+                className="tree-node-wrapper"
+                style={{
+                    position: 'absolute',
+                    ...layoutStyle
+                }}
+            >
+                {children}
+            </div>
+        }
+        </>
     )
 }
 

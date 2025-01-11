@@ -3,7 +3,7 @@ import TreeNodeViz from "./TreeNode/TreeNodeViz";
 import AddNewTreeNode from "./TreeNode/AddNewTreeNode";
 import useSolveTree from './hooks/useSolveTree';
 
-const Tree = ({ tree, treeHeight, maxTreeHeight, treeChangedFlag, gridSize, updateTree, speed, algorithm, target, vizState, updateVizState, editEnabled=true }) => {
+const Tree = ({ tree, treeHeight, maxTreeHeight, treeChangedFlag, gridSize, updateTree, speed, algorithm, target, vizState, updateVizState, editEnabled=true, animate=true }) => {
 
     const trueHeight = Math.min(treeHeight, maxTreeHeight+1)
     const treeGridDimensions = [Math.pow(2, trueHeight)+1, trueHeight]
@@ -59,6 +59,7 @@ const Tree = ({ tree, treeHeight, maxTreeHeight, treeChangedFlag, gridSize, upda
                     level={level} 
                     gridXPos={gridXPos}
                     gridSquareSize={gridSquareSize} 
+                    animate={animate}
                 >
                     <TreeNodeViz 
                         node={node}

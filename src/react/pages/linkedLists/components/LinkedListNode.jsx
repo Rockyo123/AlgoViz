@@ -4,6 +4,7 @@ import Draggable from "react-draggable";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGripLinesVertical } from "@fortawesome/free-solid-svg-icons";
 import LinkedListEditNode from "./LinkedListEditNode";
+import { motion } from "framer-motion";
 
 const LinkedListNode = ({ node, idx, top, left, width, editable, includeAddNode=false, addNode, removeNode, updateNodeVal}) => {
   

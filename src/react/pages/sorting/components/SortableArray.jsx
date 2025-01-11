@@ -97,7 +97,8 @@ const SortableArray = ({graphVals, algorithm, vizState, setVizState, speed, maxA
 
     const bars = barVals.map((val) => (
         <Bar
-            key={val.key}
+            key={`bar-wrapper-${val.key}`}
+            barKey={`bar-${val.key}`}
             value={val.value}
             maxValue={maxArrVal}
             width={val.width}
