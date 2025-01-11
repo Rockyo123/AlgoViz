@@ -57,6 +57,7 @@ const TreePreviewSquare = ({ handleClick }) => {
                         vizState={vizState}
                         updateVizState={setVizState}
                         editEnabled={false}
+                        animate={false}
                     />
                 </AlgorithmResponsiveDisplayWrapper>
             </div>

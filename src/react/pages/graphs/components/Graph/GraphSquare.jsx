@@ -1,5 +1,4 @@
 import React, {useState} from "react"
-
 /**
  * GraphSquare component that represents a single square in the graph grid.
  * 
@@ -53,7 +52,8 @@ const GraphSquare = ({val}) => {
     }
 
     return (
-        <div className="graph-grid-square"
+        <div 
+            className="graph-grid-square"
             style={getSquareStyling()}
         >
         </div>

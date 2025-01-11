@@ -13,7 +13,7 @@ import { motion } from "framer-motion";
  * @param {React.Ref} ref - Reference passed for potential parent component control.
  * @returns {JSX.Element} The rendered Bar component.
  */
-const Bar = ({ value, maxValue, colorCode, started, style={}, width, key }) => {
+const Bar = ({ value, maxValue, colorCode, started, style={}, width, barKey }) => {
     const barHeightPercentage = parseInt((value / maxValue) * 100);
     
     const getColor = (colorCode) => {
@@ -37,7 +37,7 @@ const Bar = ({ value, maxValue, colorCode, started, style={}, width, key }) => {
         {(started) &&
             <motion.div
                 layout
-                key={key}
+                key={barKey}
                 style={{
                     ...style,
                     height: `${barHeightPercentage}%`,
