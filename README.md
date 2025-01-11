@@ -32,8 +32,6 @@ To get a local copy up and running follow these simple steps.
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] Add trees algorithms page
-- [ ] Add linked lists algorithms page
 - [ ] Add code editor for users to test their own algorithms
 - [ ] Add light mode
 
