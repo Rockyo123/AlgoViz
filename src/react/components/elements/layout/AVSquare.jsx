@@ -39,7 +39,6 @@ const AVSquare = ({ children, onClick, disabled, setIsFocused }) => {
         onFocus={() => handleIsHoveredOrFocused(true)}
         onBlur={() => handleIsHoveredOrFocused(false)}
     >
-
         {children}
     </div>
     );
