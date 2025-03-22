@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
 import { Sleep } from "@/utils/_utils";
 
 /**
@@ -12,39 +11,36 @@ import { Sleep } from "@/utils/_utils";
  */
 const AVSquare = ({ children, onClick, disabled, setIsFocused }) => {
     const [isHoveredOrFocused, setIsHoveredOrFocused] = useState(false);
-    const animationDuration = 0.6
+    const animationDuration = 0.1;
+    let hoverUpdating = false;
 
     const handleIsHoveredOrFocused = (state) => {
-        if (disabled) return;
+        if (disabled || hoverUpdating) return;
+        hoverUpdating = true;
         setIsHoveredOrFocused(state)
-        sendToParent(state)
+        sendToParent(state).finally(() => (hoverUpdating = false));
     }
 
     const sendToParent = async (state) =>{
-        await Sleep((animationDuration+4) * 100);
+        await Sleep((animationDuration+.4) * 1000);
         setIsFocused(state)
     } 
 
     return (
-    <motion.div 
-        className={`av-square ${disabled ? 'disabled' : ' '}`}
-        animate={{
-            scale: isHoveredOrFocused ? 1.08 : 1,
-            transition: { duration: animationDuration },
-        }}
+    <div 
+        className={`av-square ${disabled ? 'disabled' : ' '} ${isHoveredOrFocused ? ' focused': ''}`}
         tabIndex={disabled ? -1 : 0}
         onKeyDown={(e) => {
             if (e.key === 'Enter') onClick();
         }}
         onClick={onClick}
-        onMouseEnter={() => handleIsHoveredOrFocused(true) }
+        onMouseEnter={() => handleIsHoveredOrFocused(true)}
         onMouseLeave={() => handleIsHoveredOrFocused(false)}
         onFocus={() => handleIsHoveredOrFocused(true)}
         onBlur={() => handleIsHoveredOrFocused(false)}
     >
-
         {children}
-    </motion.div>
+    </div>
     );
 }
 

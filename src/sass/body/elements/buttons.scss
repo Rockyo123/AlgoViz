@@ -41,6 +41,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    &.focused {
+        transform: scale(1.05);
+        transition: all 0.4s cubic-bezier(0, 0.71, 0.2, 1.01);
+    }
 }
  
 .preview-algoViz-wrapper{

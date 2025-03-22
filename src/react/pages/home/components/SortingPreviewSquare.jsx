@@ -3,7 +3,7 @@ import SortableArray from '@/pages/sorting/components/SortableArray';
 import { AVSquare, AlgorithmResponsiveDisplayWrapper } from "@/components/elements/layout";
 import { useResponsiveGrid } from "@/hooks/useResponsiveGrid";
 import { useResponsiveArray } from "@/pages/sorting/hooks/useResponsiveArray";
-
+import { Sleep } from '@/utils/_utils'
 /**
  * Square for home page that shows a preview of the sorting viz when hovered or focused. 
  * On click, will navigate to that page
@@ -18,7 +18,7 @@ const SortingPreviewSquare = ({ handleClick }) => {
 
     const updateIsFocused = (focused) => {
         let newGraphState = "NotRunning"
-        if (focused) newGraphState = "Running";
+        if (focused) newGraphState = "Running";1
         if (!focused) updateArrayVals([...array]);
         setVizState(newGraphState);
     }
