@@ -6,7 +6,6 @@ import { Sleep } from "@/utils/_utils";
 import { useLatestRef } from "@/hooks/useLatestRef";
 import { getDelay } from "@/utils/_utils";
 
-
 /**
  * Array component that displays an array that can be sorted
  *
@@ -21,15 +20,17 @@ import { getDelay } from "@/utils/_utils";
  */
 const SortableArray = ({graphVals, algorithm, vizState, setVizState, speed, maxArrVal}) => {
     
+    //const [scope, animate] = useAnimate();
 
     const startOperation = async (opStateRef) => {
         await asyncSort(graphVals, algorithm, executeNextStep, opStateRef);
     }
     
     const { opStateRef, runOp, pauseOp, abortOp } = useAsyncOperationController(startOperation);
-
+ 
     
     const [barVals, setBarVals] = useState([]);
+    
     const barColorsRef = useRef([]);
     const barValsRef =  useLatestRef(barVals);
     const speedRef = useLatestRef(speed);
@@ -103,9 +104,10 @@ const SortableArray = ({graphVals, algorithm, vizState, setVizState, speed, maxA
             maxValue={maxArrVal}
             width={val.width}
             colorCode={val.color}
-            started={vizState === "Running"}
+            animated={vizState === "Running"}
         />)
-    )
+    );
+
     return (
         <div className="graph-container">
             {bars}

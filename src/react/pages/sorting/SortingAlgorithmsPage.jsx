@@ -73,11 +73,11 @@ const SortingAlgorithmsPage = () => {
             </div>
 
             <PlaybackBtnSection 
-            randomizeGraph={randomizeArrayVals}
-            resetSteps={resetSteps}
-            toggleVizState={toggleVizState}
-            btnText={vizStateBtnText}
-        />
+                randomizeGraph={randomizeArrayVals}
+                resetSteps={resetSteps}
+                toggleVizState={toggleVizState}
+                btnText={vizStateBtnText}
+            />
             
             <AlgorithmResponsiveDisplayWrapper                
                 containerRef={containerRef}
